@@ -5,15 +5,54 @@
   
 
   
-  <title>Hexo</title>
+  <title>musql | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="最详细的mysql安装教程zhuanlan.zhihu.com猴子中国科学院大学 电子与通信工程硕士关注他 这是《如何学习SQL》的第3篇文章，想知道写作初衷的可以看这里：为什么要学习SQL？ DB-Engines 发布了 2017 年 4 月份的数据库排名。Oracle，mysql和 Microsoft SQL Server 仍占据前三名。下面是前 20 名排名情况：  下面是前3名数据库从20">
+<meta property="og:type" content="article">
+<meta property="og:title" content="musql">
+<meta property="og:url" content="http://example.com/2022/12/25/mysql/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最详细的mysql安装教程zhuanlan.zhihu.com猴子中国科学院大学 电子与通信工程硕士关注他 这是《如何学习SQL》的第3篇文章，想知道写作初衷的可以看这里：为什么要学习SQL？ DB-Engines 发布了 2017 年 4 月份的数据库排名。Oracle，mysql和 Microsoft SQL Server 仍占据前三名。下面是前 20 名排名情况：  下面是前3名数据库从20">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-22e6350f7bf3dd6012c996f868d8f3b3_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic2.zhimg.com/v2-13e859ddbb2164afc29dc92ae4ba6189_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-14e565d7b6542a926074b39a25680e10_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-69dd818241ad61e7c2fb4dcd26775a48_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-8e510deef2dc373fb3f2890391b778fb_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-9682cc437416ffbb4d266f039ba018af_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-93a9c0cdc30599c5d0980c8256d6df6b_b.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-ae4751f68bdd6b02cc372ca8062c938e_b.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-9b4f9f7b59875187b22626bd1f2cb500_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic2.zhimg.com/v2-9a2a00279eb7c3ab86a00ce2c4ef965d_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-f5b48d8c85304c95c1b1130dc0814cf6_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-4088895341a0b2f186437f29040bc52a_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic2.zhimg.com/v2-eae4e503e20621efe489fe6a31cb4e21_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic2.zhimg.com/v2-e99c8ef1afca6b515c4fbfe4e45dad75_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-a907a00ff05464a424b83c91e4412ff0_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-1bd3d7c5b353389e2be0db3173c2319c_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-b8800b07245611fde629f20bf2a56bfb_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-7b24a557005502bb4fc1ef5dd6ce1238_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-518c53b0ea1f9968b9822bd8b21e5396_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-b2e3fb9a653da9329b0f63185bfacdf8_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-b464818dcb88e22a174455945ee4e968_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-abca9a03a99ebca8743baf8aec5a41c3_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-59fe6fa44b8a6c38afe04e90f0c6be33_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-1d57a1c39f30e28fa033f2d777ea5cfe_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic2.zhimg.com/v2-09edb1634950c990dfe0a9d4cf45a1f1_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-9c0f0a131417d50f88f7c60226cd990c_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-43dfbf7ee2e56d6c3bf9f636061d8216_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-a19d197da3c49ca6a85274b06f2cad02_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-92be7f95236644a83017fb756ba88f18_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-9ab46f0e4433b0d671d86d9e60d02d3f_b.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic1.zhimg.com/v2-c7547b6a9d3a7a53c41ae62438014c5c_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic3.zhimg.com/v2-9b79db6df4f5dd5f12434091f557f5c2_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-61ca4c0138d120385600263bbb0f3ebf_r.jpg">
+<meta property="og:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-19cc836b428e88c1768ca63e301eadb7_r.jpg">
+<meta property="article:published_time" content="2022-12-24T17:40:24.456Z">
+<meta property="article:modified_time" content="2022-12-24T17:41:01.821Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cubox.pro/c/filters:no_upscale()?valid=false&imageUrl=https://pic4.zhimg.com/v2-22e6350f7bf3dd6012c996f868d8f3b3_r.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -62,9 +101,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mysql" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2022/12/25/mysql/" class="article-date">
   <time datetime="2022-12-24T17:40:24.456Z" itemprop="datePublished">2022-12-25</time>
@@ -77,8 +114,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/12/25/mysql/">musql</a>
+    <h1 class="article-title" itemprop="name">
+      musql
     </h1>
   
 
@@ -182,60 +219,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2022/12/25/hello-world/" class="article-date">
-  <time datetime="2022-12-24T17:16:32.957Z" itemprop="datePublished">2022-12-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/12/25/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2022/12/25/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/25/hello-world/" data-id="clc28b5rc000020t8em4hf53q" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
