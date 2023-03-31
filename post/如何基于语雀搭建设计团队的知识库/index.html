@@ -1,0 +1,266 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>如何基于语雀搭建设计团队的知识库 | 温故而知新</title>
+
+<link rel="shortcut icon" href="https://superupan.github.io/favicon.ico?v=1680265421870">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://superupan.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            温故而知新
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1680265421870" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    如何基于语雀搭建设计团队的知识库
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-12-12 ·
+                    </time>
+                    
+                        <a href="https://superupan.github.io/tag/UsCITmZAh/" class="post-tags">
+                            # yuque
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="一-背景"><strong>一、 背景</strong></h2>
+<h2 id="11-知识库的目的">1.1 知识库的目的</h2>
+<p>知识库的想法大概源于我们的组长对于学习的热爱与重视。</p>
+<p>他以书面形式列出了这些目的：让我们学到更多知识，搭建设计部的知识体系，提升知识水平，提升设计思维与能力并运用到产品设计中，开阔大家的视野。</p>
+<p>此外，从他平时的言论中还能得出一些其他目的：让大家即使在繁忙的工作中也能保留一些学习和思考的时间，不要迷失自我，最后沦为画图机器；顺带增强一些团队氛围；为设计部的年终汇报增加一些亮点 。</p>
+<h2 id="12-学习-积累-知识分享的现状">1.2 学习、积累、知识分享的现状</h2>
+<p>跟组里的同学们聊过之后，我们发现基本每个人都有学习的习惯。大家都会筛选和收集自己的信息来源渠道，包括关注的公众号、知乎、博客、专栏、国内外社交媒体，阅读书籍，参加讲座、展览、课程等等；会按自己的习惯对学习内容进行整理归纳，看到好的文章会收藏，也会有记笔记的习惯（此处当有组长的印象笔记截图）；平时看到一些好文章也会分享到群里。但是由于没有形成制度，这样的学习、分享形式存在许多的问题。</p>
+<p><strong>1. 学习热情不高：人类的惰性与工作的压迫</strong></p>
+<p>当被问及 “是什么阻止你学习” 时，大家脱口而出的都是工作太忙没有时间，但进行深入探讨之后，我们把人的惰性也加入了这个名单。并不是每个人都能一直保持学习的热情，比如同时把《混沌与分形》（头脑发热时买的一本书）和游戏摆在我面前——那还犹豫什么，<strong>当然是</strong> PS4 <strong>Xbox 启动。</strong></p>
+<p><strong>2. 个人的学习渠道、精力有限，获取的知识不够系统</strong></p>
+<p>我们个人的学习往往都是碎片式的，比如地铁上或睡前看一篇感兴趣的文章，觉得说得很对，学到了一些东西，这种学习显然不够全面和系统。但社畜的现状也让我们很难去长期、系统地学习某些东西（也可能是我们菜）。</p>
+<p><strong>3. 分享内容的质量没有保障，分享没有存档，不成体系，分享效果不好，</strong></p>
+<p>我们部门现有分享制度：发现好文章 / 有趣的内容就发到部门群里（也就是没有制度）。</p>
+<p>分享者对文章质量要求不严格，而且分享目的不定，有时候是想分享深度好文，有时可能就是发点有趣的东西，因此文章的质量参差不齐。分享出来的文章大家也不一定会去看，更不要说进行讨论了。分享出来的知识没有存档，不成体系，不管是随手转发还是某位同学<strong>精心整理的专题文章</strong>，最后都淹没在聊天记录里。</p>
+<h2 id="13-希望达成的目标">1.3 希望达成的目标</h2>
+<p>为了改变这一现状，我们组长提出通过搭建团队的知识库，1）让设计部的同学们发挥团队的力量，共享知识渠道，一起参与搭建；2）良好的传播效果，尽可能让每篇优秀的文章都能被每个人读到；3）在设计部里形成良好的学习氛围；4）最终达到个人、团队能力的提升。</p>
+<h2 id="二-知识库的实践">二、 知识库的实践</h2>
+<h2 id="21-知识库机制的天才构想">2.1 知识库机制的天才构想</h2>
+<p>其实这个机制可以分为简单的四步：成员获取知识——收录知识——传播知识——其他成员阅读并吸收。我们真正的目的是通过运行一段时间的知识库制度，在组内形成学习的氛围与习惯，然后一切就好办了。在这之后，知识库只需要扮演一个学习工具的角色。</p>
+<figure data-type="image" tabindex="1"><img src="https://pic1.zhimg.com/v2-08b648cfe9ed8247189d95d4b9a3d44c_r.jpg#id=R4HQk&amp;originHeight=1221&amp;originWidth=1443&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<h2 id="22-工具选择">2.2 工具选择</h2>
+<p>经过 j7 同学的一番调研，我们最终选择语雀作为我们搭建知识库的平台。<strong>为什么选择语雀作为知识库的搭载平台？（硬广警告⚠）</strong></p>
+<ol>
+<li>稳定，安全</li>
+<li>足够的空间，容量无限制</li>
+<li>针对不同的使用场景提供了不同的解决方案：对于小型组织，在语雀上创建团队即可一群人一起创作知识库；对于个人用户，创建自己的知识库即可开始个人创作和知识管理</li>
+<li>层级清晰，管理员与成员的权限设置方便</li>
+<li>创造方便阅读的氛围，可以订阅知识库动态发送至钉钉群中；</li>
+<li>功能丰富，知识库导入导出方便，并且支持画板上传</li>
+<li>评论区方便沟通交流</li>
+<li>支持搜索，对比 teambition（我们现在使用的团队管理工具）的知识库功能完胜<br>
+（以上理由主要来自语雀官方介绍）</li>
+</ol>
+<p>此外，在对比不同版本的成本、功能、成员与上传限制之后，我们决定购买语雀的高级版团队。</p>
+<h2 id="23-具体实施">2.3 具体实施</h2>
+<p><strong>太长不看的大致流程（还是要看的）</strong></p>
+<ol>
+<li>找到好文章</li>
+<li>修改文章标题，打分，放进对应目录下</li>
+<li>三星文章在分类节点中写摘要，录入每周最新文章作为本周阅读任务，并在群里大力宣传</li>
+<li>收藏设计部知识库，养成阅读好习惯</li>
+</ol>
+<h3 id="231-定义知识收录范围">2.3.1 定义知识收录范围</h3>
+<p>我们对个人平时的学习中会接触到的信息进行了一些分类，并对不同类型知识的存放做了一些规定。这个知识库的定位是用于存放大家收集的外部知识文章并进行归类存档，是大家学习、获取知识的地方，因此内部设计总结和收集的设计资源不放到这里。</p>
+<p><strong>素材工具</strong></p>
+<p>【设计资源】收集 / 整理的设计素材、实用工具等，放到设计资源库</p>
+<p>【软件教程】自己写的或收集来的软件使用教程，按软件进行分类，放到设计资源库</p>
+<p><strong>专业知识</strong></p>
+<p>【交互设计】交互相关的专业知识</p>
+<p>【UI / 视觉设计】UI / 视觉相关的专业知识</p>
+<p>【内部项目复盘】设计部的总结产出，放到设计部的业务模式库里，不收录进知识库</p>
+<p><strong>泛用知识（饭后阅读）</strong></p>
+<p>【眼界】觉得有趣、值得一看，不属于上述分类的内容都丢进来</p>
+<figure data-type="image" tabindex="2"><img src="https://pic3.zhimg.com/v2-d239f013d0d244162933873a17ab7c82_r.jpg#id=YdCMC&amp;originHeight=1088&amp;originWidth=1080&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<h2 id="232-知识从哪来"><strong>2.3.2 知识从哪来</strong></h2>
+<p>每个人都有自己收集的获取知识的渠道，但我们也希望能实现信息渠道的共享，因此在【眼界】下建了一个阅读推荐栏目，专门用于分享值得推荐的知识来源。有什么读不完的，感兴趣又啃不下来的，让部门的小伙伴来帮你读~</p>
+<h3 id="233-知识存放规则">2.3.3 知识存放规则</h3>
+<p>知识库开放后同学们可以自行将资源或文章打分后存入到合适的目录下，以供后续查找。以下是对知识存放的详细规定。</p>
+<p><strong>1. 收录工具推荐【语雀剪藏】</strong></p>
+<p>下载网址：<a href="https://link.zhihu.com/?target=https%3A//github.com/yuquewebclipper/yuque-web-clipper">https://github.com/yuquewebclipper/yuque-web-clipper</a></p>
+<p>采集外部网页到语雀知识库的 Chrome 浏览器插件。</p>
+<p>当然手动复制粘贴文章内容也不是不行。</p>
+<p><strong>2. 给文章起一个让人一目了然的标题，知识库拒绝标题党。</strong></p>
+<p>例：图标动效不用自己做啦 <strong>×</strong></p>
+<p>免费可商用动态图标集「useAnimations」<strong>√</strong></p>
+<p>我个人强烈抨击这类标题党文章，刻意用这种字眼吸引读者眼球，但实际上并没有向读者传递任何有用的信息。公众号文章为了赚阅读量起这种标题情有可原，但在知识库里还是希望文章标题能客观地概括文章内容，让大家看到标题就能大概了解这篇文章讲了什么，是不是我现在想看的类型。</p>
+<p><strong>3. 收录时调整一下文章排版，目标是干净整齐易于阅读。</strong></p>
+<p><strong>4. 放进知识库的文章按照三分制进行评分</strong></p>
+<p>打分目的有二：一是以三分满分做为标准筛选每周必读的文章，三分文章除了要分类归档外，还需要列入目录中的每周最新文章中，作为本周的阅读任务；二是文章存档后，成员可以利用分值有主次地去阅读学习。题目格式如下图所示，这样命名在目录中一目了然。泛用知识（比如设计原则，设计史，设计师介绍）不强制要求打分</p>
+<p><img src="https://pic4.zhimg.com/v2-e483e888705ceb76cb467c7bc5542cc7_r.jpg#id=BvPQ8&amp;originHeight=75&amp;originWidth=860&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic4.zhimg.com/v2-4a26df840f933d4d2fcb25fe581dd3af_r.jpg#id=sns2R&amp;originHeight=703&amp;originWidth=1080&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></p>
+<p><strong>5. 专业知识需要写文章摘要</strong></p>
+<p>专业知识因为学习成本要高一点，为了方便其他成员更快的找到自己想要的资源，我们建议在目录的分类节点中写上简短介绍，说明推荐这篇文章的理由。比如，<strong>UI / 视觉设计 - 插画库设计</strong>模块中有 “产品与市场营销中的插画” 这样一篇文章，那么就在 “插画库设计” 这个分类节点里写一下每篇文章的大概内容 / 推荐理由，并附链接。</p>
+<figure data-type="image" tabindex="3"><img src="https://pic3.zhimg.com/v2-9a2944a1c272929a8673320a8e8f964e_r.jpg#id=PhOmG&amp;originHeight=189&amp;originWidth=1080&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<h3 id="234-知识推送规则">2.3.4 知识推送规则</h3>
+<p>如果有一篇文章给了三分，需要加入每周最新文章，并在更新文档时选择勾选给关注知识库的人。结合钉钉机器人的使用，即可自动推送到钉钉群里。详细操作见<a href="https://zhuanlan.zhihu.com/p/77197395">链接</a>。</p>
+<p>如果有特定的想分享的人，可以将文章分享到部门微信群并 @他一下，同时说一下大概内容和推荐理由，不要只发一个链接。比如插画库相关文章，可以 @在做插画库的那几个人。<strong>根据调研，被 @到的人去看文章的概率会更高，为了不让你辛苦整理的文章被埋没，请大力进行宣传。</strong></p>
+<p>如果给出评分低于三分但认为可以一读，请自行归类放到知识库中，对于是否分享到微信群没有要求。此外会有类似编辑精选栏目，定期（周 / 月）整理这段时间内大家添加的优质内容，不定期地整理推送某一功能模块 / 内容的系列文章，推到钉钉和微信群，提高优质内容的曝光率。</p>
+<h3 id="235-阅读任务">2.3.5 阅读任务</h3>
+<p>我们规定每周最新文章中推送的三星文章是每周的阅读任务，希望大家认真读完，并且看过后在文章的评论区打分，不要辜负可爱的同事们的激情安利。</p>
+<p><strong>移动阅读解决方案</strong></p>
+<p>当代互联网底层设计师最常见的阅读场景可能是在漫长的地铁通勤时间掏出手机，读一读公众号、刷刷微博、听听播客。但是语雀暂时没有移动端的应用，让大家每周在电脑上打开语雀然后阅读十几二十篇文章，可能就不太符合大家的阅读习惯了，而且还会有上班划水的嫌疑。</p>
+<p>那么如何解决：把知识库添加到手机桌面（见下图），就可以完美适应我们移动阅读的需求了。</p>
+<figure data-type="image" tabindex="4"><img src="https://pic3.zhimg.com/v2-30e2989bfae60a810f03664df27288e6_r.jpg#id=m3nq5&amp;originHeight=739&amp;originWidth=1334&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p>也可以切换到管理文档 tab，这样就可以按文章更新顺序来查看所有文章，最近新增哪些文章一目了然。</p>
+<h2 id="三-总结">三、 总结</h2>
+<p>回顾一下 1.2，我们整理了当前学习、知识分享流程中存在的问题。那么我们的知识库机制能帮助改善这些问题吗？一定程度上可以吧。</p>
+<p><strong>1. 学习热情不高：人类的惰性与工作的压迫</strong></p>
+<ul>
+<li>形成学习氛围，共同发展，共同进步</li>
+<li>通过一点道德绑架隐性地促进学习</li>
+<li>不能浪费大家的阅读时间，所以要认真筛选，推荐一篇三星意味着背后要读十篇（此处十篇是个虚数）</li>
+<li>不能辜负大家筛选整理文章的心血，所以这些推荐文章要好好读</li>
+</ul>
+<p><strong>2. 个人的学习渠道、精力有限，获取的知识不够系统</strong></p>
+<ul>
+<li>存档、整理，让知识更有条理</li>
+<li>列出知识架构之后，我们（从外部来源或知识库内）获取知识时能够更有条理，更有方向性</li>
+<li>利用团队的力量，一起构建相对全面的知识体系。</li>
+</ul>
+<p><strong>3. 分享内容的质量没有保障，分享没有存档，不成体系，分享效果不好</strong></p>
+<ul>
+<li>对知识进行系统的整理和归档，可供成员反复阅读吸收</li>
+<li>制定推送提醒的规则，在有文章更新时及时、有效地提醒到相关人员</li>
+<li>制定推荐任务和阅读任务，保证分享内容的质量，以及推荐出来的内容能被阅读</li>
+<li>定期整理，并对优秀内容进行多次曝光</li>
+</ul>
+<p>这个制度肯定还存在不足之处，比如收录操作步骤就挺多，12345 看下来令人头大（组长体验之后表示还可以接受，我且保留意见），知识架构还不够完善（UI / 视觉设计目录下空荡荡，计划是在知识库的运行过程中慢慢进行填充），也不知道能不能顺利运行下去，说不定公司一开发布会工作一忙就一次搁置永久搁置了之类的 。</p>
+<p>但至少现在我们先迈出第一步，<strong>总结凑不出来了。</strong></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://superupan.github.io/post/hello-gridea/" class="post-title gt-a-link">
+                    Hello Gridea
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://superupan.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
