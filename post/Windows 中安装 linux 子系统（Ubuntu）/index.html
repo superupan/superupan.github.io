@@ -1,0 +1,292 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Windows 中安装 linux 子系统（Ubuntu） | 温故而知新</title>
+
+<link rel="shortcut icon" href="https://superupan.github.io/favicon.ico?v=1680431903830">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://superupan.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            温故而知新
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1680431903830" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Windows 中安装 linux 子系统（Ubuntu）
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-04-02 ·
+                    </time>
+                    
+                        <a href="https://superupan.github.io/tag/WzPlFmfB_/" class="post-tags">
+                            # Windows
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="一-前言">一、前言</h2>
+<p>作为一个喜欢捣鼓或是喜欢折腾人来说，这个教程适合你来进行。</p>
+<p>作为一个生信小白来说，学习 linux 系统的操作是一个必要的条件（PS：是必学的一个技能，不管你是高手还是小白中的渣渣）。但是，对于我们很多人来说，开始时候并没有一个 linux 服务器怎么办？要不就是自己去购买腾讯云、阿里云或是各种云的服务器，这是一个明智的选择，这样服务器你可以任何操作，最后把系统搞崩了，那么直接重新安装就可以。</p>
+<p>但是，作为一个没有那么资金的同学来说，只能是自己安装一个虚拟机，在虚拟机中安装 linux 服务器。我最开始就是在这样做的，我根据 “Linux 兄弟连” 的教学视频安装服务器，确实看一步安装一步，尽力个千山万水终于安装好。但是很难用，一是只能做基本的操作，二是连网非常麻烦切网速很慢。不得行啊！！！</p>
+<p>最终，下巨资购买了腾讯云的服务器，并且我的论文就是用我购买的的服务器中进行分析的。啊哈哈哈哈哈，虽然性能只有那么一点点，但是基础的分析还是可以做的。</p>
+<p>但是，我后期看到一个教程，说是 Windows 中可以安装 linux 子系统：<a href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s/UfcKT5_WotrpskFrKlLA-g">Windows10 安装 Linux 子系统 Ubuntu 20.04LTS，轻松使用生信软件，效率秒杀虚拟机</a>。这是在 2020 年的时候，我在自己的笔记本电脑中安装了 Ubuntn 子系统，并且还是进行数据的基本处理，虽然我的电脑配置是高于我的服务器配置，但是速度仍是无法比的，服务器终究是大爷（PS：主要原因，笔记本电脑的 CPU 过热后就降频，后续的运行跟不上）。</p>
+<p>综上所述，在自己电脑（笔记本或是台式电脑）安装 linux 系统，仅是用于一般的操作即可，做分析，建议还是不要有什么期待，PC 终究只是 PC 而已。但是，作为一个生信狗还是安装一下。你习惯 linux 的操作或是处理文本的命令，你觉得还是挺方便的。其次，你可以间你安装 linux 系统中的电脑当做服务器主机进行使用，文件等可以与其他电脑间无缝传输，下载。</p>
+<p>-- du</p>
+<h2 id="二-windows-系统安装-linux-子系统">二、Windows 系统安装 linux 子系统</h2>
+<p>参考教程：<a href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s/UfcKT5_WotrpskFrKlLA-g">Windows10 安装 Linux 子系统 Ubuntu 20.04LTS，轻松使用生信软件，效率秒杀虚拟机</a></p>
+<p>具体流程：</p>
+<p><img src="https://pic3.zhimg.com/v2-3b5bad42bf221492a34e1e5ac54a8946_b.jpg#id=ph6yd&amp;originHeight=443&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic3.zhimg.com/v2-0e4b358ee3cf23b706b30d00bb9da112_b.jpg#id=Bfqju&amp;originHeight=560&amp;originWidth=674&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic2.zhimg.com/v2-3de2915d9e344752c423ea765ae9df81_b.jpg#id=EtFXB&amp;originHeight=451&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic4.zhimg.com/v2-f29b8b55d7a2a9b873d4842e68d5962b_b.jpg#id=Pyetw&amp;originHeight=650&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic3.zhimg.com/v2-66909bba7fef2ac1c4aeb1d556a80ebe_b.jpg#id=w88QY&amp;originHeight=458&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></p>
+<p><strong>在 Microsoft store 中搜索 Ubuntu 即可安装</strong></p>
+<p><img src="https://pic1.zhimg.com/v2-cac4ee660fc501eee211b5c39295c1d0_b.jpg#id=qsaBQ&amp;originHeight=580&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic1.zhimg.com/v2-ecacbff79c6b63ce3f8413a5faf6a228_b.jpg#id=zMbou&amp;originHeight=430&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic1.zhimg.com/v2-b761400e21aa1fe100ec80304c675f5c_b.jpg#id=Rbvqf&amp;originHeight=713&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></p>
+<p>安装教程操作上面即可，在此不必多讲，上面的教程已经讲述得非常的清楚。如果你还是安装不了，那就购买服务器吧。</p>
+<h2 id="三-使用-xshell-连接本地-ubuntu-系统">三、使用 Xshell 连接本地 Ubuntu 系统</h2>
+<p>系统安装以后，自动挂在 C 盘，如果你需要进入其他盘，可以使用 “cd /mnt/d”or“cd /mnt/e” 等。</p>
+<figure data-type="image" tabindex="1"><img src="https://pic4.zhimg.com/v2-cb22782e4b82f692978ea41a1ac99d93_b.jpg#id=vEgeX&amp;originHeight=413&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p>大家可以看到我是使用 Xshell 连接我的 linux 子系统，原始的 Ubuntu 界面是非常难用的，因此，我们必须进行改变，使用万能的 Xshell 进行连接。</p>
+<p>OK！下面我们就进行使用 Xshell 连接的教程哦！还是比较容易的，但是任然会出现很多的问题。</p>
+<p>我们的原理也是使用 ssh。</p>
+<h3 id="31-安装-ssh">3.1 安装 ssh</h3>
+<p>首先，如果觉得使用系统自带的 openssh-server 无法使用或是不知道有没有的话，我们就是直接重新卸载安装。</p>
+<pre><code>## 卸载 原始的 openssh-server 
+sudo apt-get remove openssh-server
+
+## 安装
+sudo apt-get install openssh-server
+</code></pre>
+<h3 id="32-安装-ssh-出现报错">3.2 安装 ssh 出现报错</h3>
+<p>这一步是我安装中出现的问题，导致我一直怀疑是我 Ubuntu 版本的问题。但是换了两个版本依旧出现这样的问题，我想你也应该可能会出现。</p>
+<figure data-type="image" tabindex="2"><img src="https://pic2.zhimg.com/v2-2ea28283748bd2daca78f6dbf50e19ed_b.jpg#id=v1CPc&amp;originHeight=289&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p>提示说是 openssh-server 依赖于 openssh-client 而实际上 openssh-client 已经是最新版本了。进行卸载</p>
+<p>但是出现以下的报错情况。</p>
+<pre><code>Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Package 'openssh-server' is not installed, so not removed
+Package 'openssh-client' is not installed, so not removed
+E: Could not read response to hello message from hook [ ! -f /usr/bin/snap ] || /usr/bin/snap advise-snap --from-apt 2&gt;/dev/null || true: Success
+E: Could not read response to hello message from hook [ ! -f /usr/bin/snap ] || /usr/bin/snap advise-snap --from-apt 2&gt;/dev/null || true: Success
+</code></pre>
+<p>WOC!! 不知道怎么办呢，一直卸载就是无法成功！！！！</p>
+<p>——）</p>
+<h3 id="33-解决方法">3.3 解决方法</h3>
+<pre><code>sudo rm -rf /etc/apt/apt.conf.d/20snapd.conf
+</code></pre>
+<p><strong>删除后再进行卸载：</strong></p>
+<pre><code>## 再次输入卸载命令
+sudo apt-get install openssh-client openssh-server
+</code></pre>
+<p><strong>输出：</strong></p>
+<pre><code>Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  git-man libcurl3-gnutls liberror-perl
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  insserv libck-connector0 libpython-stdlib libpython2.7-minimal libpython2.7-stdlib libreadline6 libssl1.0.0 openssh-sftp-server python python-chardet python-minimal python-requests python-six python-urllib3 python2.7
+  python2.7-minimal ssh-import-id sysv-rc xauth
+Suggested packages:
+  bootchart2 ssh-askpass libpam-ssh keychain monkeysphere rssh molly-guard python-doc python-tk python2.7-doc binutils binfmt-support sysv-rc-conf bum
+The following packages will be REMOVED:
+  git ubuntu-server
+The following NEW packages will be installed:
+  insserv libck-connector0 libpython-stdlib libpython2.7-minimal libpython2.7-stdlib libreadline6 libssl1.0.0 openssh-client openssh-server openssh-sftp-server python python-chardet python-minimal python-requests python-six
+  python-urllib3 python2.7 python2.7-minimal ssh-import-id sysv-rc xauth
+0 upgraded, 21 newly installed, 2 to remove and 0 not upgraded.
+Need to get 5921 kB of archives.
+After this operation, 6554 kB disk space will be freed.
+Do you want to continue? [Y/n] n
+Abort.
+</code></pre>
+<p>OK！！ 终于卸载成功！！！ 花费了很长时间啊！！</p>
+<p><strong>再次安装 openssh-client openssh-server</strong></p>
+<pre><code>sudo apt-get install openssh-client openssh-server
+</code></pre>
+<p>安装成功！！！</p>
+<figure data-type="image" tabindex="3"><img src="https://pic2.zhimg.com/v2-ee6507b9f3e5b9ffc3a4e61f5f863ac1_b.jpg#id=NBez7&amp;originHeight=275&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<h3 id="34-修改配置文件">3.4 修改配置文件</h3>
+<p>默认端口是 22，但是有可能我们电偶端口相冲突，需要需要修改</p>
+<pre><code>// 编辑配置文件
+// vim /etc/ssh/sshd_config
+
+    Port 36000  # 默认的是22，但是windows有自己的ssh服务用的也是22端口，修改一下
+    UsePrivilegeSeparation no   
+
+# To disable tunneled clear text passwords, change to no here!
+  PasswordAuthentication yes
+  AllowUsers root
+</code></pre>
+<p>配置中有一项 PasswordAuthentication， 改为 yes 可以使用密码登录，使用 ssh 秘钥对登录，使用 no，AllowUsers 后面加上你的用户名。</p>
+<p><strong>重启 ssh 服务</strong></p>
+<pre><code>sudo service ssh --full-restart
+</code></pre>
+<p>成功提示！！！</p>
+<pre><code>* Stopping OpenBSD Secure Shell server sshd                                ok 
+ * Starting OpenBSD Secure Shell server sshd                                ok
+</code></pre>
+<p>有上面的提示，才说明你的 ssh 已近开启。</p>
+<h2 id="4-连接本地-xshell">4 连接本地 Xshell</h2>
+<h3 id="41-查看可以用的-ip-地址">4.1 查看可以用的 IP 地址</h3>
+<pre><code>## 输入ifconfig 查看可以用地址
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://pic2.zhimg.com/v2-dbab8fda0d288e561200fd1aebd42755_b.jpg#id=sKjEK&amp;originHeight=292&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p><strong>有两个 ip 地址</strong></p>
+<p>第一个是可以连接网络的 ip(172.16.1.165)，这个就可以使用远程连接</p>
+<p>第二个是本地电脑连接 ip(127.0.0.1)，这个只能在本电脑本地连接。</p>
+<p>###---------------------</p>
+<p>链接 xshell，常规操作。</p>
+<figure data-type="image" tabindex="5"><img src="https://pic4.zhimg.com/v2-2aa667dfea690b576ec308a2173f6dcf_b.jpg#id=nrCIe&amp;originHeight=416&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p><strong>设置完成就可以直接登陆。</strong></p>
+<figure data-type="image" tabindex="6"><img src="https://pic2.zhimg.com/v2-f7708679185469b8a486149d5254be4d_b.jpg#id=YqEBW&amp;originHeight=502&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p><strong>输入密码，点击确认</strong></p>
+<figure data-type="image" tabindex="7"><img src="https://pic2.zhimg.com/v2-965a460b576c22b3cae772a66158f001_b.jpg#id=QZNbo&amp;originHeight=519&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p><strong>连接成功！！！</strong></p>
+<figure data-type="image" tabindex="8"><img src="https://pic4.zhimg.com/v2-7a6fe0226a17bb6fe674e5f3750e20d7_b.jpg#id=bGUhD&amp;originHeight=591&amp;originWidth=1089&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<h2 id="5-设置-ubuntu-开机自启">5 设置 Ubuntu 开机自启</h2>
+<p><strong>1、创建计划程序</strong></p>
+<p>右键我的电脑——管理——系统工具——任务计划程序库</p>
+<figure data-type="image" tabindex="9"><img src="https://pic2.zhimg.com/v2-56427f748f9104a07fd153b7800bfe35_b.jpg#id=qMLG1&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p><strong>2、点击_</strong> 创建基本任务_*，一直往下进行**</p>
+<p><img src="https://pic4.zhimg.com/v2-1b55a8cc8d0ecc77aa3b7dfb4efe979b_b.jpg#id=Mk4q7&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic4.zhimg.com/v2-28bfc865362f49310a22da680b3306cf_b.jpg#id=q470L&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic1.zhimg.com/v2-56a1d67d9a3bd6391c339693cfa0621c_b.jpg#id=hDEUA&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></p>
+<p><strong>3、进入到 C:\Windows\System32\bash.exe 目录</strong></p>
+<figure data-type="image" tabindex="10"><img src="https://pic3.zhimg.com/v2-16c966b80ccd9a21bdb7a01ca78090b6_b.jpg#id=ghZRW&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p><strong>4、创建成功</strong></p>
+<p><strong>5、编辑属性</strong></p>
+<figure data-type="image" tabindex="11"><img src="https://pic2.zhimg.com/v2-f0ea88bf8eb1123d208a505e14cfb4b5_b.jpg#id=l1s9c&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
+<p>OK ！ 这就设置你的 Ubtuntu 开机自启的状态。</p>
+<ul>
+<li>今天的分享就到这这里哦！！ 希望你可以正常运行。</li>
+</ul>
+<p>&quot;小杜的生信筆記&quot; 公众号、知乎、简书平台，主要发表或收录生物信息学的教程，以及基于 R 的分析和可视化（包括数据分析，图形绘制等）；分享感兴趣的文献和学习资料！</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://superupan.github.io/post/信息管理，从高效收集信息开始/" class="post-title gt-a-link">
+                    信息管理，从高效收集信息开始
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://superupan.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

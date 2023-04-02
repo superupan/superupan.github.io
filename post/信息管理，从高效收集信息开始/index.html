@@ -1,163 +1,108 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://superupan.github.io</id>
-    <title>温故而知新</title>
-    <updated>2023-04-02T10:38:31.083Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://superupan.github.io"/>
-    <link rel="self" href="https://superupan.github.io/atom.xml"/>
-    <logo>https://superupan.github.io/images/avatar.png</logo>
-    <icon>https://superupan.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2023, 温故而知新</rights>
-    <entry>
-        <title type="html"><![CDATA[Windows 中安装 linux 子系统（Ubuntu）]]></title>
-        <id>https://superupan.github.io/post/Windows 中安装 linux 子系统（Ubuntu）/</id>
-        <link href="https://superupan.github.io/post/Windows 中安装 linux 子系统（Ubuntu）/">
-        </link>
-        <updated>2023-04-02T10:29:38.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="一-前言">一、前言</h2>
-<p>作为一个喜欢捣鼓或是喜欢折腾人来说，这个教程适合你来进行。</p>
-<p>作为一个生信小白来说，学习 linux 系统的操作是一个必要的条件（PS：是必学的一个技能，不管你是高手还是小白中的渣渣）。但是，对于我们很多人来说，开始时候并没有一个 linux 服务器怎么办？要不就是自己去购买腾讯云、阿里云或是各种云的服务器，这是一个明智的选择，这样服务器你可以任何操作，最后把系统搞崩了，那么直接重新安装就可以。</p>
-<p>但是，作为一个没有那么资金的同学来说，只能是自己安装一个虚拟机，在虚拟机中安装 linux 服务器。我最开始就是在这样做的，我根据 “Linux 兄弟连” 的教学视频安装服务器，确实看一步安装一步，尽力个千山万水终于安装好。但是很难用，一是只能做基本的操作，二是连网非常麻烦切网速很慢。不得行啊！！！</p>
-<p>最终，下巨资购买了腾讯云的服务器，并且我的论文就是用我购买的的服务器中进行分析的。啊哈哈哈哈哈，虽然性能只有那么一点点，但是基础的分析还是可以做的。</p>
-<p>但是，我后期看到一个教程，说是 Windows 中可以安装 linux 子系统：<a href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s/UfcKT5_WotrpskFrKlLA-g">Windows10 安装 Linux 子系统 Ubuntu 20.04LTS，轻松使用生信软件，效率秒杀虚拟机</a>。这是在 2020 年的时候，我在自己的笔记本电脑中安装了 Ubuntn 子系统，并且还是进行数据的基本处理，虽然我的电脑配置是高于我的服务器配置，但是速度仍是无法比的，服务器终究是大爷（PS：主要原因，笔记本电脑的 CPU 过热后就降频，后续的运行跟不上）。</p>
-<p>综上所述，在自己电脑（笔记本或是台式电脑）安装 linux 系统，仅是用于一般的操作即可，做分析，建议还是不要有什么期待，PC 终究只是 PC 而已。但是，作为一个生信狗还是安装一下。你习惯 linux 的操作或是处理文本的命令，你觉得还是挺方便的。其次，你可以间你安装 linux 系统中的电脑当做服务器主机进行使用，文件等可以与其他电脑间无缝传输，下载。</p>
-<p>-- du</p>
-<h2 id="二-windows-系统安装-linux-子系统">二、Windows 系统安装 linux 子系统</h2>
-<p>参考教程：<a href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s/UfcKT5_WotrpskFrKlLA-g">Windows10 安装 Linux 子系统 Ubuntu 20.04LTS，轻松使用生信软件，效率秒杀虚拟机</a></p>
-<p>具体流程：</p>
-<p><img src="https://pic3.zhimg.com/v2-3b5bad42bf221492a34e1e5ac54a8946_b.jpg#id=ph6yd&amp;originHeight=443&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic3.zhimg.com/v2-0e4b358ee3cf23b706b30d00bb9da112_b.jpg#id=Bfqju&amp;originHeight=560&amp;originWidth=674&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic2.zhimg.com/v2-3de2915d9e344752c423ea765ae9df81_b.jpg#id=EtFXB&amp;originHeight=451&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic4.zhimg.com/v2-f29b8b55d7a2a9b873d4842e68d5962b_b.jpg#id=Pyetw&amp;originHeight=650&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic3.zhimg.com/v2-66909bba7fef2ac1c4aeb1d556a80ebe_b.jpg#id=w88QY&amp;originHeight=458&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></p>
-<p><strong>在 Microsoft store 中搜索 Ubuntu 即可安装</strong></p>
-<p><img src="https://pic1.zhimg.com/v2-cac4ee660fc501eee211b5c39295c1d0_b.jpg#id=qsaBQ&amp;originHeight=580&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic1.zhimg.com/v2-ecacbff79c6b63ce3f8413a5faf6a228_b.jpg#id=zMbou&amp;originHeight=430&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic1.zhimg.com/v2-b761400e21aa1fe100ec80304c675f5c_b.jpg#id=Rbvqf&amp;originHeight=713&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></p>
-<p>安装教程操作上面即可，在此不必多讲，上面的教程已经讲述得非常的清楚。如果你还是安装不了，那就购买服务器吧。</p>
-<h2 id="三-使用-xshell-连接本地-ubuntu-系统">三、使用 Xshell 连接本地 Ubuntu 系统</h2>
-<p>系统安装以后，自动挂在 C 盘，如果你需要进入其他盘，可以使用 “cd /mnt/d”or“cd /mnt/e” 等。</p>
-<figure data-type="image" tabindex="1"><img src="https://pic4.zhimg.com/v2-cb22782e4b82f692978ea41a1ac99d93_b.jpg#id=vEgeX&amp;originHeight=413&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>大家可以看到我是使用 Xshell 连接我的 linux 子系统，原始的 Ubuntu 界面是非常难用的，因此，我们必须进行改变，使用万能的 Xshell 进行连接。</p>
-<p>OK！下面我们就进行使用 Xshell 连接的教程哦！还是比较容易的，但是任然会出现很多的问题。</p>
-<p>我们的原理也是使用 ssh。</p>
-<h3 id="31-安装-ssh">3.1 安装 ssh</h3>
-<p>首先，如果觉得使用系统自带的 openssh-server 无法使用或是不知道有没有的话，我们就是直接重新卸载安装。</p>
-<pre><code>## 卸载 原始的 openssh-server 
-sudo apt-get remove openssh-server
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-## 安装
-sudo apt-get install openssh-server
-</code></pre>
-<h3 id="32-安装-ssh-出现报错">3.2 安装 ssh 出现报错</h3>
-<p>这一步是我安装中出现的问题，导致我一直怀疑是我 Ubuntu 版本的问题。但是换了两个版本依旧出现这样的问题，我想你也应该可能会出现。</p>
-<figure data-type="image" tabindex="2"><img src="https://pic2.zhimg.com/v2-2ea28283748bd2daca78f6dbf50e19ed_b.jpg#id=v1CPc&amp;originHeight=289&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>提示说是 openssh-server 依赖于 openssh-client 而实际上 openssh-client 已经是最新版本了。进行卸载</p>
-<p>但是出现以下的报错情况。</p>
-<pre><code>Reading package lists... Done
-Building dependency tree
-Reading state information... Done
-Package 'openssh-server' is not installed, so not removed
-Package 'openssh-client' is not installed, so not removed
-E: Could not read response to hello message from hook [ ! -f /usr/bin/snap ] || /usr/bin/snap advise-snap --from-apt 2&gt;/dev/null || true: Success
-E: Could not read response to hello message from hook [ ! -f /usr/bin/snap ] || /usr/bin/snap advise-snap --from-apt 2&gt;/dev/null || true: Success
-</code></pre>
-<p>WOC!! 不知道怎么办呢，一直卸载就是无法成功！！！！</p>
-<p>——）</p>
-<h3 id="33-解决方法">3.3 解决方法</h3>
-<pre><code>sudo rm -rf /etc/apt/apt.conf.d/20snapd.conf
-</code></pre>
-<p><strong>删除后再进行卸载：</strong></p>
-<pre><code>## 再次输入卸载命令
-sudo apt-get install openssh-client openssh-server
-</code></pre>
-<p><strong>输出：</strong></p>
-<pre><code>Reading package lists... Done
-Building dependency tree
-Reading state information... Done
-The following packages were automatically installed and are no longer required:
-  git-man libcurl3-gnutls liberror-perl
-Use 'sudo apt autoremove' to remove them.
-The following additional packages will be installed:
-  insserv libck-connector0 libpython-stdlib libpython2.7-minimal libpython2.7-stdlib libreadline6 libssl1.0.0 openssh-sftp-server python python-chardet python-minimal python-requests python-six python-urllib3 python2.7
-  python2.7-minimal ssh-import-id sysv-rc xauth
-Suggested packages:
-  bootchart2 ssh-askpass libpam-ssh keychain monkeysphere rssh molly-guard python-doc python-tk python2.7-doc binutils binfmt-support sysv-rc-conf bum
-The following packages will be REMOVED:
-  git ubuntu-server
-The following NEW packages will be installed:
-  insserv libck-connector0 libpython-stdlib libpython2.7-minimal libpython2.7-stdlib libreadline6 libssl1.0.0 openssh-client openssh-server openssh-sftp-server python python-chardet python-minimal python-requests python-six
-  python-urllib3 python2.7 python2.7-minimal ssh-import-id sysv-rc xauth
-0 upgraded, 21 newly installed, 2 to remove and 0 not upgraded.
-Need to get 5921 kB of archives.
-After this operation, 6554 kB disk space will be freed.
-Do you want to continue? [Y/n] n
-Abort.
-</code></pre>
-<p>OK！！ 终于卸载成功！！！ 花费了很长时间啊！！</p>
-<p><strong>再次安装 openssh-client openssh-server</strong></p>
-<pre><code>sudo apt-get install openssh-client openssh-server
-</code></pre>
-<p>安装成功！！！</p>
-<figure data-type="image" tabindex="3"><img src="https://pic2.zhimg.com/v2-ee6507b9f3e5b9ffc3a4e61f5f863ac1_b.jpg#id=NBez7&amp;originHeight=275&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<h3 id="34-修改配置文件">3.4 修改配置文件</h3>
-<p>默认端口是 22，但是有可能我们电偶端口相冲突，需要需要修改</p>
-<pre><code>// 编辑配置文件
-// vim /etc/ssh/sshd_config
+<title>信息管理，从高效收集信息开始 | 温故而知新</title>
 
-    Port 36000  # 默认的是22，但是windows有自己的ssh服务用的也是22端口，修改一下
-    UsePrivilegeSeparation no   
+<link rel="shortcut icon" href="https://superupan.github.io/favicon.ico?v=1680431903830">
 
-# To disable tunneled clear text passwords, change to no here!
-  PasswordAuthentication yes
-  AllowUsers root
-</code></pre>
-<p>配置中有一项 PasswordAuthentication， 改为 yes 可以使用密码登录，使用 ssh 秘钥对登录，使用 no，AllowUsers 后面加上你的用户名。</p>
-<p><strong>重启 ssh 服务</strong></p>
-<pre><code>sudo service ssh --full-restart
-</code></pre>
-<p>成功提示！！！</p>
-<pre><code>* Stopping OpenBSD Secure Shell server sshd                                ok 
- * Starting OpenBSD Secure Shell server sshd                                ok
-</code></pre>
-<p>有上面的提示，才说明你的 ssh 已近开启。</p>
-<h2 id="4-连接本地-xshell">4 连接本地 Xshell</h2>
-<h3 id="41-查看可以用的-ip-地址">4.1 查看可以用的 IP 地址</h3>
-<pre><code>## 输入ifconfig 查看可以用地址
-</code></pre>
-<figure data-type="image" tabindex="4"><img src="https://pic2.zhimg.com/v2-dbab8fda0d288e561200fd1aebd42755_b.jpg#id=sKjEK&amp;originHeight=292&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p><strong>有两个 ip 地址</strong></p>
-<p>第一个是可以连接网络的 ip(172.16.1.165)，这个就可以使用远程连接</p>
-<p>第二个是本地电脑连接 ip(127.0.0.1)，这个只能在本电脑本地连接。</p>
-<p>###---------------------</p>
-<p>链接 xshell，常规操作。</p>
-<figure data-type="image" tabindex="5"><img src="https://pic4.zhimg.com/v2-2aa667dfea690b576ec308a2173f6dcf_b.jpg#id=nrCIe&amp;originHeight=416&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p><strong>设置完成就可以直接登陆。</strong></p>
-<figure data-type="image" tabindex="6"><img src="https://pic2.zhimg.com/v2-f7708679185469b8a486149d5254be4d_b.jpg#id=YqEBW&amp;originHeight=502&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p><strong>输入密码，点击确认</strong></p>
-<figure data-type="image" tabindex="7"><img src="https://pic2.zhimg.com/v2-965a460b576c22b3cae772a66158f001_b.jpg#id=QZNbo&amp;originHeight=519&amp;originWidth=720&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p><strong>连接成功！！！</strong></p>
-<figure data-type="image" tabindex="8"><img src="https://pic4.zhimg.com/v2-7a6fe0226a17bb6fe674e5f3750e20d7_b.jpg#id=bGUhD&amp;originHeight=591&amp;originWidth=1089&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<h2 id="5-设置-ubuntu-开机自启">5 设置 Ubuntu 开机自启</h2>
-<p><strong>1、创建计划程序</strong></p>
-<p>右键我的电脑——管理——系统工具——任务计划程序库</p>
-<figure data-type="image" tabindex="9"><img src="https://pic2.zhimg.com/v2-56427f748f9104a07fd153b7800bfe35_b.jpg#id=qMLG1&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p><strong>2、点击_</strong> 创建基本任务_*，一直往下进行**</p>
-<p><img src="https://pic4.zhimg.com/v2-1b55a8cc8d0ecc77aa3b7dfb4efe979b_b.jpg#id=Mk4q7&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic4.zhimg.com/v2-28bfc865362f49310a22da680b3306cf_b.jpg#id=q470L&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><img src="https://pic1.zhimg.com/v2-56a1d67d9a3bd6391c339693cfa0621c_b.jpg#id=hDEUA&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></p>
-<p><strong>3、进入到 C:\Windows\System32\bash.exe 目录</strong></p>
-<figure data-type="image" tabindex="10"><img src="https://pic3.zhimg.com/v2-16c966b80ccd9a21bdb7a01ca78090b6_b.jpg#id=ghZRW&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p><strong>4、创建成功</strong></p>
-<p><strong>5、编辑属性</strong></p>
-<figure data-type="image" tabindex="11"><img src="https://pic2.zhimg.com/v2-f0ea88bf8eb1123d208a505e14cfb4b5_b.jpg#id=l1s9c&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>OK ！ 这就设置你的 Ubtuntu 开机自启的状态。</p>
-<ul>
-<li>今天的分享就到这这里哦！！ 希望你可以正常运行。</li>
-</ul>
-<p>&quot;小杜的生信筆記&quot; 公众号、知乎、简书平台，主要发表或收录生物信息学的教程，以及基于 R 的分析和可视化（包括数据分析，图形绘制等）；分享感兴趣的文献和学习资料！</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[信息管理，从高效收集信息开始]]></title>
-        <id>https://superupan.github.io/post/信息管理，从高效收集信息开始/</id>
-        <link href="https://superupan.github.io/post/信息管理，从高效收集信息开始/">
-        </link>
-        <updated>2023-04-02T10:29:38.000Z</updated>
-        <content type="html"><![CDATA[<p>信息管理是多数人每日必须面临的课题。</p>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://superupan.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            温故而知新
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1680431903830" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    信息管理，从高效收集信息开始
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-04-02 ·
+                    </time>
+                    
+                        <a href="https://superupan.github.io/tag/GvCIfutiL/" class="post-tags">
+                            # 学习
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>信息管理是多数人每日必须面临的课题。</p>
 <p>在「<a href="https://sspai.com/post/70397">碎片化信息时代如何获取信息？我的信息管理方案</a>」这篇文章中，从<strong>信息获取、信息阅读和信息处理</strong>这三个阶段对信息管理进行了拆解分析。其中，在信息获取阶段，主要介绍了以 RSS 为核心的信息管理体系。但是此外，在「<a href="https://sspai.com/post/77222">RSS 入门指南</a>」又介绍了「RSS 阅读」与笔记软件的整合方法。</p>
 <p>今天这篇文章，主要对「我的信息管理」这篇文章进行扩展，聚焦于<strong>信息获取</strong>阶段，盘点和讨论<strong>高效获取信息的工具</strong>。至于优质信息的查找和筛选，是信息素养的重要主题，需要专文分析。此外，由于 RSS 在过往的文章中已有不少讨论，不再专门展开。</p>
 <figure data-type="image" tabindex="1"><img src="https://cdn.sspai.com/editor/u_f9lsirgn/16732688210361.png#id=nul6s&amp;originHeight=982&amp;originWidth=1975&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
@@ -435,159 +380,57 @@ Abort.
 <blockquote>
 <p>实用、好用的 <a href="https://sspai.com/mall">正版软件</a>，少数派为你呈现 🚀</p>
 </blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !]]></title>
-        <id>https://superupan.github.io/post/AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !/</id>
-        <link href="https://superupan.github.io/post/AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !/">
-        </link>
-        <updated>2023-04-01T15:01:55.000Z</updated>
-        <content type="html"><![CDATA[<p>别玩那些小孩子的玩意儿了，大人应该玩这些 _！</p>
-<figure data-type="image" tabindex="1"><img src="https://pic4.zhimg.com/v2-3b7c907fec3fb253a4f083c7f7d57cbf_r.jpg#id=Cv5uR&amp;originHeight=1305&amp;originWidth=2298&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>我是真没想到，AI 绘画已经进化到这种程度了。</p>
-<p>实在是太！逼！真! 了！不上重马赛克都不敢贴图！</p>
-<p>看了这些图，有没有心痒痒的？今天就来带大家入个门！先把软件搞起来。</p>
-<p>这里用的软件叫 “stable-diffusion-webui” ，严格意义上来说是一个基于 Stable Diffusion 的开源项目。这个项目非常强大，把原本很难安装配置的开源项目做成了一个简单易操作的网页，后来又引入了插件系统，可以玩出很多花样。最重要的是这一切都免费且开源。</p>
-<p>安装 stable-diffusion-webui 需要事先做一些准备工作。</p>
-<ul>
-<li>一台带中高端显卡的电脑</li>
-<li>电脑可以流畅的访问 github</li>
-<li>安装好代码管理工具 git</li>
-<li>安装好编程语言工具 python</li>
-</ul>
-<p>硬件的部分不是本文的核心关注点，你只要搞一张显存大于 4G 的英伟达显卡就够了，推荐 RTX3060 这种显存比较大又比较便宜的。</p>
-<figure data-type="image" tabindex="2"><img src="https://pic2.zhimg.com/v2-e82926efd1080e6286215d3408a84f01_r.jpg#id=UnRHs&amp;originHeight=1440&amp;originWidth=2560&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>我这里用的是腾讯云上 <a href="https://link.zhihu.com/?target=https%3A//www.deepfaker.xyz/%3Fp%3D2458">45 块钱的 T4 深度学习卡</a>。速度一般，显存比较大有 16G。用这个的好处是，对本地电脑几乎无要求，更重要的是可以流畅访问国际互联网，这个真的省了太多事情了。也让安装这件事情变得无比简单。</p>
-<figure data-type="image" tabindex="3"><img src="https://pic1.zhimg.com/v2-51a0bd5a16d25dc4b2f996697fd7083c_r.jpg#id=GXv2k&amp;originHeight=828&amp;originWidth=1540&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>如果你是本地电脑，你需要自己使用 “魔法” 连接国际互联网。</p>
-<p>硬件和网络，不再展开了，如果这一步问题比较大，可以留言！</p>
-<p>下面立马开始具体的安装步骤。</p>
-<ol>
-<li>安装 git</li>
-</ol>
-<hr>
-<p>GIT 是一个开源的分布式版本控制系统，其中有一个命令叫: git clone，就是高阶版 Ctrl+C 和 Ctrl+V。这个工具主要是用来优雅的搬运别人的成果。</p>
-<p>软件可以通过官网 git-scm 获取，只要下载最新版就可以了。</p>
-<figure data-type="image" tabindex="4"><img src="https://pic1.zhimg.com/v2-b13591380c09c4f7cace1bcf75e5e8dc_r.jpg#id=EtIke&amp;originHeight=424&amp;originWidth=805&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>获取到软件后，只要双击打开，一路下一步下一步就可以了。</p>
-<figure data-type="image" tabindex="5"><img src="https://pic2.zhimg.com/v2-a83b66f96269ed9ec06bff809b3a2fe5_r.jpg#id=yiwNc&amp;originHeight=683&amp;originWidth=870&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>就是点击蓝色的 Next 按钮。</p>
-<p>具体可以参考文章<a href="https://link.zhihu.com/?target=http%3A//mp.weixin.qq.com/s%3F__biz%3DMjM5NjAwNTcwMg%3D%3D%26mid%3D2257484089%26idx%3D4%26sn%3D55ca7bd1118fd5ad8403eef909e1f096%26chksm%3Da5950b1092e2820650d8f8f6d96725eff2a65c903289a6c58cd5d1377772ac111ac60f8c78bf%26scene%3D21%23wechat_redirect">《GIT 安装和使用》</a></p>
-<ol start="2">
-<li>安装 Python</li>
-</ol>
-<hr>
-<h2 id=""></h2>
-<p>Python 是目前非常流行的编程语言，因为被广泛地用在人工智能 -&gt; 深度学习领域，更是声名大噪。因为我们用的软件也是基于 Python 的，所以我们要安装一个 Python 的运行环境。这个安装起来也很简单。</p>
-<p>访问 Python 官网，下载指定版本 3.10.6。</p>
-<figure data-type="image" tabindex="6"><img src="https://pic2.zhimg.com/v2-f73ddc238483d326f61ea033b10f1275_r.jpg#id=ceYC3&amp;originHeight=351&amp;originWidth=603&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>这里千万千万不要不要乱下版本，否则会面对一连串你无法处理的问题。</p>
-<p>获取软件后，双击开始安装。</p>
-<figure data-type="image" tabindex="7"><img src="https://pic4.zhimg.com/v2-d434cd080f4b45b018cc1e1ceffaca07_r.jpg#id=mNgrT&amp;originHeight=1022&amp;originWidth=1669&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>安装的时候，只需要勾选 “Add Python” 然后点击 “Install Now” 就可以了。</p>
-<p>安装完 GIT 和 Python 之后，我们需要验证一下是否安装成功。</p>
-<figure data-type="image" tabindex="8"><img src="https://pic4.zhimg.com/v2-d1611e227e0237124263f71fc8eb362f_r.jpg#id=UByAb&amp;originHeight=839&amp;originWidth=487&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>右键点击 Windows 图标，然后点击运行。</p>
-<figure data-type="image" tabindex="9"><img src="https://pic1.zhimg.com/v2-275bed3441fbf618360bb87fd13b59b0_r.jpg#id=lcX8a&amp;originHeight=734&amp;originWidth=1203&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>输入 CMD，按确定，打开命令行工具。</p>
-<figure data-type="image" tabindex="10"><img src="https://pic2.zhimg.com/v2-df66c53e12327d4f503a6dac86081071_r.jpg#id=vXRi1&amp;originHeight=785&amp;originWidth=1223&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>打开后准确输入 git 三个字母，按回车！跳出一堆英文的帮助信息就是正常，如果出现 “不是内部或外部命令” 就证明安装有问题，一般不会有问题。</p>
-<p>然后输入 python 按回车，之后会正确显示 Python 的版本，这里必须是 3.10.6。没有显示或者是其他版本都不行。</p>
-<p>一切验证成功后，按 Ctrl+Z，然后按回车，退出 Python。</p>
-<p>具体可以参考文章<a href="https://link.zhihu.com/?target=http%3A//mp.weixin.qq.com/s%3F__biz%3DMjM5NjAwNTcwMg%3D%3D%26mid%3D2257484089%26idx%3D4%26sn%3D55ca7bd1118fd5ad8403eef909e1f096%26chksm%3Da5950b1092e2820650d8f8f6d96725eff2a65c903289a6c58cd5d1377772ac111ac60f8c78bf%26scene%3D21%23wechat_redirect">《Python 安装和使用》</a></p>
-<ol start="3">
-<li>获取源代码</li>
-</ol>
-<hr>
-<p>上面两个工具装完之后，就可以用 git 工具获取源代码了。</p>
-<figure data-type="image" tabindex="11"><img src="https://pic1.zhimg.com/v2-5f39c70d6d32b043d6984c912364c200_r.jpg#id=Rh85H&amp;originHeight=477&amp;originWidth=1643&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>默认情况下，我们的路径是用户目录。</p>
-<p>此时需要输入 “cd Desktop” 命令进入桌面。我的云电脑只有一个盘，所以准备把软件装在桌面上。如果你的电脑有多个盘，建议安装在其他盘的根目录。比如你 D 盘很大，那么输入命令 &quot;D:&quot; 按回车，就可以了。</p>
-<p>然后输入克隆命令获取源代码：</p>
-<pre><code>git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-</code></pre>
-<p>输入命令后按回车，网络没问题的话，很快就能完成。完成后会出现 100% 和 done 的提示。</p>
-<p>相关命令行的用法可以参考</p>
-<p><a href="https://link.zhihu.com/?target=http%3A//mp.weixin.qq.com/s%3F__biz%3DMjM5NjAwNTcwMg%3D%3D%26mid%3D2257484089%26idx%3D1%26sn%3D5b0a3a4fa64b46e8e138b1ab9bd55917%26chksm%3Da5950b1092e282066396ff23d0cea09552590f45c588df5897c64cfd03e7a4c30b8ee1f738f2%26scene%3D21%23wechat_redirect">Windows 命令行工具 CMD 基础用法！</a></p>
-<ol start="4">
-<li>安装 SD</li>
-</ol>
-<hr>
-<p>上面的都是准备工作，现在要开始真正的安装了。</p>
-<p>上一步克隆完成之后，桌面上会多出一个文件夹。如果你上一步切换到了 D 盘，那就是在 D 盘下面。</p>
-<figure data-type="image" tabindex="12"><img src="https://pic1.zhimg.com/v2-8a1cf5d03ff9aeb0d8f1da0c149df474_r.jpg#id=Hw8mn&amp;originHeight=759&amp;originWidth=1213&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>打开这个文件夹，找到一个叫 Webui-user 的文件，双击打开。</p>
-<figure data-type="image" tabindex="13"><img src="https://pic4.zhimg.com/v2-111c75f6518f5e1e271e8e5eb87a54bb_r.jpg#id=nlN26&amp;originHeight=1592&amp;originWidth=933&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>注意，这里有两个同名，要选择第一个，文件类型为 bat。</p>
-<p>双击之后，就会出现一个黑色的命令行窗口，安装脚本会自动安装。这个过程无需人工干预，除非是出错了。</p>
-<figure data-type="image" tabindex="14"><img src="https://pic3.zhimg.com/v2-80fb5f26c188aa3baa55c1bf17811982_r.jpg#id=a6M6j&amp;originHeight=1303&amp;originWidth=1280&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>安装过程大致如上。网络通畅网速快的情况下大概只要十几分钟。如果这个步骤出现错误，只有两种可能：硬件不行或者网络不行，不用找其他问题。</p>
-<figure data-type="image" tabindex="15"><img src="https://pic4.zhimg.com/v2-a992055b2ef3b4542c9fa5925440ae5b_r.jpg#id=f7j3W&amp;originHeight=1302&amp;originWidth=1274&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>安装好各种依赖包之后，会自动下载一个官方的模型，大概 4G 左右。下载完之后会自动启动本地 Web 服务，然后现在一个 127.0.0.1 的网址。</p>
-<p>到这里安装就已经全部完成了。</p>
-<ol start="5">
-<li>生成图片</li>
-</ol>
-<hr>
-<p>复制这个网址到浏览器上打开</p>
-<figure data-type="image" tabindex="16"><img src="https://pic2.zhimg.com/v2-114e623d1ac0c66d74d5f4e2ddd871dd_r.jpg#id=lEO36&amp;originHeight=1298&amp;originWidth=2275&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>打开之后只要在 1 的地方输入描述，然后点击 2 的按钮，稍等片刻，就可以在 5 的地方看到结果了。</p>
-<p>3 这个区域是魔法所在，很多高阶玩法都在这里实现。</p>
-<p>4 区域是设置生成参数的。可以设置运算步数，调整长宽，生成数量，设置种子等等....</p>
-<p>本文主要完整展现安装过程，不展开讲具体的参数设置。</p>
-<ol start="6">
-<li>扩展内容：生成更好的图片</li>
-</ol>
-<hr>
-<p>第一次生成图片，你可能会失望，为什么别人的这么好好看，而自己的这么普通或者怪异？ 那是因为你还没有掌握技巧，还不会魔法咒语，还没有用上各种牛逼的模型。</p>
-<p>接下来重点来了！！！</p>
-<p>开头提供的效果图就是来自 civitai 这个网站。</p>
-<figure data-type="image" tabindex="17"><img src="https://pic4.zhimg.com/v2-6c088793a546a2d6e7e1af6ddc572a83_r.jpg#id=rRdhP&amp;originHeight=1095&amp;originWidth=2560&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>这个网站相当牛，如果说 webui 是让软件变得简单了，那么 Civitai 是把效果拉满了。就冲我给你这个网站，你也应该点 10 个赞，哈哈。</p>
-<p>网站上有模型和示例，还有生成参数。非常贴心！</p>
-<p>还有另外一个网站，以前收藏的，效果也不错。你可以根据效果图片，照抄上面的关键词。</p>
-<figure data-type="image" tabindex="18"><img src="https://pic2.zhimg.com/v2-10902534c4fa08d69b3cf49cb860a095_r.jpg#id=f0rQv&amp;originHeight=1308&amp;originWidth=2131&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
-<p>今天就先入个门，如何使用这些模型参数，甚至说如何训练自己的模型，自己的风格，就看后续吧，希望你们不散，我不鸽。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Gridea 同步失败？谈谈我的解决办法]]></title>
-        <id>https://superupan.github.io/post/Gridea 同步失败？谈谈我的解决办法 - Sonatta_ 生活小栈/</id>
-        <link href="https://superupan.github.io/post/Gridea 同步失败？谈谈我的解决办法 - Sonatta_ 生活小栈/">
-        </link>
-        <updated>2023-04-01T15:01:55.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p>注：Gridea 已于 2022 年 5 月 17 日发布 0.9.3 版本，解决了本文所提到的同步问题，因此本文可能已过时而变得不再实用。</p>
-</blockquote>
-<p><em>注：Gridea 已于 2022 年 5 月 17 日发布 0.9.3 版本，解决了本文所提到的同步问题，因此本文可能已过时而变得不再实用。</em></p>
-<p>去年，我写了一篇文章【10 分钟教你创建个人网站——傻瓜式的网站搭建教学】，介绍如何运用 GitHub Pages 和 Gridea 搭建一个个人网站，时光飞逝，在我忙于应付高考的这一年中，也发生了不少事情。当我高考结束准备再创作的时候，我发现一个极其尴尬的问题—— Gridea 不能用了！<br>
-<img src="https://superupan.github.io/post-images/1627384354752.png#id=aIp4W&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-（如图，Gridea 在点击同步按钮后，显示 “同步发生了错误”）</p>
-<p>我意识到，可能是一年多没用了，版本太低才出现了这个问题，于是我一波操作打开 Gridea 官网，心说去年写那篇文章时我用的版本是 0.9.2，这么长时间想必更了不少版本吧——<br>
-<img src="https://superupan.github.io/post-images/1627384364649.png#id=FqSZk&amp;originHeight=1642&amp;originWidth=2784&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-好家伙，一个版本都没更，这条解决方法算是没了，无奈，我打开 Gridea 的 issue ，简单一翻，果然有不少人有跟我一样的问题。这时我突然想到，Gridea 是使用 GitHub Pages 的，而 Github 在今年 3 月份因为某些众所周知的原因遭到了某个众所周知的系统的 SNI 阻断和端口封锁，导致了对 GitHub 的连接被严重干扰，那么有没有可能是因为这个原因导致了 Gridea 的同步失败呢，一波测试下来，果然，正是因为连接被严重干扰才导致了 Gridea 的同步失败。</p>
-<p>既然是因为众所周知对原因受到了干扰，那最简单的解决方法自然是让代理软件代理 Gridea 对网络的访问，但是偏偏 Gridea 走的不是普通路线，一般的代理软件即使是全局代理，也管不着 Gridea！我翻了翻 Gridea 项目的 issue，发现有人提到在 Windows 端 Proxifier 这个软件可以直接强制 Gridea 受到代理，但是很不幸，我用的是 macOS 系统。</p>
-<p>issue 中有人提到改 hosts 可以解决，但是我上面也说了，对 GitHub 的干扰主要是通过 SNI 阻断和封锁端口（也就是强制丢包），我认为改 hosts 也并非长久之计。</p>
-<p>难道真的没有办法可以在 macOS 上简单的使用 Gridea 吗？好在天无绝人之路，我在众多 issue 中找到了<a href="https://blog.gd1214b.icu/post/F2_C5EVQh/">另一条路</a>，即通过 GitHub Desktop 来将 Gridea 生成的网页文件上传到 GitHub。</p>
-<p>如果能用四个字总结这个解决方案，那就是——曲线救国，既然 Gridea 本身的上传系统不行，那就找个软件来代替它的上传系统。</p>
-<p>首先就是下载 <a href="https://desktop.github.com/">GitHub Desktop</a>，这就是我们拿来顶替 Gridea 上传系统的软件，分析一下思路，我们需要的是用 GitHub Desktop 上传 Gridea 输出的现成的网页文件，通过查看 Gridea 目录可以得知，存放最终网页文件的文件夹是 output，因此我们只要拿 GitHub Desktop 上传这个文件夹到 GitHub 就可以了。</p>
-<p>考虑到上篇文章的受众，这里我先介绍如何找到 output 文件夹，大佬可以直接跳过。<br>
-<img src="https://superupan.github.io/post-images/1627383530716.png#id=FBPY7&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-首先打开 Gridea，点击左下角的设置图标，进入设置。<br>
-<img src="https://superupan.github.io/post-images/1627384381377.png#id=PKpSc&amp;originHeight=1642&amp;originWidth=2624&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-在设置中就可以看到源文件的完整路径。依照路径在文件管理器里找到 output 文件夹，不必进入，直接删除。</p>
-<p>这时打开 GitHub Desktop，会提示你登陆 GitHub 账号。</p>
-<p>登入后，在界面右侧选择对应的仓库。</p>
-<p>此时弹窗显示选择路径，在 Local path 一行填入路径（在上文找到的路径基础上加上 output，即代表生成一个 output 文件夹并将仓库内容 clone 至此）点击 Clone。<br>
-<img src="https://superupan.github.io/post-images/1627390441640.png#id=l5K4a&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-然后打开 Gridea ，点击左侧的远程一栏，点击检查远程连接，结束后点击同步。（这一步可能会失败，没关系，因为我们不用 Gridea 的上传系统）<br>
-<img src="https://superupan.github.io/post-images/1627391197119.png#id=dzxbS&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-打开 GitHub Desktop，点击右侧的 Push origin，这一步完成后即成功。<br>
-<img src="https://superupan.github.io/post-images/1627390623611.png#id=PC7nl&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-请注意，以后再写了新文章要同步的时候，只需要点击同步，不需要检查远程连接。且在 GitHub Pages 中需要先在左侧的 Summary 内写出变动内容（我直接写 update，因为我懒），点击 Commit to master（如上图），然后再点 Push origin。</p>
-<p>解决的教程到这里就结束了，这里简单说下思路。</p>
-<p>在前面我将这种方法称为移花接木，即用 GitHub Desktop 代替 Gridea 的文件上传系统，通过这种方式，Gridea 其实从一个集生成和上传为一体的方便工具变成了一个网页文件生成器。这时有些人应该看出来了，Gridea 的同步按钮对应的功能不仅仅是上传文件，还有生成网页文件这一步，这也解释了为什么在点击同步后遭遇失败却依然能够进行接下来的步骤。</p>
-]]></content>
-    </entry>
-</feed>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://superupan.github.io/post/AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !/" class="post-title gt-a-link">
+                    AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://superupan.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
