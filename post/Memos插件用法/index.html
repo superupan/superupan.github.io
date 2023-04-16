@@ -1,0 +1,219 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Memos插件用法 | 温故而知新</title>
+
+<link rel="shortcut icon" href="https://superupan.github.io/favicon.ico?v=1681631630898">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://superupan.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            温故而知新
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1681631630898" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Memos插件用法
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-04-16 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="memos-让你的短内容在-obsidian-中也有容身之处">Memos 让你的短内容在 Obsidian 中也有容身之处</h1>
+<p><a href="https://zhuanlan.zhihu.com/p/466184189">zhuanlan.zhihu.com</a>AllinBonObsidian 中文论坛运营 ଈ RrMeOm.mADie关注他</p>
+<p>Memos 更新 1.8.0 了</p>
+<ul>
+<li>新的 Memo 分享样式</li>
+<li>你可以利用 Shift 键快速在 Heatmap 上多选日期区间</li>
+<li>你可以用 Ctrl 键来快速打开有 Memos 的日记</li>
+<li>支持自定义 Memos 识别规则</li>
+<li>支持给 DELETE 和 QUERY 文件设置文件名</li>
+<li>支持从库内检索所有标签</li>
+</ul>
+<h2 id="前言">前言</h2>
+<p>如果说之前在 Obsidian 中最苦恼的事情是什么，那就是除了一些极短的吐槽或者沙雕图无法丢进 Obsidian 里面（这里说的无法是会和周边的笔记格格不入），我尝试过很多种方式来存放这些沙雕图以及吐槽，试过用 Obsidian-Kanban 来组织、试过用 Obsidian-Cardboard 来组织相关的信息，还试过放到 Daily Notes 中，但是又会比较难找，即使找到了也难以单个分享出去，毕竟沙雕图搭配吐槽想要看起来好看，也得想另一个办法来解决这个问题。</p>
+<p>而后，我开始物色各种外部软件，但是绝大部分外部软件都无法处理好一条信息配合一条沙雕图的组成，或者就是无法和我原来的笔记内容组合起来，直到后来碰到了 Flomo ，我想这个是一个绝棒的沙雕图或者短内容的组织以及存放形式，你的每一条 Memo 就是一条单独的信息，你可以查看每天的沙雕图或者想法，也可以按标签分类对应的内容，即使需要引用上下文的时候，也可以利用对应的 MARK 来实现。</p>
+<p>而由于它本身依旧是一个网页应用，我所能做的只能是将它的使用场景和 Obsidian 隔离开来，在一阵思想争斗后，我放弃了这个想法，回到了用 Kanban 来组织沙雕图的原始快乐。</p>
+<p>但是源于 Obsidian 带来的折腾天性，让我不断地去寻找机会来在 Obsidian 中实现类似的输入机制，终于有一次我在逛论坛的时候，让我发现了致敬 Flomo 的 <a href="https://link.zhihu.com/?target=https%3A//github.com/justmemos/memos">Memos</a>开源项目，，于是，我脑里蹦出了一个想法：我要将 Memos 移植到 Obsidian 中，而且所有内容加载都基于 Markdown。</p>
+<p>而这个过程中如何处理 Memo 本身的时间信息成了最大的难题，但是由于我之前在使用 Obsidian 进行日记记录的时候，就会有意识地在每一行内容中插入一条时间戳，而且平时利用 Day Planner 插件的时候也是需要用到 HH:mm 这样的时间戳，所以，我意识到利用 日记标题天然自带的日期属性配合对应的时间戳就可以实现到分为止的时间属性的记录。</p>
+<p>最后，我要向大家介绍一下这个我认为已经完美移植且兼容 Obsidian 生态的 Obsidian-Memos， 它将会是你的沙雕图以及想法记录的好去处。</p>
+<figure data-type="image" tabindex="1"><img src="https://image.cubox.pro/article/2022021119525570424/50262.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://image.cubox.pro/article/2022021119525619603/33675.jpg" alt="" loading="lazy"></figure>
+<p>用法</p>
+<p>在你打开 1.8.0 版本的 Obsidian-Memos 后，你需要先去设置 Obsidian 中自带的日记文件插件，然后如果你已经用过 Obsidian 的日记文件插件，而且你并不希望产生的 Memos 到处乱飞，那么你可能要去设置一下这两个内容（下边的附图多了一个箭头请忽略）：</p>
+<figure data-type="image" tabindex="3"><img src="https://image.cubox.pro/article/2022021119525663267/77229.jpg" alt="" loading="lazy"></figure>
+<p>首先你可能希望在指定的标题后才索引 Memos，注意，这里的每一条 Memos 都是一条类似下边的内容：</p>
+<pre><code>- 12:00 Memos
+</code></pre>
+<p>每次你在 Memos 的输入框中输入的内容，都会转换成类似的格式以后存入到你的日记文件中（至少目前仅支持日记文件）。</p>
+<figure data-type="image" tabindex="4"><img src="https://image.cubox.pro/article/2022021119525685962/99158.jpg" alt="" loading="lazy"></figure>
+<p>（日记中的内容如下）</p>
+<figure data-type="image" tabindex="5"><img src="https://image.cubox.pro/article/2022021119525652956/15926.jpg" alt="" loading="lazy"></figure>
+<p>当然，得益于原开源项目 Memos 的功能，已经实现了很多需要实现的功能，包括但不限于标签、筛选器、热力图、全 Memos 索引。</p>
+<p>我在原开源项目的基础上加上了以下功能：</p>
+<ul>
+<li>筛选日期范围，你可以利用 Shift + 点击来快速筛选一段时间内的 Memos ；</li>
+<li>日期选择器以及标签选择器；</li>
+<li>新的分享样式以及快速更改 Memo 状态的功能；</li>
+<li>本地图片预览以及复制；</li>
+<li>移动端上实现底部编辑框等；</li>
+<li>双向链接引用；</li>
+</ul>
+<p>更多的功能请自行在 Memos 中发现以及享受；当然，你也许会问，为什么没有批量标签更改的功能，因为 Obsidian 有 Tag wrangler 插件来提供相对应的快速标签修改，所以我就干脆没有实现类似的功能。</p>
+<p>同时我也基于 Memos 项目，考虑到移植到 Obsidian 中的本地需求，带来了很多自定义的选项，包括但不限于：</p>
+<ul>
+<li>热力图颜色的更改；</li>
+<li>分享样式中图片的设置；</li>
+<li>分享样式中底部内容的设置；</li>
+<li>默认存储的 Memo 样式设置；</li>
+<li>隐藏已经完成的 Memo 等。</li>
+</ul>
+<p>而又由于 Obsidian 本身的特性，所以，<strong>原生态支持离线移动端以及离线桌面端</strong>，正如本篇内容开头的两张宣传图一样。</p>
+<p>由于 Obsidian 中的绝大多数样式都是基于 CSS 控制的，所以当你使用 Blue Topaz 和 Minimal 主题样式的时候，通常都已经有相对应的适配，如果你想继续折腾的话，那你也可以自定义 Memos 的全部样式，社区已经有一个贡献者贡献了很多 CSS 上的修改。</p>
+<h2 id="感想">感想</h2>
+<p>之前我对简短内容的存放以及间隙日记的组织，总是感到头疼，而在开发了 Obsidian-Memos 插件后，我觉得它确实是解决了我很多的问题，例如下边的两个想法和沙雕图就是用的 Memos 来组织和分享的：</p>
+<figure data-type="image" tabindex="6"><img src="https://image.cubox.pro/article/2022021119525684613/25418.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://image.cubox.pro/article/2022021119525788099/47181.jpg" alt="" loading="lazy"></figure>
+<p>而这种分享的感觉，也得到了我的朋友的一致认可。</p>
+<p>当然，各位千万别学我一言不合就折腾至此，只能说，Obsidian 确实给了我不少可以去尝试以及去动手的空间，而这一个插件，我也陆陆续续，除了过年以外，坚持用了三十天，希望有同样经常有简短内容需要组织或者有沙雕图需要处理的人，可以认真考虑下~润了。</p>
+<p>最后附上这个插件的 Github 下载地址（当然你也可以在 Obsidian 的插件社区中直接下载，已经上架了）：</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//github.com/Quorafind/Obsidian-Memos/releases">Github 手动下载</a>，</p>
+<p>为了方便无法上 Github 的用户，这里是打包好的插件，安装方式就是解压到库文件的 .Obsidian\plugins\Obsidian-Memos 文件夹中：</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//wwz.lanzouo.com/ilkyyzwdmqd">蓝奏云下载</a></p>
+<p>不用担心，插件实际的使用界面都是中文汉化的，也可以去看一下之前弄的一个简单文档：</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//github.com/Quorafind/Obsidian-Memos/blob/main/document/chinese.md">中文文档</a></p>
+<p>下个新插件再见？下篇再见？都可都可。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/466184189">查看原网页: zhuanlan.zhihu.com</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://superupan.github.io/post/Obsidian-插件推荐/" class="post-title gt-a-link">
+                    Obsidian-插件推荐
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://superupan.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -2,13 +2,573 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://superupan.github.io</id>
     <title>温故而知新</title>
-    <updated>2023-04-02T10:38:31.083Z</updated>
+    <updated>2023-04-16T07:53:54.182Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://superupan.github.io"/>
     <link rel="self" href="https://superupan.github.io/atom.xml"/>
     <logo>https://superupan.github.io/images/avatar.png</logo>
     <icon>https://superupan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2023, 温故而知新</rights>
+    <entry>
+        <title type="html"><![CDATA[Memos插件用法]]></title>
+        <id>https://superupan.github.io/post/Memos插件用法/</id>
+        <link href="https://superupan.github.io/post/Memos插件用法/">
+        </link>
+        <updated>2023-04-16T07:52:58.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="memos-让你的短内容在-obsidian-中也有容身之处">Memos 让你的短内容在 Obsidian 中也有容身之处</h1>
+<p><a href="https://zhuanlan.zhihu.com/p/466184189">zhuanlan.zhihu.com</a>AllinBonObsidian 中文论坛运营 ଈ RrMeOm.mADie关注他</p>
+<p>Memos 更新 1.8.0 了</p>
+<ul>
+<li>新的 Memo 分享样式</li>
+<li>你可以利用 Shift 键快速在 Heatmap 上多选日期区间</li>
+<li>你可以用 Ctrl 键来快速打开有 Memos 的日记</li>
+<li>支持自定义 Memos 识别规则</li>
+<li>支持给 DELETE 和 QUERY 文件设置文件名</li>
+<li>支持从库内检索所有标签</li>
+</ul>
+<h2 id="前言">前言</h2>
+<p>如果说之前在 Obsidian 中最苦恼的事情是什么，那就是除了一些极短的吐槽或者沙雕图无法丢进 Obsidian 里面（这里说的无法是会和周边的笔记格格不入），我尝试过很多种方式来存放这些沙雕图以及吐槽，试过用 Obsidian-Kanban 来组织、试过用 Obsidian-Cardboard 来组织相关的信息，还试过放到 Daily Notes 中，但是又会比较难找，即使找到了也难以单个分享出去，毕竟沙雕图搭配吐槽想要看起来好看，也得想另一个办法来解决这个问题。</p>
+<p>而后，我开始物色各种外部软件，但是绝大部分外部软件都无法处理好一条信息配合一条沙雕图的组成，或者就是无法和我原来的笔记内容组合起来，直到后来碰到了 Flomo ，我想这个是一个绝棒的沙雕图或者短内容的组织以及存放形式，你的每一条 Memo 就是一条单独的信息，你可以查看每天的沙雕图或者想法，也可以按标签分类对应的内容，即使需要引用上下文的时候，也可以利用对应的 MARK 来实现。</p>
+<p>而由于它本身依旧是一个网页应用，我所能做的只能是将它的使用场景和 Obsidian 隔离开来，在一阵思想争斗后，我放弃了这个想法，回到了用 Kanban 来组织沙雕图的原始快乐。</p>
+<p>但是源于 Obsidian 带来的折腾天性，让我不断地去寻找机会来在 Obsidian 中实现类似的输入机制，终于有一次我在逛论坛的时候，让我发现了致敬 Flomo 的 <a href="https://link.zhihu.com/?target=https%3A//github.com/justmemos/memos">Memos</a>开源项目，，于是，我脑里蹦出了一个想法：我要将 Memos 移植到 Obsidian 中，而且所有内容加载都基于 Markdown。</p>
+<p>而这个过程中如何处理 Memo 本身的时间信息成了最大的难题，但是由于我之前在使用 Obsidian 进行日记记录的时候，就会有意识地在每一行内容中插入一条时间戳，而且平时利用 Day Planner 插件的时候也是需要用到 HH:mm 这样的时间戳，所以，我意识到利用 日记标题天然自带的日期属性配合对应的时间戳就可以实现到分为止的时间属性的记录。</p>
+<p>最后，我要向大家介绍一下这个我认为已经完美移植且兼容 Obsidian 生态的 Obsidian-Memos， 它将会是你的沙雕图以及想法记录的好去处。</p>
+<figure data-type="image" tabindex="1"><img src="https://image.cubox.pro/article/2022021119525570424/50262.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://image.cubox.pro/article/2022021119525619603/33675.jpg" alt="" loading="lazy"></figure>
+<p>用法</p>
+<p>在你打开 1.8.0 版本的 Obsidian-Memos 后，你需要先去设置 Obsidian 中自带的日记文件插件，然后如果你已经用过 Obsidian 的日记文件插件，而且你并不希望产生的 Memos 到处乱飞，那么你可能要去设置一下这两个内容（下边的附图多了一个箭头请忽略）：</p>
+<figure data-type="image" tabindex="3"><img src="https://image.cubox.pro/article/2022021119525663267/77229.jpg" alt="" loading="lazy"></figure>
+<p>首先你可能希望在指定的标题后才索引 Memos，注意，这里的每一条 Memos 都是一条类似下边的内容：</p>
+<pre><code>- 12:00 Memos
+</code></pre>
+<p>每次你在 Memos 的输入框中输入的内容，都会转换成类似的格式以后存入到你的日记文件中（至少目前仅支持日记文件）。</p>
+<figure data-type="image" tabindex="4"><img src="https://image.cubox.pro/article/2022021119525685962/99158.jpg" alt="" loading="lazy"></figure>
+<p>（日记中的内容如下）</p>
+<figure data-type="image" tabindex="5"><img src="https://image.cubox.pro/article/2022021119525652956/15926.jpg" alt="" loading="lazy"></figure>
+<p>当然，得益于原开源项目 Memos 的功能，已经实现了很多需要实现的功能，包括但不限于标签、筛选器、热力图、全 Memos 索引。</p>
+<p>我在原开源项目的基础上加上了以下功能：</p>
+<ul>
+<li>筛选日期范围，你可以利用 Shift + 点击来快速筛选一段时间内的 Memos ；</li>
+<li>日期选择器以及标签选择器；</li>
+<li>新的分享样式以及快速更改 Memo 状态的功能；</li>
+<li>本地图片预览以及复制；</li>
+<li>移动端上实现底部编辑框等；</li>
+<li>双向链接引用；</li>
+</ul>
+<p>更多的功能请自行在 Memos 中发现以及享受；当然，你也许会问，为什么没有批量标签更改的功能，因为 Obsidian 有 Tag wrangler 插件来提供相对应的快速标签修改，所以我就干脆没有实现类似的功能。</p>
+<p>同时我也基于 Memos 项目，考虑到移植到 Obsidian 中的本地需求，带来了很多自定义的选项，包括但不限于：</p>
+<ul>
+<li>热力图颜色的更改；</li>
+<li>分享样式中图片的设置；</li>
+<li>分享样式中底部内容的设置；</li>
+<li>默认存储的 Memo 样式设置；</li>
+<li>隐藏已经完成的 Memo 等。</li>
+</ul>
+<p>而又由于 Obsidian 本身的特性，所以，<strong>原生态支持离线移动端以及离线桌面端</strong>，正如本篇内容开头的两张宣传图一样。</p>
+<p>由于 Obsidian 中的绝大多数样式都是基于 CSS 控制的，所以当你使用 Blue Topaz 和 Minimal 主题样式的时候，通常都已经有相对应的适配，如果你想继续折腾的话，那你也可以自定义 Memos 的全部样式，社区已经有一个贡献者贡献了很多 CSS 上的修改。</p>
+<h2 id="感想">感想</h2>
+<p>之前我对简短内容的存放以及间隙日记的组织，总是感到头疼，而在开发了 Obsidian-Memos 插件后，我觉得它确实是解决了我很多的问题，例如下边的两个想法和沙雕图就是用的 Memos 来组织和分享的：</p>
+<figure data-type="image" tabindex="6"><img src="https://image.cubox.pro/article/2022021119525684613/25418.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://image.cubox.pro/article/2022021119525788099/47181.jpg" alt="" loading="lazy"></figure>
+<p>而这种分享的感觉，也得到了我的朋友的一致认可。</p>
+<p>当然，各位千万别学我一言不合就折腾至此，只能说，Obsidian 确实给了我不少可以去尝试以及去动手的空间，而这一个插件，我也陆陆续续，除了过年以外，坚持用了三十天，希望有同样经常有简短内容需要组织或者有沙雕图需要处理的人，可以认真考虑下~润了。</p>
+<p>最后附上这个插件的 Github 下载地址（当然你也可以在 Obsidian 的插件社区中直接下载，已经上架了）：</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//github.com/Quorafind/Obsidian-Memos/releases">Github 手动下载</a>，</p>
+<p>为了方便无法上 Github 的用户，这里是打包好的插件，安装方式就是解压到库文件的 .Obsidian\plugins\Obsidian-Memos 文件夹中：</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//wwz.lanzouo.com/ilkyyzwdmqd">蓝奏云下载</a></p>
+<p>不用担心，插件实际的使用界面都是中文汉化的，也可以去看一下之前弄的一个简单文档：</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//github.com/Quorafind/Obsidian-Memos/blob/main/document/chinese.md">中文文档</a></p>
+<p>下个新插件再见？下篇再见？都可都可。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/466184189">查看原网页: zhuanlan.zhihu.com</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Obsidian-插件推荐]]></title>
+        <id>https://superupan.github.io/post/Obsidian-插件推荐/</id>
+        <link href="https://superupan.github.io/post/Obsidian-插件推荐/">
+        </link>
+        <updated>2023-04-16T07:52:58.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="obsidian-插件推荐">Obsidian-插件推荐</h1>
+<p><a href="https://zhuanlan.zhihu.com/p/353449575">zhuanlan.zhihu.com</a></p>
+<p>目录</p>
+<p>收起</p>
+<p>文字编辑</p>
+<p>Advanced Tables</p>
+<p>Admonition</p>
+<p>Auto Link Title</p>
+<p>Add links current note</p>
+<p>Better Word Count</p>
+<p>Mind Map</p>
+<p>Wikilinks to MDLinks</p>
+<p>Footnote Shortcut</p>
+<p>Better Fn</p>
+<p>Tidy Footnotes</p>
+<p>Dangerzone Writing</p>
+<p>实用工具</p>
+<p>Calendar</p>
+<p>Checklist</p>
+<p>Kindle Highlights</p>
+<p>Natural Language Dates</p>
+<p>Reading Time</p>
+<p>Slated</p>
+<p>Emoji Toolbar</p>
+<p>Icons</p>
+<p>界面美化</p>
+<p>Discordian主题以及插件</p>
+<p>Collapse All</p>
+<p>Cycle through panes</p>
+<p>Sliding Panes</p>
+<p>文件/Wiki整理查找</p>
+<p>Clear Unused Images</p>
+<p>Dangling links</p>
+<p>Obsidian Vault Statistics Plugin</p>
+<p>Find unlinked files and unresolved links</p>
+<p>Jump to link</p>
+<p>Youglish Plugin</p>
+<ul>
+<li>
+<p>个人使用的obsidian插件推荐。</p>
+</li>
+<li>
+<p>持续更新。</p>
+</li>
+<li>
+<p>0726更新插件介绍</p>
+</li>
+<li>
+<p>admonition（警告（块））</p>
+</li>
+<li>
+<p>atuo link title（自动补全链接标题）</p>
+</li>
+<li>
+<p>checklist（检查库中的所有清单）</p>
+</li>
+<li>
+<p>collapse all（快速折叠所有文件夹层）</p>
+</li>
+<li>
+<p>clear unused images（清理未链接的图片）</p>
+</li>
+<li>
+<p>1029特别更新-界面美化-<strong>Discordian主题以及插件</strong></p>
+</li>
+</ul>
+<hr>
+<h2 id="文字编辑">文字编辑</h2>
+<h3 id="advanced-tables"><a href="https://link.zhihu.com/?target=https%3A//github.com/tgrosinger/advanced-tables-obsidian">Advanced Tables</a></h3>
+<ul>
+<li>快捷创建表格</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://image.cubox.pro/article/2021102118234521596/66372.jpg" alt="" loading="lazy"></figure>
+<p>作者tgrosinger在GitHub的展示</p>
+<hr>
+<h3 id="admonition"><a href="https://link.zhihu.com/?target=https%3A//github.com/valentine195/obsidian-admonition">Admonition</a></h3>
+<ul>
+<li>警告（块）</li>
+<li>可以使用^对其内部内容进行全格式引用。</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://image.cubox.pro/article/2022020920321097303/19621.jpg" alt="" loading="lazy"></figure>
+<p>作者tgrosinger在GitHub的展示</p>
+<figure data-type="image" tabindex="3"><img src="https://image.cubox.pro/article/2021102118234643602/18550.jpg" alt="" loading="lazy"></figure>
+<p>作者tgrosinger在GitHub的展示</p>
+<figure data-type="image" tabindex="4"><img src="https://image.cubox.pro/article/2022020920321053159/89959.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://image.cubox.pro/article/2022020920321019197/43368.jpg" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="auto-link-title"><a href="https://link.zhihu.com/?target=https%3A//github.com/zolrath/obsidian-auto-link-title">Auto Link Title</a></h3>
+<ul>
+<li>自动补全链接标题</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://image.cubox.pro/article/2021102118234679776/85634.jpg" alt="" loading="lazy"></figure>
+<p>作者Matt Furden 在 github 的展示</p>
+<hr>
+<h3 id="add-links-current-note"><a href="https://link.zhihu.com/?target=https%3A//github.com/mrjackphil/obsidian-crosslink-between-notes">Add links current note</a></h3>
+<ul>
+<li>添加指向当前笔记注释的链接（到所选笔记链接的底部）</li>
+</ul>
+<figure data-type="image" tabindex="7"><img src="https://image.cubox.pro/article/2021102212422027198/81456.jpg" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="better-word-count"><a href="https://link.zhihu.com/?target=https%3A//github.com/lukeleppan/better-word-count">Better Word Count</a></h3>
+<ul>
+<li>文字记数。</li>
+</ul>
+<figure data-type="image" tabindex="8"><img src="https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fpic3.zhimg.com%2F80%2Fv2-6c9d0de1c8938325c585c14a96fa3d06_1440w.png" alt="" loading="lazy"></figure>
+<ul>
+<li>比起原有记数，该插件可<strong>实时显示所选字数</strong>。</li>
+</ul>
+<figure data-type="image" tabindex="9"><img src="https://image.cubox.pro/article/2021102118234616107/72210.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>三种记数分辨，主要针对英文：</p>
+</li>
+<li>
+<p>words（词汇，涵盖标点但不包括数字）；</p>
+</li>
+<li>
+<p>characters（字符，涵盖标点及数字）；</p>
+</li>
+<li>
+<p>sentences（句子，针对英文标点识别，以英文句点、双引等识别句子数量）。</p>
+</li>
+</ul>
+<hr>
+<h3 id="mind-map"><a href="https://link.zhihu.com/?target=https%3A//github.com/lynchjames/obsidian-mind-map">Mind Map</a></h3>
+<ul>
+<li>脑图</li>
+</ul>
+<figure data-type="image" tabindex="10"><img src="https://image.cubox.pro/article/2022020920321013019/83619.jpg" alt="" loading="lazy"></figure>
+<p>作者lynchjames在GitHub的展示</p>
+<hr>
+<h3 id="wikilinks-to-mdlinks"><a href="https://link.zhihu.com/?target=https%3A//github.com/agathauy/wikilinks-to-mdlinks-obsidian">Wikilinks to MDLinks</a></h3>
+<ul>
+<li>可任意转换wiki与md链接。</li>
+</ul>
+<figure data-type="image" tabindex="11"><img src="https://image.cubox.pro/article/2021102118234555974/81021.jpg" alt="" loading="lazy"></figure>
+<p>作者agathauy在Github的展示</p>
+<hr>
+<blockquote>
+<p>脚注类的配套插件。</p>
+</blockquote>
+<h3 id="footnote-shortcut"><a href="https://link.zhihu.com/?target=https%3A//github.com/akaalias/obsidian-footnotes">Footnote Shortcut</a></h3>
+<ul>
+<li>Ctrl+Shift+6，插入脚注/从脚注处跳返到插入脚注处</li>
+<li>适合编辑时对照脚注。</li>
+</ul>
+<figure data-type="image" tabindex="12"><img src="https://image.cubox.pro/article/2021102118234628750/95682.jpg" alt="" loading="lazy"></figure>
+<p>作者Alexis Rondeau在Github的展示</p>
+<h3 id="better-fn"><a href="https://link.zhihu.com/?target=https%3A//github.com/alx-plugins/better-fn">Better Fn</a></h3>
+<ul>
+<li>脚注的预览插件。</li>
+</ul>
+<figure data-type="image" tabindex="13"><img src="https://image.cubox.pro/article/2021102118234584970/99843.jpg" alt="" loading="lazy"></figure>
+<p>作者AidenLx在Github的展示</p>
+<hr>
+<h3 id="tidy-footnotes"><a href="https://link.zhihu.com/?target=https%3A//github.com/charliecm/obsidian-tidy-footnotes">Tidy Footnotes</a></h3>
+<ul>
+<li>重新排序脚注。</li>
+</ul>
+<figure data-type="image" tabindex="14"><img src="https://image.cubox.pro/article/2021102118234659925/58515.jpg" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="dangerzone-writing"><a href="https://link.zhihu.com/?target=https%3A//github.com/akaalias/dangerzone-writing-plugin">Dangerzone Writing</a></h3>
+<ul>
+<li>**<em>有趣的</em>**写作（？）插件！</li>
+</ul>
+<figure data-type="image" tabindex="15"><img src="https://image.cubox.pro/article/2021102118234654690/13877.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li></li>
+</ul>
+<p>作者akaalias在GitHub的展示</p>
+<ul>
+<li>只要超出预置时间内没有键入文字，你的整篇文章都会被清除！</li>
+<li>对于写作拖延或是想要尝鲜的小伙伴极力推荐（不）。</li>
+<li>使用该插件极有可能让你文思泉涌（物理层面）。</li>
+</ul>
+<ul>
+<li></li>
+</ul>
+<hr>
+<h2 id="实用工具">实用工具</h2>
+<h3 id="calendar"><a href="https://link.zhihu.com/?target=https%3A//github.com/liamcain/obsidian-calendar-plugin">Calendar</a></h3>
+<ul>
+<li>日历</li>
+</ul>
+<figure data-type="image" tabindex="16"><img src="https://image.cubox.pro/article/2022020920321076451/96715.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li></li>
+</ul>
+<p>作者liamcain在GitHub的展示</p>
+<ul>
+<li>
+<p>众所周知的日历！<em>有周记事可用。</em></p>
+</li>
+<li>
+<p>与核心插件中的日记一样，周计划可提前建好模板。</p>
+</li>
+<li>
+<p>可选择是否在日历面板中显示。</p>
+</li>
+<li>
+<p>若用md语法<code>- []</code>，该日历面板中会以在空心/实心点显示是否完成任务</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="17"><img src="https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fpic1.zhimg.com%2F80%2Fv2-fab5806b32931ed65a934e0f307d6488_1440w.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li></li>
+</ul>
+<p>空心点，即为该日内有未完成的计划</p>
+<hr>
+<h3 id="checklist"><a href="https://link.zhihu.com/?target=https%3A//github.com/delashum/obsidian-checklist-plugin">Checklist</a></h3>
+<ul>
+<li>清单检查</li>
+</ul>
+<figure data-type="image" tabindex="18"><img src="https://image.cubox.pro/article/2022020920321092095/42767.jpg" alt="" loading="lazy"></figure>
+<p>作者 delashum 在github 的展示</p>
+<hr>
+<h3 id="kindle-highlights"><a href="https://link.zhihu.com/?target=https%3A//github.com/hadynz/obsidian-kindle-plugin">Kindle Highlights</a></h3>
+<ul>
+<li>
+<p>如果你使用kindle，那这款插件你将不能错过。</p>
+</li>
+<li>
+<p>该插件可以从亚马逊直接同步你的笔记（但目前仅仅支持美区与日区）</p>
+</li>
+<li>
+<p>也可以从笔记文件直接上传导入。</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="19"><img src="https://image.cubox.pro/article/2021102118234680807/98053.jpg" alt="" loading="lazy"></figure>
+<p>作者hadynz在Github的展示</p>
+<ul>
+<li></li>
+</ul>
+<hr>
+<h3 id="natural-language-dates"><a href="https://link.zhihu.com/?target=https%3A//github.com/argenos/nldates-obsidian">Natural Language Dates</a></h3>
+<ul>
+<li>日期语法</li>
+<li>可以分辨“now、today、tomorrow”这类涵盖时间含义的单词，将其通过ctrl+Y直接转换为数字日期格式</li>
+</ul>
+<figure data-type="image" tabindex="20"><img src="https://image.cubox.pro/article/2021102118234680886/76929.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li></li>
+</ul>
+<hr>
+<h3 id="reading-time"><a href="https://link.zhihu.com/?target=https%3A//github.com/avr/obsidian-reading-time">Reading Time</a></h3>
+<ul>
+<li>阅读时间</li>
+</ul>
+<figure data-type="image" tabindex="21"><img src="https://image.cubox.pro/article/2022020920321071151/17888.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li></li>
+</ul>
+<p>作者avrw在Github的展示</p>
+<hr>
+<h3 id="slated"><a href="https://link.zhihu.com/?target=https%3A//github.com/tgrosinger/slated-obsidian">Slated</a></h3>
+<ul>
+<li>移动未完成的任务到今日。</li>
+</ul>
+<figure data-type="image" tabindex="22"><img src="https://image.cubox.pro/article/2021102118234570768/30423.jpg" alt="" loading="lazy"></figure>
+<p>作者Deathauagathauy在Github的展示-</p>
+<ul>
+<li>设置重复任务。</li>
+</ul>
+<figure data-type="image" tabindex="23"><img src="https://image.cubox.pro/article/2022020920321075007/45814.jpg" alt="" loading="lazy"></figure>
+<p>作者tgrosinger在Github的展示</p>
+<hr>
+<h3 id="emoji-toolbar"><a href="https://link.zhihu.com/?target=https%3A//github.com/oliveryh/obsidian-emoji-toolbar">Emoji Toolbar</a></h3>
+<ul>
+<li>可爱的小黄脸表情！</li>
+</ul>
+<figure data-type="image" tabindex="24"><img src="https://image.cubox.pro/article/2021102118234622740/91730.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li></li>
+</ul>
+<p>作者oliveryh在GitHub的展示</p>
+<hr>
+<h3 id="icons"><a href="https://link.zhihu.com/?target=https%3A//github.com/visini/obsidian-icons-plugin">Icons</a></h3>
+<ul>
+<li>各种图标。</li>
+</ul>
+<figure data-type="image" tabindex="25"><img src="https://image.cubox.pro/article/2021102118234673229/67489.jpg" alt="" loading="lazy"></figure>
+<p>作者 visini 在 GitHub 的展示</p>
+<ul>
+<li></li>
+</ul>
+<hr>
+<h2 id="界面美化">界面美化</h2>
+<h3 id="discordian主题以及插件">Discordian主题以及插件</h3>
+<ul>
+<li>writer mode非常好用。</li>
+</ul>
+<figure data-type="image" tabindex="26"><img src="https://image.cubox.pro/article/2022020920321027341/22222.jpg" alt="" loading="lazy"></figure>
+<p>作者 radekkozak 在 github 的展示</p>
+<hr>
+<h3 id="collapse-all"><a href="https://link.zhihu.com/?target=https%3A//github.com/OfficerHalf/obsidian-collapse-all">Collapse All</a></h3>
+<ul>
+<li>快速折叠/展开所有文件夹层</li>
+</ul>
+<figure data-type="image" tabindex="27"><img src="https://image.cubox.pro/article/2021102118234691675/92634.jpg" alt="" loading="lazy"></figure>
+<p>作者 officeHalf 在 github 的展示</p>
+<hr>
+<h3 id="cycle-through-panes"><a href="https://link.zhihu.com/?target=https%3A//github.com/phibr0/cycle-through-panes">Cycle through panes</a></h3>
+<ul>
+<li>窗口循环。</li>
+<li>通过ctrl+tab/ctrl+shift+tab实现快速循环笔记窗口。-</li>
+</ul>
+<figure data-type="image" tabindex="28"><img src="https://image.cubox.pro/article/2021102118234695272/77876.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>搭配Sliding Panes（窗口滑动）效果奇佳。</li>
+</ul>
+<figure data-type="image" tabindex="29"><img src="https://image.cubox.pro/article/2021102118234667009/62342.jpg" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="sliding-panes"><a href="https://link.zhihu.com/?target=https%3A//github.com/deathau/sliding-panes-obsidian">Sliding Panes</a></h3>
+<ul>
+<li>滑动窗格</li>
+</ul>
+<figure data-type="image" tabindex="30"><img src="https://image.cubox.pro/article/2021072916193239450/31885.jpg" alt="" loading="lazy"></figure>
+<p>作者Deathau在Github的展示</p>
+<hr>
+<h2 id="文件wiki整理查找">文件/Wiki整理查找</h2>
+<h3 id="clear-unused-images"><a href="https://link.zhihu.com/?target=https%3A//github.com/ozntel/oz-clear-unused-images-obsidian">Clear Unused Images</a></h3>
+<ul>
+<li>清理未链接的图片文件。</li>
+</ul>
+<hr>
+<h3 id="dangling-links"><a href="https://link.zhihu.com/?target=https%3A//github.com/graydon/obsidian-dangling-links">Dangling links</a></h3>
+<ul>
+<li>空置链接</li>
+</ul>
+<figure data-type="image" tabindex="31"><img src="https://image.cubox.pro/article/2021102118234679207/73677.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>没有实际创建的空链接会在窗口中单独显示，并提供跳转。</li>
+</ul>
+<hr>
+<h3 id="obsidian-vault-statistics-plugin"><a href="https://link.zhihu.com/?target=https%3A//github.com/bkyle/obsidian-vault-statistics-plugin">Obsidian Vault Statistics Plugin</a></h3>
+<ul>
+<li>统计</li>
+<li>可以统计出工作库中各种笔记文档、附件、文件、链接的数量。</li>
+</ul>
+<figure data-type="image" tabindex="32"><img src="https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fpic4.zhimg.com%2F80%2Fv2-377cc770794274844f4460d958bb5707_1440w.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="33"><img src="https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fpic4.zhimg.com%2F80%2Fv2-83a16baec04675ef22ec576a99140963_1440w.png" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="find-unlinked-files-and-unresolved-links"><a href="https://link.zhihu.com/?target=https%3A//github.com/Vinzent03/find-unlinked-files">Find unlinked files and unresolved links</a></h3>
+<ul>
+<li>
+<p>查找未链接/未创建的文档。</p>
+</li>
+<li>
+<p>可辨识出库文件中没有被双向链接/创建的文档，后者与Danging links相似，但不同的是，该插件会创建出一个文档专门显示被查找出的文档。</p>
+</li>
+<li>
+<p>但由于基本设置（如：文件与链接/新建笔记存放位置）可能不同，请不要直接在被查找出的空链接文档中点击创建。</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="34"><img src="https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fpic2.zhimg.com%2Fv2-888918b8eb4f1c00a74d0fd859c51965_b.webp" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="jump-to-link"><a href="https://link.zhihu.com/?target=https%3A//github.com/mrjackphil/obsidian-jump-to-link">Jump to link</a></h3>
+<ul>
+<li>使用ctrl+‘，用字母标识链接直接跳转</li>
+</ul>
+<figure data-type="image" tabindex="35"><img src="https://image.cubox.pro/article/2021102118234654754/50074.jpg" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="youglish-plugin"><a href="https://link.zhihu.com/?target=https%3A//github.com/nhaouari/obsidian-youglish-plugin">Youglish Plugin</a></h3>
+<ul>
+<li>
+<p>语言学习者的推荐利器！-</p>
+</li>
+<li>
+<p>Youglish是一个发音查找网站，它借助了YouTube视频配有的文字字幕来提供查找纯正发音，而该插件提供了在Obsidian中转到Youglish的快捷窗口。-</p>
+</li>
+</ul>
+<p>Youglish-1</p>
+<hr>
+<p>插件打包-链接：</p>
+<p>链接: <a href="https://link.zhihu.com/?target=https%3A//pan.baidu.com/s/13hg9EaxoWxMs2COrhkbW7Q">https://pan.baidu.com/s/13hg9EaxoWxMs2COrhkbW7Q</a></p>
+<p>提取码: s4da</p>
+<p>有条件，可访问的情况下，还是希望去Github给作者star哦！</p>
+<p><a href="https://zhuanlan.zhihu.com/p/353449575">查看原网页: zhuanlan.zhihu.com</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Obsidian优质内容合集]]></title>
+        <id>https://superupan.github.io/post/Obsidian优质内容合集/</id>
+        <link href="https://superupan.github.io/post/Obsidian优质内容合集/">
+        </link>
+        <updated>2023-04-16T07:52:58.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="obsidian优质内容合集">Obsidian优质内容合集</h1>
+<p><a href="https://mp.weixin.qq.com/s/bth-aGcuXJEPwB9gdGjwfQ">mp.weixin.qq.com</a>Lillian Who 莉莉安备忘录</p>
+<p>欢迎你来</p>
+<p>这篇文章介绍几个Obsidian优质的内容来源。</p>
+<p><strong><em>官方自带帮助文档</em></strong></p>
+<p>在obsidian界面左下角，❓图标，可以方便的打开官方帮助文档。并且如果你的语言设置是中文，这个文档也是中文的，非常的友好。</p>
+<p>点击这个图标打开：</p>
+<figure data-type="image" tabindex="1"><img src="https://image.cubox.pro/article/2021082322493976413/36538.jpg" alt="" loading="lazy"></figure>
+<p>既有Obsidian基本信息的介绍，能让你快速上手obsidian。</p>
+<figure data-type="image" tabindex="2"><img src="https://image.cubox.pro/article/2021082322493923351/80079.jpg" alt="" loading="lazy"></figure>
+<p>又有markdown语法的演示，清晰又全面。想不起某个语法的时候，就来这里搜索一下。帮助库就内置在了本地，任何时候都可以方便的打开，不需要网络支持。</p>
+<figure data-type="image" tabindex="3"><img src="https://image.cubox.pro/article/2021082322493985639/36094.jpg" alt="" loading="lazy"></figure>
+<p><strong><em>落山鸡编辑与维护的中文文档</em></strong></p>
+<p>[落山鸡编辑的Obsidian 中文教程](https://publish.obsidian.md/chinesehelp)</p>
+<p>该文档收集了比较全的obsidian优质文章、教程，你想要的信息源应有尽有。有了这个文档，几乎你80%的疑问会得到解答。</p>
+<figure data-type="image" tabindex="4"><img src="https://image.cubox.pro/article/2021082322493928700/48918.jpg" alt="" loading="lazy"></figure>
+<p>文档内还有一个插件教程合集，对插件教程的收录非常完整。</p>
+<figure data-type="image" tabindex="5"><img src="https://image.cubox.pro/article/2021082322494319069/26755.jpg" alt="" loading="lazy"></figure>
+<p>文档内还有比较常见的一些问题的答案，比如如何同步，社区登不上怎么办，都有比较成熟的解决方案。</p>
+<figure data-type="image" tabindex="6"><img src="https://image.cubox.pro/article/2021082322494335384/35154.jpg" alt="" loading="lazy"></figure>
+<p>文档由ob爱好者@落山鸡 整理，本身是一个ob库，并使用了ob官方的发布服务发布在网站上。在这个文档中，不仅能查到许多优质的教程文章，甚至文档本身就是双链笔记的非常好的实践，很有参考意义。不知道ob的双链能够呈现什么效果，不知道该如何给自己的笔记加双链的同学，看到这个文档一定会有豁然开朗之感。</p>
+<p><strong>作者其他站点</strong></p>
+<p>落山鸡除了收集ob信息供新人查阅之外，本人也热衷写博客。</p>
+<ul>
+<li>博客：[软达通](https://cyddgh.github.io) 。他的博客会发布一些进阶用法。</li>
+</ul>
+<figure data-type="image" tabindex="7"><img src="https://image.cubox.pro/article/2021082322494323964/23116.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>微信公众号：【软通达】。喜欢的小伙伴可以关注下。</li>
+</ul>
+<p><strong><em>蚕子的B站</em></strong></p>
+<p>视频的操作演示，往往比文字有更大的优势，能够亲眼看到up是怎么操作的，会更直观。</p>
+<p>[Obsidian（黑曜石）软件基础操作教程](https://www.bilibili.com/video/BV1qD4y1m7nv)</p>
+<figure data-type="image" tabindex="8"><img src="https://image.cubox.pro/article/2021082322494343256/32610.jpg" alt="" loading="lazy"></figure>
+<p>内容很适合入门：</p>
+<figure data-type="image" tabindex="9"><img src="https://image.cubox.pro/article/2021082322494371670/46791.jpg" alt="" loading="lazy"></figure>
+<p><strong><em>Lillian的公众号和少数派</em></strong></p>
+<p>没错，就是本人。擅长写入门级教程，适合新手阅读，低门槛，易上手。</p>
+<ul>
+<li>
+<p>公众号：【莉莉安备忘录】</p>
+</li>
+<li>
+<p>少数派：[LillianWho的主页 -少数派](https://sspai.com/u/4b8zstxp/posts)</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="10"><img src="https://image.cubox.pro/article/2021082322494319002/14876.jpg" alt="" loading="lazy"></figure>
+<p><strong><em>Bon的知乎专栏</em></strong></p>
+<p>[Bon 的知乎专栏](https://www.zhihu.com/column/c_1302994040707948544)</p>
+<p>Boninall，在知乎叫AllinBon，他的知乎专栏有很多obsidian软件使用技巧。他会分享一些插件的使用，也有工作流的内容。</p>
+<figure data-type="image" tabindex="11"><img src="https://image.cubox.pro/article/2021082322494379204/48131.jpg" alt="" loading="lazy"></figure>
+<p>Bon算是我所知道的写插件最多的博主，许多插件如果你找不到教程，也许翻翻他的专栏会有意外收获。</p>
+<p>这个专栏适合有一定基础的用户，进阶用户看了都说大有收获！初阶用户可能会有无从下手之感。但当你开始使用某个插件以后，再来读Bon的文章，一定会再重新审视这个插件。</p>
+<p><strong><em>Ryooo 的知乎</em></strong></p>
+<p>[Ryooo的知乎](https://www.zhihu.com/people/rao-yao-47-68/posts)</p>
+<p>Ryooo本人是经管硕士在读，对信息整理有着较深的见解，强烈推荐他的《如何构建笔记系统》。</p>
+<ul>
+<li>
+<p>[如何构建自己的笔记系统？](https://www.zhihu.com/question/23427617/answer/1461195696)</p>
+</li>
+<li>
+<p>[如何构建笔记系统-实际操作篇](https://zhuanlan.zhihu.com/p/353521308)</p>
+</li>
+</ul>
+<p>他的文章功底深厚，文章较长，建议推到阅读软件中食用。</p>
+<figure data-type="image" tabindex="12"><img src="https://image.cubox.pro/article/2021082322494595588/11282.jpg" alt="" loading="lazy"></figure>
+<p>如果你对如何整理自己的信息，如何打标签，如何管理分类，Ryooo的文章你一定会一读再读。</p>
+<p>可以拿去出2本书的知识量，被写成了2篇文章。可以分为16篇干货类自媒体文章的高价值内容，你可以免费阅读。耐心看下去，相信你一定会回来感谢我的。</p>
+<p><strong><em>插件和主题下载资源库</em></strong></p>
+<p>由于github在国内访问不方便，社区插件和社区主题常常无法加载，这里为大家推荐一个方便下载的宝地：</p>
+<p>[gitee: obsidian-plugin](https://gitee.com/whghcyx/obsidian-plugin)</p>
+<p>由ob爱好群群友 @宏沉一笑 上传并维护的gitee项目，包含了当前所有社区插件和社区主题。</p>
+<p><strong>插件库</strong></p>
+<p>[插件库](https://gitee.com/whghcyx/obsidian-plugin/blob/master/%E6%8F%92%E4%BB%B6.md)</p>
+<figure data-type="image" tabindex="13"><img src="https://image.cubox.pro/article/2021082322494576455/63566.jpg" alt="" loading="lazy"></figure>
+<p><strong>主题库</strong></p>
+<p>[主题库](https://gitee.com/whghcyx/obsidian-plugin/blob/master/主题.md)</p>
+<figure data-type="image" tabindex="14"><img src="https://image.cubox.pro/article/2021082322494571136/69244.jpg" alt="" loading="lazy"></figure>
+<p><strong><em>其他</em></strong></p>
+<p>此部分信息由于作者本人并未观看，所以无法做出评价，但本身也不失为一个学习obsidian的信息来源。以下排名不分先后。</p>
+<p><strong>B站up：胸毛齐腰</strong></p>
+<p>[胸毛齐腰](https://space.bilibili.com/39954354)</p>
+<figure data-type="image" tabindex="15"><img src="https://image.cubox.pro/article/2021082322494990233/99557.jpg" alt="" loading="lazy"></figure>
+<p><strong>B站up：即凉</strong></p>
+<p>[Obsidian使用心得｜我是如何使用Obsidian写作的](https://www.bilibili.com/video/BV1P64y1q7ND)</p>
+<figure data-type="image" tabindex="16"><img src="https://image.cubox.pro/article/2021082322494937155/33297.jpg" alt="" loading="lazy"></figure>
+<p><strong>B站up：八角经刀</strong></p>
+<p>[八角经刀](https://space.bilibili.com/241033241)</p>
+<figure data-type="image" tabindex="17"><img src="https://image.cubox.pro/article/2021082322494971482/23776.jpg" alt="" loading="lazy"></figure>
+<p><strong><em>后记</em></strong></p>
+<p>本次资源分享就到这里，整理到现在我也不禁感叹，ob的社区越来越繁荣了。谁能想得到呢？一个完全免费的软件，文件放在用户本地，相当于将所有主动权都交给了用户。而社区插件，完全开放免费，插件开发者没有任何的酬劳，但是插件社区自开放以来，插件数量呈爆炸式增长。社区主题也是一样，主题开发者均来自ob爱好者。以上我整理的文章，除了其他部分的作者我不了解，大多数创作者我也得以在爱好群结识，大家都是无偿的在做这件事。像落山鸡，不仅自发的收集众多信息，维护文档，还承担了网站服务器、付费“发布”功能的费用。这些，都是凭着一腔热血，凭着热爱在做。</p>
+<p>谁说世已无君子？在此，谨向所有的软件开发者、插件开发者、主题开发者、内容分享者致以深切的敬意。感谢你们！</p>
+<p><a href="https://mp.weixin.qq.com/s/bth-aGcuXJEPwB9gdGjwfQ">查看原网页: mp.weixin.qq.com</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Windows 中安装 linux 子系统（Ubuntu）]]></title>
         <id>https://superupan.github.io/post/Windows 中安装 linux 子系统（Ubuntu）/</id>
