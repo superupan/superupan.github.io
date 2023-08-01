@@ -1,0 +1,253 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>simpread-盘点最重要的 7 个 Python 库 | 温故而知新</title>
+
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1690897807402">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            温故而知新
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1690897807402" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    simpread-盘点最重要的 7 个 Python 库
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-08-01 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a href="https://zhuanlan.zhihu.com/p/382110229">zhuanlan.zhihu.com</a> <img src="https://pic4.zhimg.com/v2-667087b4058f58ebc978baeaaba5122b_r.jpg" alt="" loading="lazy"></p>
+</blockquote>
+<p><strong>01 NumPy</strong></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//numpy.org">http://numpy.org</a></p>
+<figure data-type="image" tabindex="1"><img src="https://pic3.zhimg.com/v2-2118f8630155435b6a27d20938d674b6_r.jpg" alt="" loading="lazy"></figure>
+<p>NumPy 是 Numerical Python 的简写，**是 Python 数值计算的基石。**它提供多种数据结构、算法以及大部分涉及 Python 数值计算所需的接口。NumPy 还包括其他内容：</p>
+<ul>
+<li>快速、高效的多维数组对象 ndarray</li>
+<li>基于元素的数组计算或数组间数学操作函数</li>
+<li>用于读写硬盘中基于数组的数据集的工具</li>
+<li>线性代数操作、傅里叶变换以及随机数生成</li>
+</ul>
+<p>成熟的 C 语言 API，允许 Python 拓展和本地的 C 或 C++ 代码访问 NumPy 的数据结构和计算设施。</p>
+<p>除了 NumPy 赋予 Python 的快速数组处理能力之外，**NumPy 的另一个主要用途是在算法和库之间作为数据传递的数据容器。**对于数值数据，NumPy 数组能够比 Python 内建数据结构更为高效地存储和操作数据。</p>
+<p>此外，用底层语言编写的库，例如用 C 或 Fortran 编写的库，可以在 NumPy 数组存储的数据上直接操作，而无须将数据复制到其他内存中后再操作。因此，许多 Python 的数值计算工具将 NumPy 数组作为基础数据结构，或与 NumPy 进行无缝互操作。</p>
+<p><strong>02 pandas</strong></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//pandas.pydata.org">http://pandas.pydata.org</a></p>
+<figure data-type="image" tabindex="2"><img src="https://pic4.zhimg.com/v2-15394a74028b1ffd81be6680ddede03b_r.jpg" alt="" loading="lazy"></figure>
+<p>**pandas 提供了高级数据结构和函数，这些数据结构和函数的设计使得利用结构化、表格化数据的工作快速、简单、有表现力。**它出现于 2010 年，帮助 Python 成为强大、高效的数据分析环境。常用的 pandas 对象是 DataFrame，它是用于实现表格化、面向列、使用行列标签的数据结构；以及 Series，一种一维标签数组对象。</p>
+<p>pandas 将表格和关系型数据库（例如 SQL）的灵活数据操作能力与 NumPy 的高性能数组计算的理念相结合。它提供复杂的索引函数，使得数据的重组、切块、切片、聚合、子集选择更为简单。由于数据操作、预处理、清洗在数据分析中是重要的技能，pandas 将是重要主题。</p>
+<p>介绍一点背景知识，早在 2008 年，**我在一家量化投资企业——AQR 资本管理公司供职时，便开始了 pandas 的开发。**那时候，我有一些独特的需求是工具清单上任何单个工具无法满足的：</p>
+<ul>
+<li>带有标签轴，支持自动化或显式数据对齐功能的数据结构——这可以防止未对齐数据和不同数据源的不同索引数据所引起的常见错误</li>
+<li>集成时间序列函数功能</li>
+<li>能够同时处理时间序列数据和非时间序列数据的统一数据结构</li>
+<li>可以保存元数据的算术操作和简化</li>
+<li>灵活处理缺失数据</li>
+<li>流行数据库（例如基于 SQL 的数据库）中的合并等关系型操作</li>
+</ul>
+<p>我想将以上的工作在同一个地方完成，最好还能在一个拥有通用软件开发能力的语言中实现。Python 就是一个很好的备选项，但是那时候并没有这类数据结构的整合集，也没有能提供相关功能的工具。结果就是 pandas 最初被开发出来用于解决金融和商业分析问题，pandas 尤其擅长深度时间序列和处理商业进程中产生的时间索引数据。</p>
+<p>使用 R 语言进行统计计算的用户对 DataFrame 的名称会非常熟悉，因为这个对象是根据相似的 R data.frame 对象进行命名的。与 Python 不同的是，数据框在 R 语言中是标准库中的内容。因此，pandas 中的很多特征通常与 R 核心的实现或者 R 的附加库提供的功能一致。</p>
+<p>pandas 的名字的来源是 <strong>panel data</strong>，这是计量经济学中针对多维结构化数据集的术语。pandas 也是 <strong>Python data analysis</strong>（Python 数据分析）自身的简写短语。</p>
+<p><strong>03 matplotlib</strong></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//matplotlib.org">http://matplotlib.org</a></p>
+<figure data-type="image" tabindex="3"><img src="https://pic3.zhimg.com/v2-90324519b60648009bc6b0ad912315ca_r.jpg" alt="" loading="lazy"></figure>
+<p>matplotlib 是最流行的用于制图及其他二维数据可视化的 Python 库。它由 John D. Hunter 创建，目前由一个大型开发者团队维护。matplotlib 被设计为适合出版的制图工具。</p>
+<p>对于 Python 编程者来说也有其他可视化库，但 matplotlib 依然使用最为广泛，并且与生态系统的其他库良好整合。<strong>我认为将它作为默认可视化工具是一个安全的选择。</strong></p>
+<p>关于 matplotlib 更详细讲解，请戳：<a href="https://link.zhihu.com/?target=http%3A//mp.weixin.qq.com/s%3F__biz%3DMzI5OTk5OTM2Mw%3D%3D%26mid%3D2247499404%26idx%3D2%26sn%3D1f673790a0a0c3bcc20522b5ba2d822f%26chksm%3Dec8cb760dbfb3e768f1d77ac4aa67aafa9d4b5f0709c11184e240956e7cf04404f110adb9b75%26scene%3D21%23wechat_redirect">纯干货：手把手教你用 Python 做数据可视化（附代码）</a></p>
+<p><strong>04 IPython 与 Jupyter</strong></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//ipython.org">http://ipython.org</a></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//jupyter.org">http://jupyter.org</a></p>
+<figure data-type="image" tabindex="4"><img src="https://pic4.zhimg.com/v2-efb82ac483f52f8de072da6de97bacdb_r.jpg" alt="" loading="lazy"></figure>
+<p>IPython 项目开始于 2001 年，由 Fernando Pérez 发起，旨在开发一个更具交互性的 Python 解释器。在过去的 16 年中，它成为 Python 数据技术栈中最重要的工具之一。</p>
+<p>尽管它本身并不提供任何计算或数据分析工具，它的设计侧重于在交互计算和软件开发两方面将生产力最大化。它使用了一种<strong>执行 - 探索</strong>工作流来替代其他语言中典型的编辑 - 编译 - 运行工作流。它还提供针对操作系统命令行和文件系统的易用接口。由于数据分析编码工作包含大量的探索、试验、试错和遍历，<strong>IPython 可以使你更快速地完成工作。</strong></p>
+<p>2014 年，Fernando 和 IPython 团队发布了 Jupyter 项目。Jupyter 项目旨在设计一个适用于更多语言的交互式计算工具。IPython web notebook 则成为 Jupyter notebook，可以支持超过 40 种编程语言。IPython 系统目前可以作为一个内核（一种编程语言模式）用于在 Jupyter 中使用 Python。</p>
+<p>**IPython 自身已成为 Jupyter 开源项目中的一个组件，后者提供交互性、探索性的高效环境。**IPtyhon 最古老、最简单的 “模式” 就是一个加强版的 Python 命令行，用于提高编写、测试、调试 Python 代码的速度。</p>
+<p>你也可以通过基于 Web、支持多语言的代码 “笔记本”——Jupyter Notebook 来使用 IPython 系统。IPython 命令行和 Jupyter notebook 对于数据探索和可视化非常有用。</p>
+<p>Jupyter notebook 系统允许你使用 Markdown 和 HTML 创建包含代码和文本的富文档。其他编程语言也针对 Jupyter 实现了内核，允许你在 Jupyter 中使用多种语言而不仅仅是 Python。</p>
+<p>对我个人来说，IPython 涉及我工作的大部分内容，包括运行、调试、测试代码。</p>
+<p><strong>05 SciPy</strong></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//scipy.org">http://scipy.org</a></p>
+<figure data-type="image" tabindex="5"><img src="https://pic1.zhimg.com/v2-68092106cd999befabbb7bce39cc9afc_r.jpg" alt="" loading="lazy"></figure>
+<p>**SciPy 是科学计算领域针对不同标准问题域的包集合。**以下是 SciPy 中包含的一些包：</p>
+<ul>
+<li><strong>scipy.integrate</strong><br>
+数值积分例程和微分方程求解器</li>
+<li><strong>scipy.linalg</strong><br>
+线性代数例程和基于 numpy.linalg 的矩阵分解</li>
+<li><strong>scipy.optimize</strong><br>
+函数优化器（最小化器）和求根算法</li>
+<li><strong>scipy.signal</strong><br>
+信号处理工具</li>
+<li><strong>scipy.sparse</strong><br>
+稀疏矩阵与稀疏线性系统求解器</li>
+<li><strong>scipy.special</strong><br>
+SPECFUN 的包装器。SPECFUN 是 Fortran 语言下实现通用数据函数的包，例如 gamma 函数。</li>
+<li><strong>scipy.stats</strong><br>
+标准的连续和离散概率分布（密度函数、采样器、连续分布函数）、各类统计测试、各类描述性统计。</li>
+</ul>
+<p>SciPy 与 NumPy 一起为很多传统科学计算应用提供了一个合理、完整、成熟的计算基础。</p>
+<p><strong>06 scikit-learn</strong></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//scikit-learn.org">http://scikit-learn.org</a></p>
+<figure data-type="image" tabindex="6"><img src="https://pic2.zhimg.com/v2-f0d1b29cc7324428f21fecfa66252de1_r.jpg" alt="" loading="lazy"></figure>
+<p>scikit-learn 项目诞生于 2010 年，目前已成为 Python 编程者首选的机器学习工具包。仅仅七年，scikit-learn 就拥有了全世界 1 500 位代码贡献者。其中包含以下子模块。</p>
+<ul>
+<li>**分类：**SVM、最近邻、随机森林、逻辑回归等</li>
+<li>**回归：**Lasso、岭回归等</li>
+<li>**聚类：**k-means、谱聚类等</li>
+<li>**降维：**PCA、特征选择、矩阵分解等</li>
+<li>**模型选择：**网格搜索、交叉验证、指标矩阵</li>
+<li>**预处理：**特征提取、正态化</li>
+</ul>
+<p>scikit-learn 与 pandas、statsmodels、IPython 一起使 Python 成了高效的数据科学编程语言。</p>
+<p><strong>07 statsmodels</strong></p>
+<p><a href="https://link.zhihu.com/?target=http%3A//statsmodels.org">http://statsmodels.org</a></p>
+<figure data-type="image" tabindex="7"><img src="https://pic4.zhimg.com/v2-c5ac579a7a116a090cf00c82ee6c31df_r.jpg" alt="" loading="lazy"></figure>
+<p>**statsmodels 是一个统计分析包。**它源自斯坦福大学统计学教授 Jonathan Taylor 利用 R 语言实现的各类分析模型。Skipper Seabold 和 Josef Perktold 早在 2010 年便创建了新的 statsmodels 项目。自那之后该项目迅速成长，拥有大量活跃用户和贡献者者。</p>
+<p>Nathaniel Smith 开发了 Patsy 项目，为 R 语言公式系统所驱动的 statsmodels 包提供公式、模型规范框架。</p>
+<p>与 scikit-learn 相比，statsmodels 包含经典的（高频词汇）统计学、经济学算法。它所包含的模型如下。</p>
+<ul>
+<li>回归模型：线性回归、通用线性模型、鲁棒线性模型、线性混合效应模型等</li>
+<li>方差分析（ANOVA ）</li>
+<li>时间序列分析：AR、ARMA、ARIMA、VAR 等模型</li>
+<li>非参数方法：核密度估计、核回归</li>
+<li>统计模型结果可视化</li>
+</ul>
+<p><strong>statsmodels 更专注于统计推理，提供不确定性评价和 p 值参数。相反，scikit-learn 更专注于预测。</strong></p>
+<p>关于作者：韦斯 · 麦金尼（Wes McKinney）是流行的 Python 开源数据分析库 pandas 的创始人。他是一名活跃的演讲者，也是 Python 数据社区和 Apache 软件基金会的 Python/C++ 开源开发者。目前他在纽约从事软件架构师工作。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="http://localhost:4000/post/Memos插件用法/" class="post-title gt-a-link">
+                    Memos插件用法
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="http://localhost:4000/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
