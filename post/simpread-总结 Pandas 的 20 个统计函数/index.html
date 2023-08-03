@@ -1,0 +1,840 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>simpread-总结 Pandas 的 20 个统计函数 | 温故而知新</title>
+
+<link rel="shortcut icon" href="https://superupan.github.io/favicon.ico?v=1691072513418">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://superupan.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            温故而知新
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1691072513418" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    simpread-总结 Pandas 的 20 个统计函数
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-08-01 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>大家好，我是 Peter~</p>
+<p>最近整理了 pandas 中 20 个常用统计函数和用法，建议收藏学习~</p>
+<figure data-type="image" tabindex="1"><img src="https://pic1.zhimg.com/v2-d1ab89933ec7837b7158e280502ebdd0_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="20-个统计函数"><strong>20 个统计函数</strong></h2>
+<p>先给出一份汇总名单：</p>
+<pre><code>df.count()          #非空元素计算
+df.min()            #最小值
+df.max()            #最大值
+df.idxmin()         #最小值的位置，类似于R中的which.min函数
+df.idxmax()         #最大值的位置，类似于R中的which.max函数
+df.quantile(0.1)    #10%分位数
+df.sum()            #求和
+df.mean()           #均值
+df.median()         #中位数
+df.mode()           #众数
+df.var()            #方差
+df.std()            #标准差
+df.mad()            #平均绝对偏差
+df.skew()           #偏度
+df.kurt()           #峰度
+df.describe()       #一次性输出多个描述性统计指标
+df.abs()            #求绝对值
+df.prod             #元素乘积
+df.cumsum           #累计和
+df.cumprod          #累计乘积
+
+
+</code></pre>
+<h2 id="模拟数据"><strong>模拟数据</strong></h2>
+<p>为了解释每个方法，模拟了一份带有空值的数据：</p>
+<pre><code>import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.DataFrame({
+    &quot;sex&quot;:[&quot;male&quot;,&quot;male&quot;,&quot;female&quot;,&quot;female&quot;,&quot;male&quot;],
+    &quot;age&quot;:[22,24,25,26,24],
+    &quot;chinese&quot;:[100,120,110,100,90],
+    &quot;math&quot;:[90,np.nan,100,80,120],  # 存在空值
+    &quot;english&quot;:[90,130,90,80,100]})
+
+df
+
+
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://pic2.zhimg.com/v2-6b71d0486813e4ccd8353ed412ee03c5_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="描述统计信息-describe"><strong>描述统计信息 describe</strong></h2>
+<p>descirbe 方法只能针对序列或数据框，一维数组是没有这个方法的；同时默认只能针对数值型的数据进行统计：</p>
+<pre><code>DataFrame.describe(percentiles=None,include=None,exclude=None)
+
+
+</code></pre>
+<ul>
+<li>percentiles：可选折的百分数，列表形式；数值在 0-1 之间，默认是 [.25,.5,.75]</li>
+<li>include/exclude：包含和排序的数据类型信息</li>
+</ul>
+<p>返回的信息包含：</p>
+<ul>
+<li>非空值的数量 count；特例：math 字段中有一个空值</li>
+<li>均值 mean</li>
+<li>标准差 std</li>
+<li>最小值 min</li>
+<li>最大值 max</li>
+<li>25%、50%、75% 分位数</li>
+</ul>
+<pre><code>df.describe()
+
+
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://pic3.zhimg.com/v2-401ef08ea3e458961d78c52321df3a0a_r.jpg" alt="" loading="lazy"></figure>
+<p>添加了参数后的情况，我们发现：</p>
+<ul>
+<li>sex 字段的相关信息也被显示出来</li>
+<li>显示的信息更丰富，多了 unique、top、freq 等等</li>
+</ul>
+<figure data-type="image" tabindex="4"><img src="https://pic2.zhimg.com/v2-8b82a949ca23222578326bbfcdf3b20d_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="非空值数量-count"><strong>非空值数量 count</strong></h2>
+<p>返回的是每个字段中非空值的数量</p>
+<p>In [5]:</p>
+<pre><code>df.count()
+
+
+</code></pre>
+<p>Out[5]:</p>
+<pre><code>sex        5
+age        5
+chinese    5
+math       4  # 包含一个空值
+english    5
+dtype: int64
+
+
+</code></pre>
+<h2 id="求和-sum"><strong>求和 sum</strong></h2>
+<p>In [6]:</p>
+<pre><code>df.sum()
+
+
+</code></pre>
+<p>在这里我们发现：如果字段是 object 类型的，sum 函数的结果就是直接将全部取值拼接起来</p>
+<p>Out[6]:</p>
+<pre><code>sex        malemalefemalefemalemale # 拼接
+age                             121  # 相加求和
+chinese                         520
+math                          390.0
+english                         490
+dtype: object
+
+
+</code></pre>
+<h2 id="最大值-max"><strong>最大值 max</strong></h2>
+<p>In [7]:</p>
+<pre><code>df.max()
+
+
+</code></pre>
+<p>针对字符串的最值（最大值或者最小值），是根据字母的 ASCII 码大小来进行比较的：</p>
+<ul>
+<li>先比较首字母的大小</li>
+<li>首字母相同的话，再比较第二个字母</li>
+</ul>
+<p>Out[7]:</p>
+<pre><code>sex         male  
+age           26
+chinese      120
+math       120.0
+english      130
+dtype: object
+
+
+</code></pre>
+<h2 id="最小值-min"><strong>最小值 min</strong></h2>
+<p>和 max 函数的求解是类似的：</p>
+<p>In [8]:</p>
+<pre><code>df.min()
+
+
+</code></pre>
+<p>Out[8]:</p>
+<pre><code>sex        female
+age            22
+chinese        90
+math         80.0
+english        80
+dtype: object
+
+
+</code></pre>
+<h2 id="分位数-quantile"><strong>分位数 quantile</strong></h2>
+<p>返回指定位置的分位数</p>
+<p>In [9]:</p>
+<pre><code>df.quantile(0.2)
+
+
+</code></pre>
+<p>Out[9]:</p>
+<pre><code>age        23.6
+chinese    98.0
+math       86.0
+english    88.0
+Name: 0.2, dtype: float64
+
+
+</code></pre>
+<p>In [10]:</p>
+<pre><code>df.quantile(0.25)
+
+
+</code></pre>
+<p>Out[10]:</p>
+<pre><code>age         24.0
+chinese    100.0
+math        87.5
+english     90.0
+Name: 0.25, dtype: float64
+
+
+</code></pre>
+<p>In [11]:</p>
+<pre><code>df.quantile(0.75)
+
+
+</code></pre>
+<p>Out[11]:</p>
+<pre><code>age         25.0
+chinese    110.0
+math       105.0
+english    100.0
+Name: 0.75, dtype: float64
+
+
+</code></pre>
+<p>通过箱型图可以展示一组数据的 25%、50%、75% 的中位数：</p>
+<p>In [12]:</p>
+<pre><code>plt.figure(figsize=(12,6))#设置画布的尺寸
+
+plt.boxplot([df[&quot;age&quot;],df[&quot;chinese&quot;],df[&quot;english&quot;]],
+           labels = [&quot;age&quot;,&quot;chinese&quot;,&quot;english&quot;],
+#            vert=False, 
+           showmeans=True,
+           patch_artist = True, 
+           boxprops = {'color':'orangered','facecolor':'pink'}
+#            showgrid=True
+           )
+
+plt.show()
+
+
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://pic3.zhimg.com/v2-4775dfb90f148cee7ea7bfe47b695aca_r.jpg" alt="" loading="lazy"></figure>
+<p>箱型图的具体展示信息：</p>
+<figure data-type="image" tabindex="6"><img src="https://pic3.zhimg.com/v2-1321c6612af3bb38c5c9e1e1b0ea9476_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="均值-mean"><strong>均值 mean</strong></h2>
+<p>一组数据<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo>…</mo><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">x_1,x_2,……x_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>x_1,x_2,……x_n 的平均值</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mo>…</mo><mo>…</mo><mo>+</mo><msub><mi>x</mi><mi>n</mi></msub><mo>)</mo><mi mathvariant="normal">/</mi><mi>n</mi><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">(x_1 + x_2 + …… + x_n) / n\\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathdefault">n</span></span><span class="mspace newline"></span></span></span></span></p>
+<p>(x_1 + x_2 + …… + x_n) / n\</p>
+<p>In [13]:</p>
+<pre><code>df.mean()
+
+
+</code></pre>
+<p>Out[13]:</p>
+<pre><code>age         24.2
+chinese    104.0
+math        97.5
+english     98.0
+dtype: float64
+
+
+</code></pre>
+<p>通过下面的例子我们发现：如果字段中存在缺失值（math 存在缺失值），此时样本的个数会自动忽略缺失值的总数</p>
+<p>In [14]:</p>
+<pre><code>390/4  # 个数不含空值
+
+
+</code></pre>
+<p>Out[14]:</p>
+<pre><code>97.5
+
+
+</code></pre>
+<h2 id="中值-中位数-median"><strong>中值 / 中位数 median</strong></h2>
+<p>比如：1,2,3,4,5 的中位数就是 3</p>
+<p>再比如：1,2,3,4,5,6 的中位数就是 3+4 = 3.5</p>
+<p>In [15]:</p>
+<pre><code>df.median()
+
+
+</code></pre>
+<p>Out[15]:</p>
+<pre><code>age         24.0
+chinese    100.0
+math        95.0
+english     90.0
+dtype: float64
+
+
+</code></pre>
+<h2 id="众数-mode"><strong>众数 mode</strong></h2>
+<p>一组数据中出现次数最多的数</p>
+<p>In [16]:</p>
+<pre><code>df.mode()
+
+
+</code></pre>
+<p>Out[16]:</p>
+<figure data-type="image" tabindex="7"><img src="https://pic3.zhimg.com/v2-f985d9f88be2002cbf31cdbe9e05bfb2_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="最大值索引-idmax"><strong>最大值索引 idmax</strong></h2>
+<p>idxmax() 返回的是最大值的索引</p>
+<p>In [17]:</p>
+<pre><code>df[&quot;age&quot;].idxmax()
+
+
+</code></pre>
+<p>Out[17]:</p>
+<pre><code>3
+
+
+</code></pre>
+<p>In [18]:</p>
+<pre><code>df[&quot;chinese&quot;].idxmin()
+
+
+</code></pre>
+<p>Out[18]:</p>
+<pre><code>4
+
+
+</code></pre>
+<p>不能字符类型的字段使用该函数，Pandas 不支持：</p>
+<p>In [19]:</p>
+<pre><code>df[&quot;sex&quot;].idxmax()
+
+
+</code></pre>
+<figure data-type="image" tabindex="8"><img src="https://pic3.zhimg.com/v2-f10a7592c523f32c5c73e4f8bf68e372_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="最小值索引-inxmin"><strong>最小值索引 inxmin</strong></h2>
+<p>返回最小值所在的索引</p>
+<p>In [20]:</p>
+<pre><code>df[&quot;age&quot;].idxmin()
+
+
+</code></pre>
+<p>Out[20]:</p>
+<pre><code>0
+
+
+</code></pre>
+<p>In [21]:</p>
+<pre><code>df[&quot;math&quot;].idxmin()
+
+
+</code></pre>
+<p>Out[21]:</p>
+<pre><code>3
+
+
+</code></pre>
+<p>In [22]:</p>
+<pre><code>df[&quot;sex&quot;].idxmin()
+
+
+</code></pre>
+<p>不能字符类型的字段使用该函数，Pandas 不支持：</p>
+<figure data-type="image" tabindex="9"><img src="https://pic3.zhimg.com/v2-4b8c0e71281b8695d239033e9750b586_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="方差-var"><strong>方差 var</strong></h2>
+<p>计算一组数据的方差，需要注意的是：numpy 中的方差叫总体方差，pandas 中的方差叫样本方差</p>
+<p>标准差（或方差）分为 总体标准差（方差）和 样本标准差（方差）</p>
+<ul>
+<li>前者分母为 n，右偏的；后者分母为 n-1，是无偏的</li>
+<li>pandas 里是算无偏的；numpy 里是有偏的</li>
+</ul>
+<p>In [23]:</p>
+<pre><code>df.var()
+
+
+</code></pre>
+<p>Out[23]:</p>
+<pre><code>age          2.200000
+chinese    130.000000
+math       291.666667  # pandas计算结果
+english    370.000000
+dtype: float64
+
+
+</code></pre>
+<p>In [24]:</p>
+<pre><code>df[&quot;math&quot;].var()
+
+
+</code></pre>
+<p>Out[24]:</p>
+<pre><code>291.6666666666667
+
+
+</code></pre>
+<p>In [25]:</p>
+<pre><code>np.var(df[&quot;math&quot;])  # numpy计算结果
+
+
+</code></pre>
+<p>Out[25]:</p>
+<pre><code>218.75
+
+
+</code></pre>
+<p>In [26]:</p>
+<pre><code>np.var(df[&quot;age&quot;])
+
+
+</code></pre>
+<p>Out[26]:</p>
+<pre><code>1.7600000000000002
+
+
+</code></pre>
+<p>In [27]:</p>
+<pre><code>np.var(df[&quot;english&quot;])
+
+
+</code></pre>
+<p>Out[27]:</p>
+<pre><code>296.0
+
+
+</code></pre>
+<h2 id="标准差-std"><strong>标准差 std</strong></h2>
+<p>返回的是一组数据的标准差</p>
+<p>In [28]:</p>
+<pre><code>df.std()
+
+
+</code></pre>
+<p>Out[28]:</p>
+<pre><code>age         1.483240
+chinese    11.401754
+math       17.078251
+english    19.235384
+dtype: float64
+
+
+</code></pre>
+<p>In [29]:</p>
+<pre><code>np.std(df[&quot;math&quot;])
+
+
+</code></pre>
+<p>Out[29]:</p>
+<pre><code>14.79019945774904
+
+
+</code></pre>
+<p>In [30]:</p>
+<pre><code>np.std(df[&quot;english&quot;])
+
+
+</code></pre>
+<p>Out[30]:</p>
+<pre><code>17.204650534085253
+
+
+</code></pre>
+<p>In [31]:</p>
+<pre><code>np.std(df[&quot;age&quot;])
+
+
+</code></pre>
+<p>Out[31]:</p>
+<pre><code>1.32664991614216
+
+
+</code></pre>
+<p>如何理解 pandas 和 numpy 两种方法对方差的求解不同：</p>
+<figure data-type="image" tabindex="10"><img src="https://pic2.zhimg.com/v2-07e34b9e26aeb1636b7937a89bb5d20d_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="平均绝对偏差-mad"><strong>平均绝对偏差 mad</strong></h2>
+<figure data-type="image" tabindex="11"><img src="https://pic1.zhimg.com/v2-b5c62c7bbd4b202cfe719214b5ff4918_r.jpg" alt="" loading="lazy"></figure>
+<p>In [32]:</p>
+<pre><code>df.mad()
+
+
+</code></pre>
+<p>Out[32]:</p>
+<pre><code>age         1.04
+chinese     8.80
+math       12.50
+english    13.60
+dtype: float64
+
+
+</code></pre>
+<p>以字段 age 为例：</p>
+<p>In [33]:</p>
+<pre><code>df[&quot;age&quot;].mad()
+
+
+</code></pre>
+<p>Out[33]:</p>
+<pre><code>1.0399999999999998
+
+
+</code></pre>
+<p>In [34]:</p>
+<pre><code>df[&quot;age&quot;].tolist()
+
+
+</code></pre>
+<p>Out[34]:</p>
+<pre><code>[22, 24, 25, 26, 24]
+
+
+</code></pre>
+<p>In [35]:</p>
+<pre><code>age_mean = df[&quot;age&quot;].mean()
+age_mean
+
+
+</code></pre>
+<p>Out[35]:</p>
+<pre><code>24.2
+
+
+</code></pre>
+<p>In [36]:</p>
+<pre><code>(abs(22-age_mean) + abs(24-age_mean) + abs(25-age_mean) 
+ + abs(26-age_mean) + abs(24-age_mean)) / 5
+
+
+</code></pre>
+<p>Out[36]:</p>
+<pre><code>1.0399999999999998
+
+
+</code></pre>
+<h2 id="偏度-skew"><strong>偏度 - skew</strong></h2>
+<p>介绍峰度和偏度的好文章：<a href="https://link.zhihu.com/?target=https%3A//www.cnblogs.com/wyy1480/p/10474046.html">https://www.cnblogs.com/wyy1480/p/10474046.html</a></p>
+<p>偏度（skewness），是统计数据分布偏斜方向和程度的度量，是统计数据分布非对称程度的数字特征。</p>
+<p>偏度 (Skewness) 亦称偏态、偏态系数，表征概率分布密度曲线相对于平均值不对称程度的特征数。</p>
+<p>直观看来就是密度函数曲线尾部的相对长度。定义上偏度是样本的三阶标准化矩：</p>
+<figure data-type="image" tabindex="12"><img src="https://pic1.zhimg.com/v2-205338e72bd6fe92925b78ccae350a08_r.jpg" alt="" loading="lazy"></figure>
+<p>In [37]:</p>
+<pre><code>df.skew()
+
+
+</code></pre>
+<p>Out[37]:</p>
+<pre><code>age       -0.551618
+chinese    0.404796
+math       0.752837
+english    1.517474
+dtype: float64
+
+
+</code></pre>
+<p>In [38]:</p>
+<pre><code>df[&quot;age&quot;].skew()
+
+
+</code></pre>
+<p>Out[38]:</p>
+<pre><code>-0.5516180692881046
+
+
+</code></pre>
+<h2 id="峰度-kurt"><strong>峰度 - kurt</strong></h2>
+<p>返回的是峰度值</p>
+<p>In [39]:</p>
+<pre><code>df.kurt()
+
+
+</code></pre>
+<p>Out[39]:</p>
+<pre><code>age        0.867769
+chinese   -0.177515
+math       0.342857
+english    2.607743
+dtype: float64
+
+
+</code></pre>
+<p>In [40]:</p>
+<pre><code>df[&quot;age&quot;].kurt()
+
+
+</code></pre>
+<p>Out[40]:</p>
+<pre><code>0.8677685950413174
+
+
+</code></pre>
+<p>In [41]:</p>
+<pre><code>df[&quot;math&quot;].kurt()
+
+
+</code></pre>
+<p>Out[41]:</p>
+<pre><code>0.3428571428571434      
+
+
+</code></pre>
+<h2 id="绝对值-abs"><strong>绝对值 abs</strong></h2>
+<p>返回数据的绝对值：</p>
+<p>In [45]:</p>
+<pre><code>df[&quot;age&quot;].abs()
+
+
+</code></pre>
+<p>Out[45]:</p>
+<pre><code>0    22
+1    24
+2    25
+3    26
+4    24
+Name: age, dtype: int64
+
+
+</code></pre>
+<p>如果存在缺失值，绝对值函数求解后仍是 NaN：</p>
+<p>In [46]:</p>
+<pre><code>df[&quot;math&quot;].abs()
+
+
+</code></pre>
+<p>Out[46]:</p>
+<pre><code>0     90.0
+1      NaN
+2    100.0
+3     80.0
+4    120.0
+Name: math, dtype: float64
+
+
+</code></pre>
+<p>绝对值函数是针对数值型的字段，不能对字符类型的字段求绝对值：</p>
+<p>In [47]:</p>
+<pre><code># 字符类型的数据报错
+df[&quot;sex&quot;].abs()
+
+
+</code></pre>
+<figure data-type="image" tabindex="13"><img src="https://pic3.zhimg.com/v2-66e1821bcbbc0e0c6dc9576589b61e12_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="元素乘积-prod"><strong>元素乘积 prod</strong></h2>
+<p>In [48]:</p>
+<pre><code>df.prod()
+
+
+</code></pre>
+<p>Out[48]:</p>
+<pre><code>age        8.236800e+06
+chinese    1.188000e+10
+math       8.640000e+07
+english    8.424000e+09
+dtype: float64
+
+
+</code></pre>
+<p>In [49]:</p>
+<pre><code>df[&quot;age&quot;].tolist()
+
+
+</code></pre>
+<p>Out[49]:</p>
+<pre><code>[22, 24, 25, 26, 24]
+
+
+</code></pre>
+<p>In [50]:</p>
+<pre><code>22 * 24 * 25 * 26 * 24
+
+
+</code></pre>
+<p>Out[50]:</p>
+<pre><code>8236800
+
+
+</code></pre>
+<h2 id="累计求和-cumsum"><strong>累计求和 cumsum</strong></h2>
+<p>In [51]:</p>
+<pre><code>df.cumsum()
+
+
+</code></pre>
+<figure data-type="image" tabindex="14"><img src="https://pic1.zhimg.com/v2-66c2658f0bb07338d10b550d5a6d20b8_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="累计乘积-cumprod"><strong>累计乘积 cumprod</strong></h2>
+<p>In [52]:</p>
+<pre><code>df[&quot;age&quot;].cumprod()
+
+
+</code></pre>
+<p>Out[52]:</p>
+<pre><code>0         22
+1        528
+2      13200
+3     343200
+4    8236800
+Name: age, dtype: int64
+
+
+</code></pre>
+<p>In [53]:</p>
+<pre><code>df[&quot;math&quot;].cumprod()
+
+
+</code></pre>
+<p>Out[53]:</p>
+<pre><code>0          90.0
+1           NaN
+2        9000.0
+3      720000.0
+4    86400000.0
+Name: math, dtype: float64
+
+
+</code></pre>
+<p>In [54]:</p>
+<pre><code># 字符类型字段报错
+df[&quot;sex&quot;].cumprod()
+
+
+</code></pre>
+<figure data-type="image" tabindex="15"><img src="https://pic1.zhimg.com/v2-3c7d49dc6e7514780361ea31b37e8dac_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="20-个统计函数-2"><strong>20 个统计函数</strong></h2>
+<p>最后再总结下 Pandas 中常用来描述统计信息的函数：</p>
+<figure data-type="image" tabindex="16"><img src="https://pic3.zhimg.com/v2-93664161293f519fba9dd2898efdb3f6_r.jpg" alt="" loading="lazy"></figure>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://superupan.github.io/post/simpread-auto-py-to-exe 使用指南_风吹过得夏天的博客 - CSDN 博客/" class="post-title gt-a-link">
+                    simpread-auto-py-to-exe 使用指南_风吹过得夏天的博客 - CSDN 博客
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://superupan.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

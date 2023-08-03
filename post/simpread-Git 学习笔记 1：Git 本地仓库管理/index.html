@@ -1,0 +1,332 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>simpread-Git 学习笔记 1：Git 本地仓库管理 | 温故而知新</title>
+
+<link rel="shortcut icon" href="https://superupan.github.io/favicon.ico?v=1691072513418">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://superupan.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            温故而知新
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1691072513418" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    simpread-Git 学习笔记 1：Git 本地仓库管理
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-08-01 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="前言"><strong>前言</strong></h2>
+<p>Git 近些年的火爆程度非同一般，这个版本控制系统被广泛地用在大型开源项目（比如 Linux），不同规模的团队开发，以及独立开发者，甚至学生之中。</p>
+<p>我在初学的时候被 git 里的<a href="https://link.zhihu.com/?target=https%3A//git-scm.com/docs">各种命令、参数</a>吓得不愿意继续去学习。但实际上刚上手的时候，你并不需要了解所有命令的用途。你可以从掌握一些简单、常用又强大的命令开始，然后逐步去学习。我将我的 Git 的学习过程整理并写成博客分享出来，方便初学者学习入门，也以便我日后查漏补缺。</p>
+<p>Git 的内容繁杂庞大，我计划从三个方面整理 Git：</p>
+<ol>
+<li>Git 的本地仓库管理</li>
+<li>Git 的远程仓库管理</li>
+<li>Git 的分支管理与多人协作</li>
+</ol>
+<p>本文参考了网上很多资料，难以一一列举，在此对这些资料的作者表示感谢！关于 Git 相关的资料，请参考文末。</p>
+<h2 id="git-简介"><strong>Git 简介</strong></h2>
+<p>什么是 Git？</p>
+<p>Git 是目前世界上最先进的分布式版本控制系统，所谓**版本控制系统是任何能让你了解到一个文件的历史，以及它的发展过程的系统。**通俗的讲就是一个可以记录工程的每一次改动和版本迭代的一个管理系统，同时也方便多人协同作业。</p>
+<p>很多人 Git 与 Github 傻傻分不清 Git 是一款免费、开源的分布式版本控制系统，而 Github 是用 Git 做版本控制的代码托管平台当然也是全球最大的同性交友平台。还搞不懂可以参见：</p>
+<p><a href="https://link.zhihu.com/?target=http%3A//blog.jobbole.com/111187/">大白话解释 Git 和 GitHub - 文章 - 伯乐在线</a></p>
+<p>CVS 及 SVN 都是集中式的版本控制系统，而 Git 是分布式版本控制系统。</p>
+<p>先说集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。</p>
+<figure data-type="image" tabindex="1"><img src="https://pic2.zhimg.com/v2-c833acc9a8d19e9d2d4f3b4586d4e0e5_b.jpg" alt="" loading="lazy"></figure>
+<p>分布式版本控制系统根本没有 “中央服务器”，每个人的电脑上都是一个完整的版本库，这样，你工作的时候，就不需要联网了，因为版本库就在你自己的电脑上。既然每个人电脑上都有一个完整的版本库，那多个人如何协作呢？比方说你在自己电脑上改了文件 A，你的同事也在他的电脑上改了文件 A，这时，你们俩之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
+<figure data-type="image" tabindex="2"><img src="https://pic2.zhimg.com/v2-ffc649a4cee29b07fde2ced133655909_r.jpg" alt="" loading="lazy"></figure>
+<p>和集中式版本控制系统相比，分布式版本控制系统的安全性要高很多，因为每个人电脑里都有完整的版本库，某一个人的电脑坏掉了不要紧，随便从其他人那里复制一个就可以了。而集中式版本控制系统的中央服务器要是出了问题，所有人都没法干活了。Git 的优势不单是不必联网这么简单，后面我们还会看到 Git 极其强大的分支管理，把 SVN 等远远抛在了后面。</p>
+<h2 id="git-安装linux">Git 安装（Linux）</h2>
+<p>Git 在很长一段时间内只能在 Linux 和 Unix 系统上运行，慢慢地有人把它移植到了 Windows 上。现在，Git 可以在 Linux、Unix、Mac 和 Windows 这几大平台上正常运行了。</p>
+<p>安装 Git 的方法很简单只需在终端输入：</p>
+<pre><code>$ sudo apt-get install git
+
+</code></pre>
+<p>即可完成安装。</p>
+<h2 id="创建版本库">创建版本库</h2>
+<p>什么是版本库呢？版本库又名仓库，英文名 <strong>repository</strong>，你可以简单理解成一个目录，这个目录里面的所有文件都可以被 Git 管理起来，每个文件的修改、删除，Git 都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以 “还原”。</p>
+<p>创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录：</p>
+<pre><code>$ mkdir learngit
+$ cd learngit
+$ pwd
+/home/wang/learngit
+
+</code></pre>
+<p>第二步，通过<code>git init</code>命令把这个目录变成 Git 可以管理的仓库：</p>
+<pre><code>$ git init
+初始化空的 Git 仓库于 /home/wang/learngit/.git/
+
+</code></pre>
+<p>瞬间 Git 就把仓库建好了，而且告诉你是一个空的仓库（empty Git repository）。打开隐藏文件（Ctrl+h）可以看到. git 的文件，这个目录是 Git 来跟踪管理版本库的。</p>
+<figure data-type="image" tabindex="3"><img src="https://pic3.zhimg.com/v2-10f4c0168c1dbb93ab78915282f9feee_r.jpg" alt="" loading="lazy"></figure>
+<p>也不一定必须在空目录下创建 Git 仓库，选择一个已经有东西的目录也是可以的。</p>
+<h2 id="本地仓库管理">本地仓库管理</h2>
+<p>首先我们编写一个<code>readme.txt</code>文件并放到<code>learngit</code>目录下（子目录也行），内容如下：</p>
+<pre><code>Git is a version control system.
+Git is free software.
+
+</code></pre>
+<p>编写好 readme.txt 文件后，使用 git add 和 git commit 将该文件添加到仓库中。</p>
+<pre><code>$ git add readme.txt
+$ git commit -m &quot;wrote a readme file&quot;
+[master （根提交） a41ba4d] wrote a readme file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 readme.txt
+
+</code></pre>
+<p>简单解释一下<code>git commit</code>命令，<code>-m</code>后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。</p>
+<p><code>git commit</code>命令执行成功后会告诉你，<code>1 file changed</code>：1 个文件被改动（我们新添加的 readme.txt 文件）；<code>2 insertions</code>：插入了两行内容（readme.txt 有两行内容）。</p>
+<p>现在修改 readme.txt 文件，改成如下内容：</p>
+<pre><code>Git is a distributed version control system.
+Git is free software.
+
+</code></pre>
+<p>现在，运行<code>git status</code>命令看看结果：</p>
+<pre><code>$ git status   
+位于分支 master
+尚未暂存以备提交的变更：
+  （使用 &quot;git add &lt;文件&gt;...&quot; 更新要提交的内容）
+  （使用 &quot;git checkout -- &lt;文件&gt;...&quot; 丢弃工作区的改动）
+
+	修改：     readme.txt
+
+修改尚未加入提交（使用 &quot;git add&quot; 和/或 &quot;git commit -a&quot;）
+
+</code></pre>
+<p><code>git status</code>命令可以让我们时刻掌握仓库当前的状态，上面的命令输出告诉我们，<code>readme.txt</code>被修改过了，但还没有准备提交的修改。</p>
+<p>虽然 Git 告诉我们<code>readme.txt</code>被修改了，但如果能看看具体修改了什么内容，自然是很好的。通过<code>git diff</code>这个命令可以查看：</p>
+<pre><code>$ git diff readme.txt 
+diff --git a/readme.txt b/readme.txt
+index 46d49bf..9247db6 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,2 +1,2 @@
+-Git is a version control system.
++Git is a distributed version control system.
+ Git is free software.
+
+</code></pre>
+<p>当我们版本更迭次数过多时，我们可以使用<code>git log</code>命令显示从最近到最远的提交日志信息，可以看到我先后提交了两次 readme 文件，时间 作者 修改内容 以及一长串的 commit id 均可以看到。</p>
+<pre><code>$ git log
+commit 29132fc35cf45df300209994882e00964c509970
+Author: 0.618 &lt;1041969650@qq.com&gt;
+Date:   Sun Mar 3 13:02:30 2019 +0800
+
+    add a distributed
+
+commit a41ba4ddda178dd235898d7974dba31dd1e056d1
+Author: 0.618 &lt;1041969650@qq.com&gt;
+Date:   Sun Mar 3 12:39:55 2019 +0800
+
+    wrote a readme file
+
+</code></pre>
+<h2 id="版本回退">版本回退</h2>
+<p>当我们发现我们代码当前版本不稳定我们如何退回到以前的版本呢？</p>
+<p>首先，Git 必须知道当前版本是哪个版本，在 Git 中，用<code>HEAD</code>表示当前版本，也就是最新的提交，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，当然往上 100 个版本写 100 个<code>^</code>比较容易数不过来，所以写成<code>HEAD~100</code>。</p>
+<p>现在，我们要把当前版本回退到上一个版本，就可以使用<code>git reset</code>命令：</p>
+<pre><code>$ git reset --hard HEAD^
+HEAD 现在位于 a41ba4d wrote a readme file
+
+
+</code></pre>
+<p>再查看<code>readme.txt</code>的内容时，内容已经变回上一个版本了。</p>
+<p>可否再次回到最新的版本呢? 答案是肯定的。</p>
+<p>找到最新版本的 commit id，使用 git rest --hard <commit id> 回到最新版本。</p>
+<pre><code>$ git reset --hard a41ba4d 
+HEAD 现在位于 a41ba4d wrote a readme file
+
+</code></pre>
+<p>再次查看 readme.txt。最新版本又回来了！！！</p>
+<p>可是当关闭终端后找不到最新的 commit id 怎么办？git 提供了一个 git reflog 命令来记录用户的每一次命令。</p>
+<pre><code>$ git reflog
+a41ba4d HEAD@{0}: reset: moving to HEAD^
+29132fc HEAD@{1}: commit: add a distributed
+a41ba4d HEAD@{2}: commit (initial): wrote a readme file
+
+</code></pre>
+<h2 id="撤销修改">撤销修改</h2>
+<p>场景 1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令 git checkout -- file(没有 --，就变成了 “切换到另一个分支” 的命令)。</p>
+<p>命令 git checkout 意思就是，把文件在工作区的修改全部撤销，这里有两种情况：</p>
+<ol>
+<li>readme.txt 自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</li>
+<li>readme.txt 已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</li>
+</ol>
+<p>总之，就是让这个文件回到最近一次 git commit 或 git add 时的状态。</p>
+<p>场景 2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令 git reset HEAD <file>，就回到了场景 1，第二步按场景 1 操作。</p>
+<h2 id="删除文件">删除文件</h2>
+<p>当一个文件被删除时，工作区和版本库就不一致了。现在你有两个选择：</p>
+<ol>
+<li>确实要从版本库中删除该文件，那就用命令 git rm 删掉，并且 git commit</li>
+<li>删错了，因为版本库里还有呢，使用 git checkout 可以很轻松地把误删的文件恢复到最新版本</li>
+</ol>
+<p>到目前为止，我们已经掌握了如何在 Git 仓库里对一个文件进行时光穿梭，你再也不用担心文件备份或者丢失的问题了。</p>
+<h2 id="git-工作流"><strong>Git 工作流</strong></h2>
+<p>为了更好的理解和使用 Git 进行版本控制，我们介绍两个名词：工作区与暂存区</p>
+<p>工作区就是你在电脑里能看到的目录，比如我的<code>learngit</code>文件夹就是一个工作区：</p>
+<figure data-type="image" tabindex="4"><img src="https://pic2.zhimg.com/v2-7b5e741f20f8fddea2d9ceb4a078cd69_r.jpg" alt="" loading="lazy"></figure>
+<p>而是 Git 的版本库是工作区中的一个隐藏目录<code>.git</code>。 Git 的版本库里存了很多东西，其中最重要的就是称为 stage（或者叫 index）的暂存区，还有 Git 为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
+<figure data-type="image" tabindex="5"><img src="https://pic1.zhimg.com/v2-9fea51926633c3aadcd0bf14cc1d14cc_r.jpg" alt="" loading="lazy"></figure>
+<p>前面讲了我们把文件往 Git 版本库里添加的时候，是分两步执行的：</p>
+<p>第一步是用<code>git add</code>把文件添加进去，实际上就是把文件修改添加到暂存区；</p>
+<p>第二步是用<code>git commit</code>提交更改，实际上就是把暂存区的所有内容提交到当前分支。</p>
+<p>你的本地仓库由 git 维护的三棵 “树” 组成。</p>
+<ol>
+<li><code>工作目录</code>，它持有实际文件；</li>
+<li><code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；</li>
+<li><code>HEAD</code>，它指向你最后一次提交的结果。</li>
+</ol>
+<p>这里要提一点的是 Git 比其他版本控制系统设计得优秀，因为 Git 跟踪并管理的是修改，而非文件。</p>
+<h2 id="总结"><strong>总结</strong></h2>
+<ul>
+<li>Git 是目前世界上最先进的分布式版本控制系统。</li>
+<li>Git 安装在终端输入<code>sudo apt-get install git</code> 即可。</li>
+<li>初始化一个 Git 仓库，使用<code>git init</code>命令。</li>
+<li>添加文件到 Git 仓库，分两步： 使用命令<code>git add &lt;file&gt;</code>，注意，可反复多次使用，添加多个文件； 使用命令<code>git commit -m &lt;message&gt;</code>，完成。</li>
+<li>要随时掌握工作区的状态，使用 git status 命令。</li>
+<li>如果 git status 告诉你有文件被修改过，用 git diff 可以查看修改内容。</li>
+<li><code>HEAD</code>指向的版本就是当前版本，因此，Git 允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。</li>
+<li>穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。</li>
+<li>要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</li>
+<li>本地仓库由 git 维护的三棵 “树” 组成。第一个是你的 工作目录，它持有实际文件；第二个是 暂存区（Index），它像个缓存区域，临时保存你的改动；最后是 HEAD，它指向你最后一次提交的结果。</li>
+<li>命令<code>git rm</code>用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。</li>
+</ul>
+<h2 id="reference"><strong>Reference：</strong></h2>
+<p><a href="https://link.zhihu.com/?target=http%3A//rogerdudler.github.io/git-guide/index.zh.html">git - the simple guide - no deep shit!</a><a href="https://link.zhihu.com/?target=https%3A//www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git 教程</a><a href="https://link.zhihu.com/?target=http%3A//igeekbar.com/igeekbar/post/82.htm">30 分钟教你学会 Git | 人人都是互联网创意 G 客</a></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://superupan.github.io/post/simpread-盘点最重要的 7 个 Python 库/" class="post-title gt-a-link">
+                    simpread-盘点最重要的 7 个 Python 库
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://superupan.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

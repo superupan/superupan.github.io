@@ -6,10 +6,10 @@
 
 <title>Gridea 同步失败？谈谈我的解决办法 | 温故而知新</title>
 
-<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1690898982838">
+<link rel="shortcut icon" href="https://superupan.github.io/favicon.ico?v=1691072513418">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="stylesheet" href="https://superupan.github.io/styles/main.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
@@ -77,7 +77,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1690898982838" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1691072513418" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -96,7 +96,7 @@
                         · 2023-04-01 ·
                     </time>
                     
-                        <a href="http://localhost:4000/tag/UsCITmZAh/" class="post-tags">
+                        <a href="https://superupan.github.io/tag/UsCITmZAh/" class="post-tags">
                             # yuque
                         </a>
                     
@@ -107,10 +107,10 @@
 </blockquote>
 <p><em>注：Gridea 已于 2022 年 5 月 17 日发布 0.9.3 版本，解决了本文所提到的同步问题，因此本文可能已过时而变得不再实用。</em></p>
 <p>去年，我写了一篇文章【10 分钟教你创建个人网站——傻瓜式的网站搭建教学】，介绍如何运用 GitHub Pages 和 Gridea 搭建一个个人网站，时光飞逝，在我忙于应付高考的这一年中，也发生了不少事情。当我高考结束准备再创作的时候，我发现一个极其尴尬的问题—— Gridea 不能用了！<br>
-<img src="http://localhost:4000/post-images/1627384354752.png#id=aIp4W&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
+<img src="https://superupan.github.io/post-images/1627384354752.png#id=aIp4W&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
 （如图，Gridea 在点击同步按钮后，显示 “同步发生了错误”）</p>
 <p>我意识到，可能是一年多没用了，版本太低才出现了这个问题，于是我一波操作打开 Gridea 官网，心说去年写那篇文章时我用的版本是 0.9.2，这么长时间想必更了不少版本吧——<br>
-<img src="http://localhost:4000/post-images/1627384364649.png#id=FqSZk&amp;originHeight=1642&amp;originWidth=2784&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
+<img src="https://superupan.github.io/post-images/1627384364649.png#id=FqSZk&amp;originHeight=1642&amp;originWidth=2784&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
 好家伙，一个版本都没更，这条解决方法算是没了，无奈，我打开 Gridea 的 issue ，简单一翻，果然有不少人有跟我一样的问题。这时我突然想到，Gridea 是使用 GitHub Pages 的，而 Github 在今年 3 月份因为某些众所周知的原因遭到了某个众所周知的系统的 SNI 阻断和端口封锁，导致了对 GitHub 的连接被严重干扰，那么有没有可能是因为这个原因导致了 Gridea 的同步失败呢，一波测试下来，果然，正是因为连接被严重干扰才导致了 Gridea 的同步失败。</p>
 <p>既然是因为众所周知对原因受到了干扰，那最简单的解决方法自然是让代理软件代理 Gridea 对网络的访问，但是偏偏 Gridea 走的不是普通路线，一般的代理软件即使是全局代理，也管不着 Gridea！我翻了翻 Gridea 项目的 issue，发现有人提到在 Windows 端 Proxifier 这个软件可以直接强制 Gridea 受到代理，但是很不幸，我用的是 macOS 系统。</p>
 <p>issue 中有人提到改 hosts 可以解决，但是我上面也说了，对 GitHub 的干扰主要是通过 SNI 阻断和封锁端口（也就是强制丢包），我认为改 hosts 也并非长久之计。</p>
@@ -118,18 +118,18 @@
 <p>如果能用四个字总结这个解决方案，那就是——曲线救国，既然 Gridea 本身的上传系统不行，那就找个软件来代替它的上传系统。</p>
 <p>首先就是下载 <a href="https://desktop.github.com/">GitHub Desktop</a>，这就是我们拿来顶替 Gridea 上传系统的软件，分析一下思路，我们需要的是用 GitHub Desktop 上传 Gridea 输出的现成的网页文件，通过查看 Gridea 目录可以得知，存放最终网页文件的文件夹是 output，因此我们只要拿 GitHub Desktop 上传这个文件夹到 GitHub 就可以了。</p>
 <p>考虑到上篇文章的受众，这里我先介绍如何找到 output 文件夹，大佬可以直接跳过。<br>
-<img src="http://localhost:4000/post-images/1627383530716.png#id=FBPY7&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
+<img src="https://superupan.github.io/post-images/1627383530716.png#id=FBPY7&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
 首先打开 Gridea，点击左下角的设置图标，进入设置。<br>
-<img src="http://localhost:4000/post-images/1627384381377.png#id=PKpSc&amp;originHeight=1642&amp;originWidth=2624&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
+<img src="https://superupan.github.io/post-images/1627384381377.png#id=PKpSc&amp;originHeight=1642&amp;originWidth=2624&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
 在设置中就可以看到源文件的完整路径。依照路径在文件管理器里找到 output 文件夹，不必进入，直接删除。</p>
 <p>这时打开 GitHub Desktop，会提示你登陆 GitHub 账号。</p>
 <p>登入后，在界面右侧选择对应的仓库。</p>
 <p>此时弹窗显示选择路径，在 Local path 一行填入路径（在上文找到的路径基础上加上 output，即代表生成一个 output 文件夹并将仓库内容 clone 至此）点击 Clone。<br>
-<img src="http://localhost:4000/post-images/1627390441640.png#id=l5K4a&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
+<img src="https://superupan.github.io/post-images/1627390441640.png#id=l5K4a&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
 然后打开 Gridea ，点击左侧的远程一栏，点击检查远程连接，结束后点击同步。（这一步可能会失败，没关系，因为我们不用 Gridea 的上传系统）<br>
-<img src="http://localhost:4000/post-images/1627391197119.png#id=dzxbS&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
+<img src="https://superupan.github.io/post-images/1627391197119.png#id=dzxbS&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
 打开 GitHub Desktop，点击右侧的 Push origin，这一步完成后即成功。<br>
-<img src="http://localhost:4000/post-images/1627390623611.png#id=PC7nl&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
+<img src="https://superupan.github.io/post-images/1627390623611.png#id=PC7nl&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
 请注意，以后再写了新文章要同步的时候，只需要点击同步，不需要检查远程连接。且在 GitHub Pages 中需要先在左侧的 Summary 内写出变动内容（我直接写 update，因为我懒），点击 Commit to master（如上图），然后再点 Push origin。</p>
 <p>解决的教程到这里就结束了，这里简单说下思路。</p>
 <p>在前面我将这种方法称为移花接木，即用 GitHub Desktop 代替 Gridea 的文件上传系统，通过这种方式，Gridea 其实从一个集生成和上传为一体的方便工具变成了一个网页文件生成器。这时有些人应该看出来了，Gridea 的同步按钮对应的功能不仅仅是上传文件，还有生成网页文件这一步，这也解释了为什么在点击同步后遭遇失败却依然能够进行接下来的步骤。</p>
@@ -168,7 +168,7 @@
     </div>
     <div>
         Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="http://localhost:4000/atom.xml" target="_blank">RSS</a></a>
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://superupan.github.io/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 

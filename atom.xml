@@ -1,18 +1,1012 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://superupan.github.io</id>
     <title>温故而知新</title>
-    <updated>2023-08-01T14:09:47.185Z</updated>
+    <updated>2023-08-03T14:22:08.922Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <link rel="alternate" href="https://superupan.github.io"/>
+    <link rel="self" href="https://superupan.github.io/atom.xml"/>
+    <logo>https://superupan.github.io/images/avatar.png</logo>
+    <icon>https://superupan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2023, 温故而知新</rights>
     <entry>
+        <title type="html"><![CDATA[simpread-总结 Pandas 的 20 个统计函数]]></title>
+        <id>https://superupan.github.io/post/simpread-总结 Pandas 的 20 个统计函数/</id>
+        <link href="https://superupan.github.io/post/simpread-总结 Pandas 的 20 个统计函数/">
+        </link>
+        <updated>2023-08-01T15:58:58.000Z</updated>
+        <content type="html"><![CDATA[<p>大家好，我是 Peter~</p>
+<p>最近整理了 pandas 中 20 个常用统计函数和用法，建议收藏学习~</p>
+<figure data-type="image" tabindex="1"><img src="https://pic1.zhimg.com/v2-d1ab89933ec7837b7158e280502ebdd0_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="20-个统计函数"><strong>20 个统计函数</strong></h2>
+<p>先给出一份汇总名单：</p>
+<pre><code>df.count()          #非空元素计算
+df.min()            #最小值
+df.max()            #最大值
+df.idxmin()         #最小值的位置，类似于R中的which.min函数
+df.idxmax()         #最大值的位置，类似于R中的which.max函数
+df.quantile(0.1)    #10%分位数
+df.sum()            #求和
+df.mean()           #均值
+df.median()         #中位数
+df.mode()           #众数
+df.var()            #方差
+df.std()            #标准差
+df.mad()            #平均绝对偏差
+df.skew()           #偏度
+df.kurt()           #峰度
+df.describe()       #一次性输出多个描述性统计指标
+df.abs()            #求绝对值
+df.prod             #元素乘积
+df.cumsum           #累计和
+df.cumprod          #累计乘积
+
+
+</code></pre>
+<h2 id="模拟数据"><strong>模拟数据</strong></h2>
+<p>为了解释每个方法，模拟了一份带有空值的数据：</p>
+<pre><code>import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.DataFrame({
+    &quot;sex&quot;:[&quot;male&quot;,&quot;male&quot;,&quot;female&quot;,&quot;female&quot;,&quot;male&quot;],
+    &quot;age&quot;:[22,24,25,26,24],
+    &quot;chinese&quot;:[100,120,110,100,90],
+    &quot;math&quot;:[90,np.nan,100,80,120],  # 存在空值
+    &quot;english&quot;:[90,130,90,80,100]})
+
+df
+
+
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://pic2.zhimg.com/v2-6b71d0486813e4ccd8353ed412ee03c5_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="描述统计信息-describe"><strong>描述统计信息 describe</strong></h2>
+<p>descirbe 方法只能针对序列或数据框，一维数组是没有这个方法的；同时默认只能针对数值型的数据进行统计：</p>
+<pre><code>DataFrame.describe(percentiles=None,include=None,exclude=None)
+
+
+</code></pre>
+<ul>
+<li>percentiles：可选折的百分数，列表形式；数值在 0-1 之间，默认是 [.25,.5,.75]</li>
+<li>include/exclude：包含和排序的数据类型信息</li>
+</ul>
+<p>返回的信息包含：</p>
+<ul>
+<li>非空值的数量 count；特例：math 字段中有一个空值</li>
+<li>均值 mean</li>
+<li>标准差 std</li>
+<li>最小值 min</li>
+<li>最大值 max</li>
+<li>25%、50%、75% 分位数</li>
+</ul>
+<pre><code>df.describe()
+
+
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://pic3.zhimg.com/v2-401ef08ea3e458961d78c52321df3a0a_r.jpg" alt="" loading="lazy"></figure>
+<p>添加了参数后的情况，我们发现：</p>
+<ul>
+<li>sex 字段的相关信息也被显示出来</li>
+<li>显示的信息更丰富，多了 unique、top、freq 等等</li>
+</ul>
+<figure data-type="image" tabindex="4"><img src="https://pic2.zhimg.com/v2-8b82a949ca23222578326bbfcdf3b20d_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="非空值数量-count"><strong>非空值数量 count</strong></h2>
+<p>返回的是每个字段中非空值的数量</p>
+<p>In [5]:</p>
+<pre><code>df.count()
+
+
+</code></pre>
+<p>Out[5]:</p>
+<pre><code>sex        5
+age        5
+chinese    5
+math       4  # 包含一个空值
+english    5
+dtype: int64
+
+
+</code></pre>
+<h2 id="求和-sum"><strong>求和 sum</strong></h2>
+<p>In [6]:</p>
+<pre><code>df.sum()
+
+
+</code></pre>
+<p>在这里我们发现：如果字段是 object 类型的，sum 函数的结果就是直接将全部取值拼接起来</p>
+<p>Out[6]:</p>
+<pre><code>sex        malemalefemalefemalemale # 拼接
+age                             121  # 相加求和
+chinese                         520
+math                          390.0
+english                         490
+dtype: object
+
+
+</code></pre>
+<h2 id="最大值-max"><strong>最大值 max</strong></h2>
+<p>In [7]:</p>
+<pre><code>df.max()
+
+
+</code></pre>
+<p>针对字符串的最值（最大值或者最小值），是根据字母的 ASCII 码大小来进行比较的：</p>
+<ul>
+<li>先比较首字母的大小</li>
+<li>首字母相同的话，再比较第二个字母</li>
+</ul>
+<p>Out[7]:</p>
+<pre><code>sex         male  
+age           26
+chinese      120
+math       120.0
+english      130
+dtype: object
+
+
+</code></pre>
+<h2 id="最小值-min"><strong>最小值 min</strong></h2>
+<p>和 max 函数的求解是类似的：</p>
+<p>In [8]:</p>
+<pre><code>df.min()
+
+
+</code></pre>
+<p>Out[8]:</p>
+<pre><code>sex        female
+age            22
+chinese        90
+math         80.0
+english        80
+dtype: object
+
+
+</code></pre>
+<h2 id="分位数-quantile"><strong>分位数 quantile</strong></h2>
+<p>返回指定位置的分位数</p>
+<p>In [9]:</p>
+<pre><code>df.quantile(0.2)
+
+
+</code></pre>
+<p>Out[9]:</p>
+<pre><code>age        23.6
+chinese    98.0
+math       86.0
+english    88.0
+Name: 0.2, dtype: float64
+
+
+</code></pre>
+<p>In [10]:</p>
+<pre><code>df.quantile(0.25)
+
+
+</code></pre>
+<p>Out[10]:</p>
+<pre><code>age         24.0
+chinese    100.0
+math        87.5
+english     90.0
+Name: 0.25, dtype: float64
+
+
+</code></pre>
+<p>In [11]:</p>
+<pre><code>df.quantile(0.75)
+
+
+</code></pre>
+<p>Out[11]:</p>
+<pre><code>age         25.0
+chinese    110.0
+math       105.0
+english    100.0
+Name: 0.75, dtype: float64
+
+
+</code></pre>
+<p>通过箱型图可以展示一组数据的 25%、50%、75% 的中位数：</p>
+<p>In [12]:</p>
+<pre><code>plt.figure(figsize=(12,6))#设置画布的尺寸
+
+plt.boxplot([df[&quot;age&quot;],df[&quot;chinese&quot;],df[&quot;english&quot;]],
+           labels = [&quot;age&quot;,&quot;chinese&quot;,&quot;english&quot;],
+#            vert=False, 
+           showmeans=True,
+           patch_artist = True, 
+           boxprops = {'color':'orangered','facecolor':'pink'}
+#            showgrid=True
+           )
+
+plt.show()
+
+
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://pic3.zhimg.com/v2-4775dfb90f148cee7ea7bfe47b695aca_r.jpg" alt="" loading="lazy"></figure>
+<p>箱型图的具体展示信息：</p>
+<figure data-type="image" tabindex="6"><img src="https://pic3.zhimg.com/v2-1321c6612af3bb38c5c9e1e1b0ea9476_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="均值-mean"><strong>均值 mean</strong></h2>
+<p>一组数据<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo>…</mo><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">x_1,x_2,……x_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>x_1,x_2,……x_n 的平均值</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mo>…</mo><mo>…</mo><mo>+</mo><msub><mi>x</mi><mi>n</mi></msub><mo>)</mo><mi mathvariant="normal">/</mi><mi>n</mi><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">(x_1 + x_2 + …… + x_n) / n\\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathdefault">n</span></span><span class="mspace newline"></span></span></span></span></p>
+<p>(x_1 + x_2 + …… + x_n) / n\</p>
+<p>In [13]:</p>
+<pre><code>df.mean()
+
+
+</code></pre>
+<p>Out[13]:</p>
+<pre><code>age         24.2
+chinese    104.0
+math        97.5
+english     98.0
+dtype: float64
+
+
+</code></pre>
+<p>通过下面的例子我们发现：如果字段中存在缺失值（math 存在缺失值），此时样本的个数会自动忽略缺失值的总数</p>
+<p>In [14]:</p>
+<pre><code>390/4  # 个数不含空值
+
+
+</code></pre>
+<p>Out[14]:</p>
+<pre><code>97.5
+
+
+</code></pre>
+<h2 id="中值-中位数-median"><strong>中值 / 中位数 median</strong></h2>
+<p>比如：1,2,3,4,5 的中位数就是 3</p>
+<p>再比如：1,2,3,4,5,6 的中位数就是 3+4 = 3.5</p>
+<p>In [15]:</p>
+<pre><code>df.median()
+
+
+</code></pre>
+<p>Out[15]:</p>
+<pre><code>age         24.0
+chinese    100.0
+math        95.0
+english     90.0
+dtype: float64
+
+
+</code></pre>
+<h2 id="众数-mode"><strong>众数 mode</strong></h2>
+<p>一组数据中出现次数最多的数</p>
+<p>In [16]:</p>
+<pre><code>df.mode()
+
+
+</code></pre>
+<p>Out[16]:</p>
+<figure data-type="image" tabindex="7"><img src="https://pic3.zhimg.com/v2-f985d9f88be2002cbf31cdbe9e05bfb2_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="最大值索引-idmax"><strong>最大值索引 idmax</strong></h2>
+<p>idxmax() 返回的是最大值的索引</p>
+<p>In [17]:</p>
+<pre><code>df[&quot;age&quot;].idxmax()
+
+
+</code></pre>
+<p>Out[17]:</p>
+<pre><code>3
+
+
+</code></pre>
+<p>In [18]:</p>
+<pre><code>df[&quot;chinese&quot;].idxmin()
+
+
+</code></pre>
+<p>Out[18]:</p>
+<pre><code>4
+
+
+</code></pre>
+<p>不能字符类型的字段使用该函数，Pandas 不支持：</p>
+<p>In [19]:</p>
+<pre><code>df[&quot;sex&quot;].idxmax()
+
+
+</code></pre>
+<figure data-type="image" tabindex="8"><img src="https://pic3.zhimg.com/v2-f10a7592c523f32c5c73e4f8bf68e372_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="最小值索引-inxmin"><strong>最小值索引 inxmin</strong></h2>
+<p>返回最小值所在的索引</p>
+<p>In [20]:</p>
+<pre><code>df[&quot;age&quot;].idxmin()
+
+
+</code></pre>
+<p>Out[20]:</p>
+<pre><code>0
+
+
+</code></pre>
+<p>In [21]:</p>
+<pre><code>df[&quot;math&quot;].idxmin()
+
+
+</code></pre>
+<p>Out[21]:</p>
+<pre><code>3
+
+
+</code></pre>
+<p>In [22]:</p>
+<pre><code>df[&quot;sex&quot;].idxmin()
+
+
+</code></pre>
+<p>不能字符类型的字段使用该函数，Pandas 不支持：</p>
+<figure data-type="image" tabindex="9"><img src="https://pic3.zhimg.com/v2-4b8c0e71281b8695d239033e9750b586_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="方差-var"><strong>方差 var</strong></h2>
+<p>计算一组数据的方差，需要注意的是：numpy 中的方差叫总体方差，pandas 中的方差叫样本方差</p>
+<p>标准差（或方差）分为 总体标准差（方差）和 样本标准差（方差）</p>
+<ul>
+<li>前者分母为 n，右偏的；后者分母为 n-1，是无偏的</li>
+<li>pandas 里是算无偏的；numpy 里是有偏的</li>
+</ul>
+<p>In [23]:</p>
+<pre><code>df.var()
+
+
+</code></pre>
+<p>Out[23]:</p>
+<pre><code>age          2.200000
+chinese    130.000000
+math       291.666667  # pandas计算结果
+english    370.000000
+dtype: float64
+
+
+</code></pre>
+<p>In [24]:</p>
+<pre><code>df[&quot;math&quot;].var()
+
+
+</code></pre>
+<p>Out[24]:</p>
+<pre><code>291.6666666666667
+
+
+</code></pre>
+<p>In [25]:</p>
+<pre><code>np.var(df[&quot;math&quot;])  # numpy计算结果
+
+
+</code></pre>
+<p>Out[25]:</p>
+<pre><code>218.75
+
+
+</code></pre>
+<p>In [26]:</p>
+<pre><code>np.var(df[&quot;age&quot;])
+
+
+</code></pre>
+<p>Out[26]:</p>
+<pre><code>1.7600000000000002
+
+
+</code></pre>
+<p>In [27]:</p>
+<pre><code>np.var(df[&quot;english&quot;])
+
+
+</code></pre>
+<p>Out[27]:</p>
+<pre><code>296.0
+
+
+</code></pre>
+<h2 id="标准差-std"><strong>标准差 std</strong></h2>
+<p>返回的是一组数据的标准差</p>
+<p>In [28]:</p>
+<pre><code>df.std()
+
+
+</code></pre>
+<p>Out[28]:</p>
+<pre><code>age         1.483240
+chinese    11.401754
+math       17.078251
+english    19.235384
+dtype: float64
+
+
+</code></pre>
+<p>In [29]:</p>
+<pre><code>np.std(df[&quot;math&quot;])
+
+
+</code></pre>
+<p>Out[29]:</p>
+<pre><code>14.79019945774904
+
+
+</code></pre>
+<p>In [30]:</p>
+<pre><code>np.std(df[&quot;english&quot;])
+
+
+</code></pre>
+<p>Out[30]:</p>
+<pre><code>17.204650534085253
+
+
+</code></pre>
+<p>In [31]:</p>
+<pre><code>np.std(df[&quot;age&quot;])
+
+
+</code></pre>
+<p>Out[31]:</p>
+<pre><code>1.32664991614216
+
+
+</code></pre>
+<p>如何理解 pandas 和 numpy 两种方法对方差的求解不同：</p>
+<figure data-type="image" tabindex="10"><img src="https://pic2.zhimg.com/v2-07e34b9e26aeb1636b7937a89bb5d20d_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="平均绝对偏差-mad"><strong>平均绝对偏差 mad</strong></h2>
+<figure data-type="image" tabindex="11"><img src="https://pic1.zhimg.com/v2-b5c62c7bbd4b202cfe719214b5ff4918_r.jpg" alt="" loading="lazy"></figure>
+<p>In [32]:</p>
+<pre><code>df.mad()
+
+
+</code></pre>
+<p>Out[32]:</p>
+<pre><code>age         1.04
+chinese     8.80
+math       12.50
+english    13.60
+dtype: float64
+
+
+</code></pre>
+<p>以字段 age 为例：</p>
+<p>In [33]:</p>
+<pre><code>df[&quot;age&quot;].mad()
+
+
+</code></pre>
+<p>Out[33]:</p>
+<pre><code>1.0399999999999998
+
+
+</code></pre>
+<p>In [34]:</p>
+<pre><code>df[&quot;age&quot;].tolist()
+
+
+</code></pre>
+<p>Out[34]:</p>
+<pre><code>[22, 24, 25, 26, 24]
+
+
+</code></pre>
+<p>In [35]:</p>
+<pre><code>age_mean = df[&quot;age&quot;].mean()
+age_mean
+
+
+</code></pre>
+<p>Out[35]:</p>
+<pre><code>24.2
+
+
+</code></pre>
+<p>In [36]:</p>
+<pre><code>(abs(22-age_mean) + abs(24-age_mean) + abs(25-age_mean) 
+ + abs(26-age_mean) + abs(24-age_mean)) / 5
+
+
+</code></pre>
+<p>Out[36]:</p>
+<pre><code>1.0399999999999998
+
+
+</code></pre>
+<h2 id="偏度-skew"><strong>偏度 - skew</strong></h2>
+<p>介绍峰度和偏度的好文章：<a href="https://link.zhihu.com/?target=https%3A//www.cnblogs.com/wyy1480/p/10474046.html">https://www.cnblogs.com/wyy1480/p/10474046.html</a></p>
+<p>偏度（skewness），是统计数据分布偏斜方向和程度的度量，是统计数据分布非对称程度的数字特征。</p>
+<p>偏度 (Skewness) 亦称偏态、偏态系数，表征概率分布密度曲线相对于平均值不对称程度的特征数。</p>
+<p>直观看来就是密度函数曲线尾部的相对长度。定义上偏度是样本的三阶标准化矩：</p>
+<figure data-type="image" tabindex="12"><img src="https://pic1.zhimg.com/v2-205338e72bd6fe92925b78ccae350a08_r.jpg" alt="" loading="lazy"></figure>
+<p>In [37]:</p>
+<pre><code>df.skew()
+
+
+</code></pre>
+<p>Out[37]:</p>
+<pre><code>age       -0.551618
+chinese    0.404796
+math       0.752837
+english    1.517474
+dtype: float64
+
+
+</code></pre>
+<p>In [38]:</p>
+<pre><code>df[&quot;age&quot;].skew()
+
+
+</code></pre>
+<p>Out[38]:</p>
+<pre><code>-0.5516180692881046
+
+
+</code></pre>
+<h2 id="峰度-kurt"><strong>峰度 - kurt</strong></h2>
+<p>返回的是峰度值</p>
+<p>In [39]:</p>
+<pre><code>df.kurt()
+
+
+</code></pre>
+<p>Out[39]:</p>
+<pre><code>age        0.867769
+chinese   -0.177515
+math       0.342857
+english    2.607743
+dtype: float64
+
+
+</code></pre>
+<p>In [40]:</p>
+<pre><code>df[&quot;age&quot;].kurt()
+
+
+</code></pre>
+<p>Out[40]:</p>
+<pre><code>0.8677685950413174
+
+
+</code></pre>
+<p>In [41]:</p>
+<pre><code>df[&quot;math&quot;].kurt()
+
+
+</code></pre>
+<p>Out[41]:</p>
+<pre><code>0.3428571428571434      
+
+
+</code></pre>
+<h2 id="绝对值-abs"><strong>绝对值 abs</strong></h2>
+<p>返回数据的绝对值：</p>
+<p>In [45]:</p>
+<pre><code>df[&quot;age&quot;].abs()
+
+
+</code></pre>
+<p>Out[45]:</p>
+<pre><code>0    22
+1    24
+2    25
+3    26
+4    24
+Name: age, dtype: int64
+
+
+</code></pre>
+<p>如果存在缺失值，绝对值函数求解后仍是 NaN：</p>
+<p>In [46]:</p>
+<pre><code>df[&quot;math&quot;].abs()
+
+
+</code></pre>
+<p>Out[46]:</p>
+<pre><code>0     90.0
+1      NaN
+2    100.0
+3     80.0
+4    120.0
+Name: math, dtype: float64
+
+
+</code></pre>
+<p>绝对值函数是针对数值型的字段，不能对字符类型的字段求绝对值：</p>
+<p>In [47]:</p>
+<pre><code># 字符类型的数据报错
+df[&quot;sex&quot;].abs()
+
+
+</code></pre>
+<figure data-type="image" tabindex="13"><img src="https://pic3.zhimg.com/v2-66e1821bcbbc0e0c6dc9576589b61e12_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="元素乘积-prod"><strong>元素乘积 prod</strong></h2>
+<p>In [48]:</p>
+<pre><code>df.prod()
+
+
+</code></pre>
+<p>Out[48]:</p>
+<pre><code>age        8.236800e+06
+chinese    1.188000e+10
+math       8.640000e+07
+english    8.424000e+09
+dtype: float64
+
+
+</code></pre>
+<p>In [49]:</p>
+<pre><code>df[&quot;age&quot;].tolist()
+
+
+</code></pre>
+<p>Out[49]:</p>
+<pre><code>[22, 24, 25, 26, 24]
+
+
+</code></pre>
+<p>In [50]:</p>
+<pre><code>22 * 24 * 25 * 26 * 24
+
+
+</code></pre>
+<p>Out[50]:</p>
+<pre><code>8236800
+
+
+</code></pre>
+<h2 id="累计求和-cumsum"><strong>累计求和 cumsum</strong></h2>
+<p>In [51]:</p>
+<pre><code>df.cumsum()
+
+
+</code></pre>
+<figure data-type="image" tabindex="14"><img src="https://pic1.zhimg.com/v2-66c2658f0bb07338d10b550d5a6d20b8_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="累计乘积-cumprod"><strong>累计乘积 cumprod</strong></h2>
+<p>In [52]:</p>
+<pre><code>df[&quot;age&quot;].cumprod()
+
+
+</code></pre>
+<p>Out[52]:</p>
+<pre><code>0         22
+1        528
+2      13200
+3     343200
+4    8236800
+Name: age, dtype: int64
+
+
+</code></pre>
+<p>In [53]:</p>
+<pre><code>df[&quot;math&quot;].cumprod()
+
+
+</code></pre>
+<p>Out[53]:</p>
+<pre><code>0          90.0
+1           NaN
+2        9000.0
+3      720000.0
+4    86400000.0
+Name: math, dtype: float64
+
+
+</code></pre>
+<p>In [54]:</p>
+<pre><code># 字符类型字段报错
+df[&quot;sex&quot;].cumprod()
+
+
+</code></pre>
+<figure data-type="image" tabindex="15"><img src="https://pic1.zhimg.com/v2-3c7d49dc6e7514780361ea31b37e8dac_r.jpg" alt="" loading="lazy"></figure>
+<h2 id="20-个统计函数-2"><strong>20 个统计函数</strong></h2>
+<p>最后再总结下 Pandas 中常用来描述统计信息的函数：</p>
+<figure data-type="image" tabindex="16"><img src="https://pic3.zhimg.com/v2-93664161293f519fba9dd2898efdb3f6_r.jpg" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[simpread-auto-py-to-exe 使用指南_风吹过得夏天的博客 - CSDN 博客]]></title>
+        <id>https://superupan.github.io/post/simpread-auto-py-to-exe 使用指南_风吹过得夏天的博客 - CSDN 博客/</id>
+        <link href="https://superupan.github.io/post/simpread-auto-py-to-exe 使用指南_风吹过得夏天的博客 - CSDN 博客/">
+        </link>
+        <updated>2023-08-01T15:54:47.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>auto-py-to-exe 是一个用于打包 python 程序的程序。本文就是主要介绍如何使用 auto-py-to-exe 完成 python 程序打包。</li>
+<li>本文主要分为两节，第一节主要对 auto-py-to-exe 做一些介绍，第二节则是演示 auto-py-to-exe 的打包过程。</li>
+</ul>
+<h2 id="一-auto-py-to-exe-基本介绍">一. auto-py-to-exe 基本介绍</h2>
+<ul>
+<li>本节主要介绍 auto-py-to-exe 以及 auto-py-to-exe 的一些基本使用。</li>
+</ul>
+<h3 id="1-auto-py-to-exe-简介">1. auto-py-to-exe 简介</h3>
+<ul>
+<li>auto-py-to-exe 是一个基于 pyinstaller 的程序，主要用于 python 程序打包。相比于 pyinstaller ，它多了 UI 界面，这使我们使用起来更为简单，方便，非常适合新手使用。</li>
+</ul>
+<h3 id="2-安装-auto-py-to-exe">2. 安装 auto-py-to-exe</h3>
+<ul>
+<li>首先我们要确保我们的 python 环境要大于或等于 2.7</li>
+<li>然后在 cmd 里面输入：<strong>pip install auto-py-to-exe</strong> ，输入完成之后，pip 就会安装 auto-py-to-exe 包了。</li>
+<li>安装完成之后，我们就可以输入：<strong>auto-py-to-exe</strong>，来启动 auto-py-to-exe 程序了。<br>
+<img src="https://img-blog.csdnimg.cn/20200409200945679.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEzODU0NzY=,size_16,color_FFFFFF,t_70" alt="" loading="lazy"></li>
+<li>这样，auto-py-to-exe 就安装成功了。</li>
+</ul>
+<h3 id="3-auto-py-to-exe-部分选项介绍">3. auto-py-to-exe 部分选项介绍</h3>
+<ul>
+<li>在使用 auto-py-to-exe 打包 python 程序的时候，有许多配置选项需要我们去指定，能正确知道这些选项的作用是十分重要的。下面我将介绍其中一些重要的选项。</li>
+</ul>
+<p>(1) Script Location</p>
+<ul>
+<li>Script Location 主要是指定我们要打包的 python 文件<br>
+<img src="https://img-blog.csdnimg.cn/20200409201013826.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEzODU0NzY=,size_16,color_FFFFFF,t_70" alt="" loading="lazy"></li>
+</ul>
+<p>(2) Onefile</p>
+<ul>
+<li>Onefile 下有两个选项，分别是：One Directory 和 One File
+<ul>
+<li>如果选择 One Directory ，那么程序打包完成后会是一个文件夹的形式展现</li>
+<li>如果选择 One File ，那么程序打包完成后就一个 .exe 文件</li>
+</ul>
+</li>
+</ul>
+<p>(3) Console Window</p>
+<ul>
+<li>Console Window 主要设置打包程序运行时，是否出现控制台
+<ul>
+<li>Console Based : 当打包的程序运行时会显示一个控制台界面</li>
+<li>Window Based (hide the console) : 会隐藏控制台界面，主要用于带有 GUI 的 python 程序打包</li>
+</ul>
+</li>
+</ul>
+<p>(4) Icon</p>
+<ul>
+<li>用于指定打包程序的图标</li>
+</ul>
+<h2 id="二-auto-py-to-exe-实战教程">二. auto-py-to-exe 实战教程</h2>
+<ul>
+<li>本节主要以一个计算器程序来介绍如何使用 auto-py-to-exe 来打包程序。</li>
+<li>auto-py-to-exe 打包程序主要分 3 部分，分别是：
+<ol>
+<li>打开 auto-py-to-exe</li>
+<li>配置打包选项</li>
+<li>查看打包效果</li>
+</ol>
+</li>
+</ul>
+<h3 id="1-打开-auto-py-to-exe">1. 打开 auto-py-to-exe</h3>
+<ul>
+<li>打开 cmd ，输入：<strong>auto-py-to-exe</strong></li>
+<li>打开 auto-py-to-exe 后，我们就要进行配置选择了。</li>
+</ul>
+<h3 id="2-配置打包选项">2. 配置打包选项</h3>
+<ul>
+<li>计算器程序，大家可以到 GitHub 去下载，地址是：https://github.com/WanglinLi595/calculator</li>
+<li>在打包时，我们要进行的配置主要有：
+<ul>
+<li>Script Location</li>
+<li>Onefile</li>
+<li>Console Window</li>
+</ul>
+</li>
+<li>Script Location 选择程序的主程序，在计算器项目里，我们选择的是 main.py</li>
+<li>Onefile 选择 One File ，因为一个文件看起来比较简洁</li>
+<li>由于计算器项目带有 GUI , 所以 Console Window 选择 Window Based (hide the console) ,</li>
+<li>Icon 选择一个 ico 文件，此处不是必要操作，可以不设置<br>
+<img src="https://img-blog.csdnimg.cn/20200409201119570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEzODU0NzY=,size_16,color_FFFFFF,t_70" alt="" loading="lazy"></li>
+<li>如果程序里面有自己的模块，我们必须把模块的目录添加到 Additional Files 里面。不然会出现 <strong>Failed to execute script XXX</strong> 错误<br>
+<img src="https://img-blog.csdnimg.cn/20200409201131196.png" alt="" loading="lazy"></li>
+<li>在计算器程序里面我们所有的模块都在 calculation 目录下，所有我们需要将 calculation 路径添加到 Additional Files 里面<br>
+<img src="https://img-blog.csdnimg.cn/20200409201156989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEzODU0NzY=,size_16,color_FFFFFF,t_70" alt="" loading="lazy"></li>
+<li>配置完成之后点击 CONVERT .PY TO .EXE 按钮</li>
+<li>这样我们就完成一个计算器项目的打包。</li>
+</ul>
+<h3 id="3-查看打包效果">3. 查看打包效果</h3>
+<ul>
+<li>程序完成打包后，我们可以点击 OPEN OUTPUT FOLDER 按钮，然后就会打开打包文件的路径。<br>
+<img src="https://img-blog.csdnimg.cn/20200409201237771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEzODU0NzY=,size_16,color_FFFFFF,t_70" alt="" loading="lazy"></li>
+<li>在打包文件目录中，我们可以看到一个 main.exe 文件，这就是我们打包文件。</li>
+<li>点击 main.exe ，就可以看到一个计算器程序了。<br>
+<img src="https://img-blog.csdnimg.cn/20200409201307921.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEzODU0NzY=,size_16,color_FFFFFF,t_70" alt="" loading="lazy"></li>
+<li>至此，打包工作圆满完成。</li>
+</ul>
+<h2 id="三-结语">三. 结语</h2>
+<ul>
+<li>本文主要介绍了如何使用 auto-py-to-exe 来对 python 程序进行打包。但只是介绍最简单的 python 程序打包，如果想对复杂的程序进行打包，上面的配置肯定是不行的。</li>
+<li>如果想更加深入的了解 auto-py-to-exe ，我建议大家去研究一下 pyinstaller 。auto-py-to-exe 是基于 pyinstaller 的，研究 pyinstaller ，将会对我们深入使用 auto-py-to-exe 有非常明显的效果。</li>
+<li>想更加深入了解 pyinstaller 可以去阅读官方文档。<a href="https://pyinstaller.readthedocs.io/en/stable/">pyinstaller 官方文档</a></li>
+<li>如果文中有写的不对的地方，请大家指正。联系方式：lwl510ll@163.com</li>
+<li>最后感谢大家的观看。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[simpread-Git 学习笔记 1：Git 本地仓库管理]]></title>
+        <id>https://superupan.github.io/post/simpread-Git 学习笔记 1：Git 本地仓库管理/</id>
+        <link href="https://superupan.github.io/post/simpread-Git 学习笔记 1：Git 本地仓库管理/">
+        </link>
+        <updated>2023-08-01T15:43:54.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="前言"><strong>前言</strong></h2>
+<p>Git 近些年的火爆程度非同一般，这个版本控制系统被广泛地用在大型开源项目（比如 Linux），不同规模的团队开发，以及独立开发者，甚至学生之中。</p>
+<p>我在初学的时候被 git 里的<a href="https://link.zhihu.com/?target=https%3A//git-scm.com/docs">各种命令、参数</a>吓得不愿意继续去学习。但实际上刚上手的时候，你并不需要了解所有命令的用途。你可以从掌握一些简单、常用又强大的命令开始，然后逐步去学习。我将我的 Git 的学习过程整理并写成博客分享出来，方便初学者学习入门，也以便我日后查漏补缺。</p>
+<p>Git 的内容繁杂庞大，我计划从三个方面整理 Git：</p>
+<ol>
+<li>Git 的本地仓库管理</li>
+<li>Git 的远程仓库管理</li>
+<li>Git 的分支管理与多人协作</li>
+</ol>
+<p>本文参考了网上很多资料，难以一一列举，在此对这些资料的作者表示感谢！关于 Git 相关的资料，请参考文末。</p>
+<h2 id="git-简介"><strong>Git 简介</strong></h2>
+<p>什么是 Git？</p>
+<p>Git 是目前世界上最先进的分布式版本控制系统，所谓**版本控制系统是任何能让你了解到一个文件的历史，以及它的发展过程的系统。**通俗的讲就是一个可以记录工程的每一次改动和版本迭代的一个管理系统，同时也方便多人协同作业。</p>
+<p>很多人 Git 与 Github 傻傻分不清 Git 是一款免费、开源的分布式版本控制系统，而 Github 是用 Git 做版本控制的代码托管平台当然也是全球最大的同性交友平台。还搞不懂可以参见：</p>
+<p><a href="https://link.zhihu.com/?target=http%3A//blog.jobbole.com/111187/">大白话解释 Git 和 GitHub - 文章 - 伯乐在线</a></p>
+<p>CVS 及 SVN 都是集中式的版本控制系统，而 Git 是分布式版本控制系统。</p>
+<p>先说集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。</p>
+<figure data-type="image" tabindex="1"><img src="https://pic2.zhimg.com/v2-c833acc9a8d19e9d2d4f3b4586d4e0e5_b.jpg" alt="" loading="lazy"></figure>
+<p>分布式版本控制系统根本没有 “中央服务器”，每个人的电脑上都是一个完整的版本库，这样，你工作的时候，就不需要联网了，因为版本库就在你自己的电脑上。既然每个人电脑上都有一个完整的版本库，那多个人如何协作呢？比方说你在自己电脑上改了文件 A，你的同事也在他的电脑上改了文件 A，这时，你们俩之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
+<figure data-type="image" tabindex="2"><img src="https://pic2.zhimg.com/v2-ffc649a4cee29b07fde2ced133655909_r.jpg" alt="" loading="lazy"></figure>
+<p>和集中式版本控制系统相比，分布式版本控制系统的安全性要高很多，因为每个人电脑里都有完整的版本库，某一个人的电脑坏掉了不要紧，随便从其他人那里复制一个就可以了。而集中式版本控制系统的中央服务器要是出了问题，所有人都没法干活了。Git 的优势不单是不必联网这么简单，后面我们还会看到 Git 极其强大的分支管理，把 SVN 等远远抛在了后面。</p>
+<h2 id="git-安装linux">Git 安装（Linux）</h2>
+<p>Git 在很长一段时间内只能在 Linux 和 Unix 系统上运行，慢慢地有人把它移植到了 Windows 上。现在，Git 可以在 Linux、Unix、Mac 和 Windows 这几大平台上正常运行了。</p>
+<p>安装 Git 的方法很简单只需在终端输入：</p>
+<pre><code>$ sudo apt-get install git
+
+</code></pre>
+<p>即可完成安装。</p>
+<h2 id="创建版本库">创建版本库</h2>
+<p>什么是版本库呢？版本库又名仓库，英文名 <strong>repository</strong>，你可以简单理解成一个目录，这个目录里面的所有文件都可以被 Git 管理起来，每个文件的修改、删除，Git 都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以 “还原”。</p>
+<p>创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录：</p>
+<pre><code>$ mkdir learngit
+$ cd learngit
+$ pwd
+/home/wang/learngit
+
+</code></pre>
+<p>第二步，通过<code>git init</code>命令把这个目录变成 Git 可以管理的仓库：</p>
+<pre><code>$ git init
+初始化空的 Git 仓库于 /home/wang/learngit/.git/
+
+</code></pre>
+<p>瞬间 Git 就把仓库建好了，而且告诉你是一个空的仓库（empty Git repository）。打开隐藏文件（Ctrl+h）可以看到. git 的文件，这个目录是 Git 来跟踪管理版本库的。</p>
+<figure data-type="image" tabindex="3"><img src="https://pic3.zhimg.com/v2-10f4c0168c1dbb93ab78915282f9feee_r.jpg" alt="" loading="lazy"></figure>
+<p>也不一定必须在空目录下创建 Git 仓库，选择一个已经有东西的目录也是可以的。</p>
+<h2 id="本地仓库管理">本地仓库管理</h2>
+<p>首先我们编写一个<code>readme.txt</code>文件并放到<code>learngit</code>目录下（子目录也行），内容如下：</p>
+<pre><code>Git is a version control system.
+Git is free software.
+
+</code></pre>
+<p>编写好 readme.txt 文件后，使用 git add 和 git commit 将该文件添加到仓库中。</p>
+<pre><code>$ git add readme.txt
+$ git commit -m &quot;wrote a readme file&quot;
+[master （根提交） a41ba4d] wrote a readme file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 readme.txt
+
+</code></pre>
+<p>简单解释一下<code>git commit</code>命令，<code>-m</code>后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。</p>
+<p><code>git commit</code>命令执行成功后会告诉你，<code>1 file changed</code>：1 个文件被改动（我们新添加的 readme.txt 文件）；<code>2 insertions</code>：插入了两行内容（readme.txt 有两行内容）。</p>
+<p>现在修改 readme.txt 文件，改成如下内容：</p>
+<pre><code>Git is a distributed version control system.
+Git is free software.
+
+</code></pre>
+<p>现在，运行<code>git status</code>命令看看结果：</p>
+<pre><code>$ git status   
+位于分支 master
+尚未暂存以备提交的变更：
+  （使用 &quot;git add &lt;文件&gt;...&quot; 更新要提交的内容）
+  （使用 &quot;git checkout -- &lt;文件&gt;...&quot; 丢弃工作区的改动）
+
+	修改：     readme.txt
+
+修改尚未加入提交（使用 &quot;git add&quot; 和/或 &quot;git commit -a&quot;）
+
+</code></pre>
+<p><code>git status</code>命令可以让我们时刻掌握仓库当前的状态，上面的命令输出告诉我们，<code>readme.txt</code>被修改过了，但还没有准备提交的修改。</p>
+<p>虽然 Git 告诉我们<code>readme.txt</code>被修改了，但如果能看看具体修改了什么内容，自然是很好的。通过<code>git diff</code>这个命令可以查看：</p>
+<pre><code>$ git diff readme.txt 
+diff --git a/readme.txt b/readme.txt
+index 46d49bf..9247db6 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,2 +1,2 @@
+-Git is a version control system.
++Git is a distributed version control system.
+ Git is free software.
+
+</code></pre>
+<p>当我们版本更迭次数过多时，我们可以使用<code>git log</code>命令显示从最近到最远的提交日志信息，可以看到我先后提交了两次 readme 文件，时间 作者 修改内容 以及一长串的 commit id 均可以看到。</p>
+<pre><code>$ git log
+commit 29132fc35cf45df300209994882e00964c509970
+Author: 0.618 &lt;1041969650@qq.com&gt;
+Date:   Sun Mar 3 13:02:30 2019 +0800
+
+    add a distributed
+
+commit a41ba4ddda178dd235898d7974dba31dd1e056d1
+Author: 0.618 &lt;1041969650@qq.com&gt;
+Date:   Sun Mar 3 12:39:55 2019 +0800
+
+    wrote a readme file
+
+</code></pre>
+<h2 id="版本回退">版本回退</h2>
+<p>当我们发现我们代码当前版本不稳定我们如何退回到以前的版本呢？</p>
+<p>首先，Git 必须知道当前版本是哪个版本，在 Git 中，用<code>HEAD</code>表示当前版本，也就是最新的提交，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，当然往上 100 个版本写 100 个<code>^</code>比较容易数不过来，所以写成<code>HEAD~100</code>。</p>
+<p>现在，我们要把当前版本回退到上一个版本，就可以使用<code>git reset</code>命令：</p>
+<pre><code>$ git reset --hard HEAD^
+HEAD 现在位于 a41ba4d wrote a readme file
+
+
+</code></pre>
+<p>再查看<code>readme.txt</code>的内容时，内容已经变回上一个版本了。</p>
+<p>可否再次回到最新的版本呢? 答案是肯定的。</p>
+<p>找到最新版本的 commit id，使用 git rest --hard <commit id> 回到最新版本。</p>
+<pre><code>$ git reset --hard a41ba4d 
+HEAD 现在位于 a41ba4d wrote a readme file
+
+</code></pre>
+<p>再次查看 readme.txt。最新版本又回来了！！！</p>
+<p>可是当关闭终端后找不到最新的 commit id 怎么办？git 提供了一个 git reflog 命令来记录用户的每一次命令。</p>
+<pre><code>$ git reflog
+a41ba4d HEAD@{0}: reset: moving to HEAD^
+29132fc HEAD@{1}: commit: add a distributed
+a41ba4d HEAD@{2}: commit (initial): wrote a readme file
+
+</code></pre>
+<h2 id="撤销修改">撤销修改</h2>
+<p>场景 1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令 git checkout -- file(没有 --，就变成了 “切换到另一个分支” 的命令)。</p>
+<p>命令 git checkout 意思就是，把文件在工作区的修改全部撤销，这里有两种情况：</p>
+<ol>
+<li>readme.txt 自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</li>
+<li>readme.txt 已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</li>
+</ol>
+<p>总之，就是让这个文件回到最近一次 git commit 或 git add 时的状态。</p>
+<p>场景 2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令 git reset HEAD <file>，就回到了场景 1，第二步按场景 1 操作。</p>
+<h2 id="删除文件">删除文件</h2>
+<p>当一个文件被删除时，工作区和版本库就不一致了。现在你有两个选择：</p>
+<ol>
+<li>确实要从版本库中删除该文件，那就用命令 git rm 删掉，并且 git commit</li>
+<li>删错了，因为版本库里还有呢，使用 git checkout 可以很轻松地把误删的文件恢复到最新版本</li>
+</ol>
+<p>到目前为止，我们已经掌握了如何在 Git 仓库里对一个文件进行时光穿梭，你再也不用担心文件备份或者丢失的问题了。</p>
+<h2 id="git-工作流"><strong>Git 工作流</strong></h2>
+<p>为了更好的理解和使用 Git 进行版本控制，我们介绍两个名词：工作区与暂存区</p>
+<p>工作区就是你在电脑里能看到的目录，比如我的<code>learngit</code>文件夹就是一个工作区：</p>
+<figure data-type="image" tabindex="4"><img src="https://pic2.zhimg.com/v2-7b5e741f20f8fddea2d9ceb4a078cd69_r.jpg" alt="" loading="lazy"></figure>
+<p>而是 Git 的版本库是工作区中的一个隐藏目录<code>.git</code>。 Git 的版本库里存了很多东西，其中最重要的就是称为 stage（或者叫 index）的暂存区，还有 Git 为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
+<figure data-type="image" tabindex="5"><img src="https://pic1.zhimg.com/v2-9fea51926633c3aadcd0bf14cc1d14cc_r.jpg" alt="" loading="lazy"></figure>
+<p>前面讲了我们把文件往 Git 版本库里添加的时候，是分两步执行的：</p>
+<p>第一步是用<code>git add</code>把文件添加进去，实际上就是把文件修改添加到暂存区；</p>
+<p>第二步是用<code>git commit</code>提交更改，实际上就是把暂存区的所有内容提交到当前分支。</p>
+<p>你的本地仓库由 git 维护的三棵 “树” 组成。</p>
+<ol>
+<li><code>工作目录</code>，它持有实际文件；</li>
+<li><code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；</li>
+<li><code>HEAD</code>，它指向你最后一次提交的结果。</li>
+</ol>
+<p>这里要提一点的是 Git 比其他版本控制系统设计得优秀，因为 Git 跟踪并管理的是修改，而非文件。</p>
+<h2 id="总结"><strong>总结</strong></h2>
+<ul>
+<li>Git 是目前世界上最先进的分布式版本控制系统。</li>
+<li>Git 安装在终端输入<code>sudo apt-get install git</code> 即可。</li>
+<li>初始化一个 Git 仓库，使用<code>git init</code>命令。</li>
+<li>添加文件到 Git 仓库，分两步： 使用命令<code>git add &lt;file&gt;</code>，注意，可反复多次使用，添加多个文件； 使用命令<code>git commit -m &lt;message&gt;</code>，完成。</li>
+<li>要随时掌握工作区的状态，使用 git status 命令。</li>
+<li>如果 git status 告诉你有文件被修改过，用 git diff 可以查看修改内容。</li>
+<li><code>HEAD</code>指向的版本就是当前版本，因此，Git 允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id</code>。</li>
+<li>穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。</li>
+<li>要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</li>
+<li>本地仓库由 git 维护的三棵 “树” 组成。第一个是你的 工作目录，它持有实际文件；第二个是 暂存区（Index），它像个缓存区域，临时保存你的改动；最后是 HEAD，它指向你最后一次提交的结果。</li>
+<li>命令<code>git rm</code>用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。</li>
+</ul>
+<h2 id="reference"><strong>Reference：</strong></h2>
+<p><a href="https://link.zhihu.com/?target=http%3A//rogerdudler.github.io/git-guide/index.zh.html">git - the simple guide - no deep shit!</a><a href="https://link.zhihu.com/?target=https%3A//www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git 教程</a><a href="https://link.zhihu.com/?target=http%3A//igeekbar.com/igeekbar/post/82.htm">30 分钟教你学会 Git | 人人都是互联网创意 G 客</a></p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[simpread-盘点最重要的 7 个 Python 库]]></title>
-        <id>http://localhost:4000/post/simpread-盘点最重要的 7 个 Python 库/</id>
-        <link href="http://localhost:4000/post/simpread-盘点最重要的 7 个 Python 库/">
+        <id>https://superupan.github.io/post/simpread-盘点最重要的 7 个 Python 库/</id>
+        <link href="https://superupan.github.io/post/simpread-盘点最重要的 7 个 Python 库/">
         </link>
         <updated>2023-08-01T13:27:03.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -118,8 +1112,8 @@ SPECFUN 的包装器。SPECFUN 是 Fortran 语言下实现通用数据函数的�
     </entry>
     <entry>
         <title type="html"><![CDATA[Memos插件用法]]></title>
-        <id>http://localhost:4000/post/Memos插件用法/</id>
-        <link href="http://localhost:4000/post/Memos插件用法/">
+        <id>https://superupan.github.io/post/Memos插件用法/</id>
+        <link href="https://superupan.github.io/post/Memos插件用法/">
         </link>
         <updated>2023-04-16T07:52:58.000Z</updated>
         <content type="html"><![CDATA[<h1 id="memos-让你的短内容在-obsidian-中也有容身之处">Memos 让你的短内容在 Obsidian 中也有容身之处</h1>
@@ -191,8 +1185,8 @@ SPECFUN 的包装器。SPECFUN 是 Fortran 语言下实现通用数据函数的�
     </entry>
     <entry>
         <title type="html"><![CDATA[Obsidian-插件推荐]]></title>
-        <id>http://localhost:4000/post/Obsidian-插件推荐/</id>
-        <link href="http://localhost:4000/post/Obsidian-插件推荐/">
+        <id>https://superupan.github.io/post/Obsidian-插件推荐/</id>
+        <link href="https://superupan.github.io/post/Obsidian-插件推荐/">
         </link>
         <updated>2023-04-16T07:52:58.000Z</updated>
         <content type="html"><![CDATA[<h1 id="obsidian-插件推荐">Obsidian-插件推荐</h1>
@@ -577,8 +1571,8 @@ SPECFUN 的包装器。SPECFUN 是 Fortran 语言下实现通用数据函数的�
     </entry>
     <entry>
         <title type="html"><![CDATA[Obsidian优质内容合集]]></title>
-        <id>http://localhost:4000/post/Obsidian优质内容合集/</id>
-        <link href="http://localhost:4000/post/Obsidian优质内容合集/">
+        <id>https://superupan.github.io/post/Obsidian优质内容合集/</id>
+        <link href="https://superupan.github.io/post/Obsidian优质内容合集/">
         </link>
         <updated>2023-04-16T07:52:58.000Z</updated>
         <content type="html"><![CDATA[<h1 id="obsidian优质内容合集">Obsidian优质内容合集</h1>
@@ -678,8 +1672,8 @@ SPECFUN 的包装器。SPECFUN 是 Fortran 语言下实现通用数据函数的�
     </entry>
     <entry>
         <title type="html"><![CDATA[Windows 中安装 linux 子系统（Ubuntu）]]></title>
-        <id>http://localhost:4000/post/Windows 中安装 linux 子系统（Ubuntu）/</id>
-        <link href="http://localhost:4000/post/Windows 中安装 linux 子系统（Ubuntu）/">
+        <id>https://superupan.github.io/post/Windows 中安装 linux 子系统（Ubuntu）/</id>
+        <link href="https://superupan.github.io/post/Windows 中安装 linux 子系统（Ubuntu）/">
         </link>
         <updated>2023-04-02T10:29:38.000Z</updated>
         <content type="html"><![CDATA[<h2 id="一-前言">一、前言</h2>
@@ -820,8 +1814,8 @@ Abort.
     </entry>
     <entry>
         <title type="html"><![CDATA[信息管理，从高效收集信息开始]]></title>
-        <id>http://localhost:4000/post/信息管理，从高效收集信息开始/</id>
-        <link href="http://localhost:4000/post/信息管理，从高效收集信息开始/">
+        <id>https://superupan.github.io/post/信息管理，从高效收集信息开始/</id>
+        <link href="https://superupan.github.io/post/信息管理，从高效收集信息开始/">
         </link>
         <updated>2023-04-02T10:29:38.000Z</updated>
         <content type="html"><![CDATA[<p>信息管理是多数人每日必须面临的课题。</p>
@@ -1106,8 +2100,8 @@ Abort.
     </entry>
     <entry>
         <title type="html"><![CDATA[AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !]]></title>
-        <id>http://localhost:4000/post/AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !/</id>
-        <link href="http://localhost:4000/post/AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !/">
+        <id>https://superupan.github.io/post/AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !/</id>
+        <link href="https://superupan.github.io/post/AI 绘画第一步，安装 Stable-Diffusion-WebUI 全过程 !/">
         </link>
         <updated>2023-04-01T15:01:55.000Z</updated>
         <content type="html"><![CDATA[<p>别玩那些小孩子的玩意儿了，大人应该玩这些 _！</p>
@@ -1216,45 +2210,6 @@ Abort.
 <p>还有另外一个网站，以前收藏的，效果也不错。你可以根据效果图片，照抄上面的关键词。</p>
 <figure data-type="image" tabindex="18"><img src="https://pic2.zhimg.com/v2-10902534c4fa08d69b3cf49cb860a095_r.jpg#id=f0rQv&amp;originHeight=1308&amp;originWidth=2131&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"></figure>
 <p>今天就先入个门，如何使用这些模型参数，甚至说如何训练自己的模型，自己的风格，就看后续吧，希望你们不散，我不鸽。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Gridea 同步失败？谈谈我的解决办法]]></title>
-        <id>http://localhost:4000/post/Gridea 同步失败？谈谈我的解决办法 - Sonatta_ 生活小栈/</id>
-        <link href="http://localhost:4000/post/Gridea 同步失败？谈谈我的解决办法 - Sonatta_ 生活小栈/">
-        </link>
-        <updated>2023-04-01T15:01:55.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p>注：Gridea 已于 2022 年 5 月 17 日发布 0.9.3 版本，解决了本文所提到的同步问题，因此本文可能已过时而变得不再实用。</p>
-</blockquote>
-<p><em>注：Gridea 已于 2022 年 5 月 17 日发布 0.9.3 版本，解决了本文所提到的同步问题，因此本文可能已过时而变得不再实用。</em></p>
-<p>去年，我写了一篇文章【10 分钟教你创建个人网站——傻瓜式的网站搭建教学】，介绍如何运用 GitHub Pages 和 Gridea 搭建一个个人网站，时光飞逝，在我忙于应付高考的这一年中，也发生了不少事情。当我高考结束准备再创作的时候，我发现一个极其尴尬的问题—— Gridea 不能用了！<br>
-<img src="http://localhost:4000/post-images/1627384354752.png#id=aIp4W&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-（如图，Gridea 在点击同步按钮后，显示 “同步发生了错误”）</p>
-<p>我意识到，可能是一年多没用了，版本太低才出现了这个问题，于是我一波操作打开 Gridea 官网，心说去年写那篇文章时我用的版本是 0.9.2，这么长时间想必更了不少版本吧——<br>
-<img src="http://localhost:4000/post-images/1627384364649.png#id=FqSZk&amp;originHeight=1642&amp;originWidth=2784&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-好家伙，一个版本都没更，这条解决方法算是没了，无奈，我打开 Gridea 的 issue ，简单一翻，果然有不少人有跟我一样的问题。这时我突然想到，Gridea 是使用 GitHub Pages 的，而 Github 在今年 3 月份因为某些众所周知的原因遭到了某个众所周知的系统的 SNI 阻断和端口封锁，导致了对 GitHub 的连接被严重干扰，那么有没有可能是因为这个原因导致了 Gridea 的同步失败呢，一波测试下来，果然，正是因为连接被严重干扰才导致了 Gridea 的同步失败。</p>
-<p>既然是因为众所周知对原因受到了干扰，那最简单的解决方法自然是让代理软件代理 Gridea 对网络的访问，但是偏偏 Gridea 走的不是普通路线，一般的代理软件即使是全局代理，也管不着 Gridea！我翻了翻 Gridea 项目的 issue，发现有人提到在 Windows 端 Proxifier 这个软件可以直接强制 Gridea 受到代理，但是很不幸，我用的是 macOS 系统。</p>
-<p>issue 中有人提到改 hosts 可以解决，但是我上面也说了，对 GitHub 的干扰主要是通过 SNI 阻断和封锁端口（也就是强制丢包），我认为改 hosts 也并非长久之计。</p>
-<p>难道真的没有办法可以在 macOS 上简单的使用 Gridea 吗？好在天无绝人之路，我在众多 issue 中找到了<a href="https://blog.gd1214b.icu/post/F2_C5EVQh/">另一条路</a>，即通过 GitHub Desktop 来将 Gridea 生成的网页文件上传到 GitHub。</p>
-<p>如果能用四个字总结这个解决方案，那就是——曲线救国，既然 Gridea 本身的上传系统不行，那就找个软件来代替它的上传系统。</p>
-<p>首先就是下载 <a href="https://desktop.github.com/">GitHub Desktop</a>，这就是我们拿来顶替 Gridea 上传系统的软件，分析一下思路，我们需要的是用 GitHub Desktop 上传 Gridea 输出的现成的网页文件，通过查看 Gridea 目录可以得知，存放最终网页文件的文件夹是 output，因此我们只要拿 GitHub Desktop 上传这个文件夹到 GitHub 就可以了。</p>
-<p>考虑到上篇文章的受众，这里我先介绍如何找到 output 文件夹，大佬可以直接跳过。<br>
-<img src="http://localhost:4000/post-images/1627383530716.png#id=FBPY7&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-首先打开 Gridea，点击左下角的设置图标，进入设置。<br>
-<img src="http://localhost:4000/post-images/1627384381377.png#id=PKpSc&amp;originHeight=1642&amp;originWidth=2624&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-在设置中就可以看到源文件的完整路径。依照路径在文件管理器里找到 output 文件夹，不必进入，直接删除。</p>
-<p>这时打开 GitHub Desktop，会提示你登陆 GitHub 账号。</p>
-<p>登入后，在界面右侧选择对应的仓库。</p>
-<p>此时弹窗显示选择路径，在 Local path 一行填入路径（在上文找到的路径基础上加上 output，即代表生成一个 output 文件夹并将仓库内容 clone 至此）点击 Clone。<br>
-<img src="http://localhost:4000/post-images/1627390441640.png#id=l5K4a&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-然后打开 Gridea ，点击左侧的远程一栏，点击检查远程连接，结束后点击同步。（这一步可能会失败，没关系，因为我们不用 Gridea 的上传系统）<br>
-<img src="http://localhost:4000/post-images/1627391197119.png#id=dzxbS&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-打开 GitHub Desktop，点击右侧的 Push origin，这一步完成后即成功。<br>
-<img src="http://localhost:4000/post-images/1627390623611.png#id=PC7nl&amp;originHeight=1544&amp;originWidth=2144&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=" alt="" loading="lazy"><br>
-请注意，以后再写了新文章要同步的时候，只需要点击同步，不需要检查远程连接。且在 GitHub Pages 中需要先在左侧的 Summary 内写出变动内容（我直接写 update，因为我懒），点击 Commit to master（如上图），然后再点 Push origin。</p>
-<p>解决的教程到这里就结束了，这里简单说下思路。</p>
-<p>在前面我将这种方法称为移花接木，即用 GitHub Desktop 代替 Gridea 的文件上传系统，通过这种方式，Gridea 其实从一个集生成和上传为一体的方便工具变成了一个网页文件生成器。这时有些人应该看出来了，Gridea 的同步按钮对应的功能不仅仅是上传文件，还有生成网页文件这一步，这也解释了为什么在点击同步后遭遇失败却依然能够进行接下来的步骤。</p>
 ]]></content>
     </entry>
 </feed>
